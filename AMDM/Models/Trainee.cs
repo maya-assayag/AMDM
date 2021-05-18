@@ -8,20 +8,25 @@ namespace AMDM.Models
 {
     public class Trainee
     {
-        [Key] public int Id { get; set; } //Primari key start with capital later or sign it with [key]
+        [StringLength(9, MinimumLength = 9)]
+        [Key] public string Id { get; set; }
 
         [Required]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$"]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$"]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+        [Range(50, 250)]
         public double Height { get; set; }
+        [Range(20, 300)]
         public double Weight { get; set; }
 
         [Required]
@@ -40,7 +45,6 @@ namespace AMDM.Models
 
         [Required]
         public string Gender { get; set; }
-        public bool Trainer { get; set; }
 
         public List<Training> Trainings { get; set; }
         public List<Ticket> Tickets { get; set; }

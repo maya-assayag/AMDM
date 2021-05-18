@@ -10,11 +10,12 @@ namespace AMDM.Models
     {
         [Key]
         public string Code { get; set; }
-
+        [Display(Name = "Ticket type")]
         public TicketType TicketType { get; set; }
 
         public Trainee Trainee { get; set; }
 
+        [Display(Name = "Remaining punching holes")]
         public int RemainingPunchingHoles { get; set; }
 
         [Display(Name = "Purchase date")]

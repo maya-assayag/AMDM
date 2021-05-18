@@ -10,7 +10,7 @@ namespace AMDM.Models
     {
         [Key]
         public int Code { get; set; }
-
+        [Display(Name = "Training type")]
         public TrainingType TrainingType { get; set; }
         public Trainee Trainer { get; set; }
 
@@ -23,7 +23,7 @@ namespace AMDM.Models
         [Required]
         public string Studio { get; set; }
 
-        [Range(0, 20)]
+        [Range(1, 20)]
         public int MaxRegisterTrainees { get; set; }
         public List<Trainee> Trainees { get; set; }
 

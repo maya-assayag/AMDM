@@ -10,9 +10,14 @@ namespace AMDM.Models
     {
         [Key]
         public string Code { get; set; }
+
+        [Display(Name = "Ticket type")]
+        public int TicketTypeId { get; set; }
+
         [Display(Name = "Ticket type")]
         public TicketType TicketType { get; set; }
 
+        public int TraineeId { get; set; }
         public Trainee Trainee { get; set; }
 
         [Display(Name = "Remaining punching holes")]
@@ -21,6 +26,10 @@ namespace AMDM.Models
         [Display(Name = "Purchase date")]
         [DataType(DataType.Date)]
         public DateTime PurchaseDate { get; set; }
+
+        [Display(Name = "Expired date")]
+        [DataType(DataType.Date)]
+        public DateTime ExpiredDate { get; set; }
 
     }
 }

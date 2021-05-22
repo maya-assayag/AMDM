@@ -17,6 +17,7 @@ namespace AMDM.Models
         [Range(1, 10000)]
         [Display(Name = "Number of punching holes")]
         public int PunchingHolesNumber { get; set; }
+
         public List<Ticket> Tickets { get; set; }
 
 

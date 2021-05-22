@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace AMDM.Models
 {
+    public enum Gender
+    {
+        Female,
+        Male
+    }
     public class Trainee
     {
+       
         [StringLength(9, MinimumLength = 9)]
         [Key] public string Id { get; set; }
 
@@ -44,7 +50,8 @@ namespace AMDM.Models
         public int PhoneNumber { get; set; }
 
         [Required]
-        public string Gender { get; set; }
+       
+        public Gender TraineeGender { get; set; }
 
         public List<Training> Trainings { get; set; }
         public List<Ticket> Tickets { get; set; }

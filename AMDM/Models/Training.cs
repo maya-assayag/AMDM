@@ -10,8 +10,16 @@ namespace AMDM.Models
     {
         [Key]
         public int Code { get; set; }
+
+        public int TrainingTypeId { get; set; }
+       
         [Display(Name = "Training type")]
         public TrainingType TrainingType { get; set; }
+
+
+        [Display(Name = "Trainer id")]
+
+        public int TrainerId { get; set; }
         public Trainee Trainer { get; set; }
 
         [DataType(DataType.Date)]

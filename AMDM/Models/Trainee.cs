@@ -18,12 +18,12 @@ namespace AMDM.Models
         [Key] public string Id { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$"]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$")]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$"]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$")]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 

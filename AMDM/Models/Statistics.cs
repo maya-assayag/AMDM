@@ -9,7 +9,7 @@ namespace AMDM.Models
     public class Statistics
     {
         [Key]
-        public int Code { get; set; }\
+        public int Code { get; set; }
 
         [Display(Name ="AVG: Training in week")]
 

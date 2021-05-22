@@ -56,5 +56,7 @@ namespace AMDM.Models
         public List<Training> Trainings { get; set; }
         public List<Ticket> Tickets { get; set; }
 
+        public Statistics Statistics { get; set; }
+
     }
 }

@@ -19,7 +19,7 @@ namespace AMDM.Models
 
         [Display(Name = "Trainer id")]
 
-        public int TrainerId { get; set; }
+        public string TrainerId { get; set; }
         public Trainer Trainer { get; set; }
 
         [DataType(DataType.Date)]

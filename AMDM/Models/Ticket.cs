@@ -9,7 +9,7 @@ namespace AMDM.Models
     public class Ticket
     {
         
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
         [Display(Name = "Ticket type")]
         public int TicketTypeId { get; set; }

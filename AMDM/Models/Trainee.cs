@@ -15,7 +15,7 @@ namespace AMDM.Models
     {
        
         [StringLength(9, MinimumLength = 9)]
-        public string Id { get; set; }
+        [Key] public string Id { get; set; }
 
         [Required]
         [RegularExpression("^[A-Z]+[a-zA-Z ]*$")]

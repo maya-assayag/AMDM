@@ -9,7 +9,7 @@ namespace AMDM.Models
     public class TicketType
     {
         [Key]
-        public int Code { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
         [Range(0, 10000)]

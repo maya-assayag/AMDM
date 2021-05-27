@@ -15,7 +15,7 @@ namespace AMDM.Models
     {
        
         [StringLength(9, MinimumLength = 9)]
-        [Key] public string Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [RegularExpression("^[A-Z]+[a-zA-Z ]*$")]
@@ -54,6 +54,7 @@ namespace AMDM.Models
         public Gender TraineeGender { get; set; }
 
         public List<Training> Trainings { get; set; }
+
         public Ticket Ticket { get; set; }
 
         

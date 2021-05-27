@@ -9,7 +9,7 @@ namespace AMDM.Models
     public class Training
     {
         [Key]
-        public int Code { get; set; }
+        public int Id { get; set; }
 
         public int TrainingTypeId { get; set; }
        
@@ -20,7 +20,7 @@ namespace AMDM.Models
         [Display(Name = "Trainer id")]
 
         public int TrainerId { get; set; }
-        public Trainee Trainer { get; set; }
+        public Trainer Trainer { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

@@ -9,7 +9,7 @@ namespace AMDM.Models
     public class TrainingType
     {
         [Key]
-        public string Code { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string Name { get; set; }

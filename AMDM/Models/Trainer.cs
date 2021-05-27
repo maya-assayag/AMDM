@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static AMDM.Models.Trainee;
 
 namespace AMDM.Models
-{
+{ 
     public class Trainer 
     {
         [StringLength(9, MinimumLength = 9)]
@@ -44,8 +45,8 @@ namespace AMDM.Models
         public int PhoneNumber { get; set; }
 
         [Required]
-
-        public Gender TraineeGender { get; set; }
+        [Display(Name = "Gender")]
+        public Gender TrainerGender { get; set; }
 
         public List<Training> Trainings { get; set; }
 

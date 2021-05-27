@@ -54,9 +54,9 @@ namespace AMDM.Models
         public Gender TraineeGender { get; set; }
 
         public List<Training> Trainings { get; set; }
-        public List<Ticket> Tickets { get; set; }
+        public Ticket Ticket { get; set; }
 
-        public Statistics Statistics { get; set; }
+        
 
     }
 }

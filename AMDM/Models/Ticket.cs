@@ -25,7 +25,7 @@ namespace AMDM.Models
         public int RemainingPunchingHoles { get; set; }
 
         [Display(Name = "Purchase date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Currency)]
         public DateTime PurchaseDate { get; set; }
 
         [Display(Name = "Expired date")]

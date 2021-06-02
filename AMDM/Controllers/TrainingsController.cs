@@ -25,6 +25,16 @@ namespace AMDM.Controllers
             var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType);
             return View(await aMDMContext.ToListAsync());
         }
+        public async Task<IActionResult> Search(string query)
+        {
+            var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
+                .Where(t=>
+                        t.Trainer.FirstName.Contains(query) 
+                        || t.Trainer.LastName.Contains(query) 
+                        || t.TrainingType.Name.Contains(query)
+                        || query==null);
+            return View("Index",await aMDMContext.ToListAsync());
+        }
 
         // GET: Trainings/Details/5
         public async Task<IActionResult> Details(int? id)

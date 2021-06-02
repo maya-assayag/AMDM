@@ -24,7 +24,7 @@ namespace AMDM.Controllers
         {
             return View(await _context.Trainee.ToListAsync());
         }
-
+       
         // GET: Trainees/Details/5
         public async Task<IActionResult> Details(string id)
         {

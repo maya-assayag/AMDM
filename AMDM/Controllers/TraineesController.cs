@@ -60,7 +60,12 @@ namespace AMDM.Controllers
             {
                 _context.Add(trainee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                User u = new User();
+                u.Email = trainee.Email;
+                u.Password = trainee.Password;
+                u.Type = UserType.Trainee;
+                return RedirectToAction("Register","Users",u);
+                //return RedirectToAction(nameof(Index));
             }
             return View(trainee);
         }

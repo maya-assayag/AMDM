@@ -25,5 +25,7 @@ namespace AMDM.Data
         public DbSet<AMDM.Models.Training> Training { get; set; }
 
         public DbSet<AMDM.Models.TrainingType> TrainingType { get; set; }
+
+        public DbSet<AMDM.Models.User> User { get; set; }
     }
 }

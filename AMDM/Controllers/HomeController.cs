@@ -1,4 +1,6 @@
 ﻿using AMDM.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AMDM.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,14 +20,17 @@ namespace AMDM.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
+        
         public IActionResult Privacy()
         {
+            //if(HttpContext.Session.GetString("email") == null)
+            //{
+            //    return RedirectToAction("Login", "Users");
+            //}
             return View();
         }
 

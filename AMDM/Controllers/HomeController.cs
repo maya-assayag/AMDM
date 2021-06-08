@@ -15,6 +15,7 @@ namespace AMDM.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        //private readonly MoreDemosContext _context;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -24,7 +25,11 @@ namespace AMDM.Controllers
         {
             return View();
         }
-        
+        public IActionResult AdminIndex()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             //if(HttpContext.Session.GetString("email") == null)

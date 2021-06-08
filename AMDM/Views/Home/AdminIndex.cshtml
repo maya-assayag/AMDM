@@ -1,0 +1,36 @@
+﻿@model AMDM.Models.Trainee
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Http;
+
+<div class="text-center">
+
+
+    <h1 class="display-4">
+        Welcome @Context.Session.GetString("Name")
+    </h1>
+    <hr />
+    <div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">The amount of tickets purchased this month:</h5>
+                <h5 class="card-title">The amount of tickets purchased this month:</h5>
+                <h5 class="card-title">The amount of Active Trainees:</h5>
+            </div>
+        </div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">Add a new trainer</h5>
+                <a asp-controller="Trainers" asp-action="Create">+</a>
+            </div>
+        </div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">Add a new training type</h5>
+                <a asp-controller="TrainingTypes" asp-action="Create">+</a>
+            </div>
+        </div>
+    </div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

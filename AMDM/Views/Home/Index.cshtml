@@ -1,8 +1,51 @@
-﻿@{
+﻿@model AMDM.Models.Trainee
+@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Http;
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+
+
+    <h1 class="display-4">
+        Welcome @Context.Session.GetString("Name")
+    </h1>
+    <hr />
+    <div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">Profile</h5>
+                <a asp-controller="Trainees" asp-action="Details" asp-route-id="@Context.Session.GetString("Id")" class="btn btn-primary">My Profile</a>
+            </div>
+        </div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">Add training</h5>
+                @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                {
+                    <a asp-controller="Trainings" asp-action="Create">+</a>
+                }
+                @if(Context.Session.GetString("Type")==UserType.Trainee.ToString())
+                {
+                    <a asp-controller="Trainings" asp-action="Index">+</a>
+                }
+
+            </div>
+        </div>
+        <div class="card display-4">
+            <div class="card-body">
+                @if (false)
+                {
+                    <h5 class="card-title">@Model.Ticket.ExpiredDate</h5>
+                }
+                else
+                {
+                    <h5 class="card-title">"You do not have a ticket to purchase a ticket"</h5>
+                }
+
+            </div>
+        </div>
+        <h5 class="card-title">Your workouts this week:</h5>
+    </div>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

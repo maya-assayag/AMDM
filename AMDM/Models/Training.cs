@@ -11,9 +11,10 @@ namespace AMDM.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Training type")]
         public int TrainingTypeId { get; set; }
        
-        [Display(Name = "Training type")]
+        
         public TrainingType TrainingType { get; set; }
 
 

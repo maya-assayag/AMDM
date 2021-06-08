@@ -11,17 +11,47 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AMDM.Services;
 
 namespace AMDM.Controllers
 {
     public class UsersController : Controller
     {
         private readonly AMDMContext _context;
+        private readonly UserService _service;
 
-        public UsersController(AMDMContext context)
+        public UsersController(AMDMContext context, UserService service)
         {
             _context = context;
+            _service = service;
         }
+
+
+        public async void Register(User user)
+        {
+            var q = _context.User.FirstOrDefault(u => u.Email == user.Email);
+            if (q == null)
+            {
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+
+
+
+                var u = _context.User.FirstOrDefault(u =>
+                     u.Email == user.Email && u.Password == user.Password);
+
+
+                Signin(u);
+
+            }
+            else
+            {
+                ViewData["Error"] = "This user already exists.";
+            }
+            
+        }
+
+
 
         public async Task<IActionResult>Logout()
         {
@@ -30,11 +60,11 @@ namespace AMDM.Controllers
             return RedirectToAction("Login");
         }
 
-        // GET: Users/Register
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //// GET: Users/Register
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
         // GET: Users/Type
         public IActionResult Type()
         {
@@ -65,44 +95,63 @@ namespace AMDM.Controllers
             }
             return View(user);
         }
-        // POST: Users/Register
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Email,Password,Type")] User user)
-        {
-           // if (ModelState.IsValid)
-           // {
-
-                var q = _context.User.FirstOrDefault(u => u.Email == user.Email);
-                if (q == null)
-                {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
 
 
 
-                    var u = _context.User.FirstOrDefault(u =>
-                         u.Email == user.Email && u.Password == user.Password);
-                    //if(user.Type.ToString() == "Trainee")
-                    //{
-                    //    RedirectToAction("Create", "Trainees");
-                    //}
 
 
-                    Signin(u);
 
 
-                    return RedirectToAction(nameof(Index), "Home");
-                }
-                else
-                {
-                    ViewData["Error"] = "This user already exists.";
-                }
-            //}
-            return View(user);
-        }
+        ////***************************************************************************************
+        //// POST: Users/Register
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Register([Bind("Email,Password,Type")] User user)
+        //{
+        //   // if (ModelState.IsValid)
+        //   // {
+
+        //        var q = _context.User.FirstOrDefault(u => u.Email == user.Email);
+        //        if (q == null)
+        //        {
+        //            _context.Add(user);
+        //            await _context.SaveChangesAsync();
+
+
+
+        //            var u = _context.User.FirstOrDefault(u =>
+        //                 u.Email == user.Email && u.Password == user.Password);
+        //            //if(user.Type.ToString() == "Trainee")
+        //            //{
+        //            //    RedirectToAction("Create", "Trainees");
+        //            //}
+
+
+        //            Signin(u);
+
+
+        //            return RedirectToAction(nameof(Index), "Home");
+        //        }
+        //        else
+        //        {
+        //            ViewData["Error"] = "This user already exists.";
+        //        }
+        //    //}
+        //    return View(user);
+        //}
+//***************************************************
+
+
+
+
+
+
+
+
+
+
         //// POST: Users/Register
         //// To protect from overposting attacks, enable the specific properties you want to bind to.
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -154,7 +203,7 @@ namespace AMDM.Controllers
         {
             var claims = new List<Claim> 
                 { 
-                    new Claim(ClaimTypes.Name, account.Email),
+                    new Claim(ClaimTypes.Email, account.Email),
                     new Claim(ClaimTypes.Role, account.Type.ToString()),
                 };
 
@@ -185,8 +234,12 @@ namespace AMDM.Controllers
                 if (q != null)
                 {
                     //HttpContext.Session.SetString("email", q.Email);
-                    Signin(q);
-
+                    _service.Signin(q,HttpContext);
+                    if(q.Type.ToString() == "Admin")
+                    {
+                        return RedirectToAction("AdminIndex", "Home");
+                    }
+                    
                     return RedirectToAction(nameof(Index), "Home");
                 }
                 else

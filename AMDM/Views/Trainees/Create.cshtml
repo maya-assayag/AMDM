@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Register as:</h1>
 
 <h4>Trainee</h4>
 <hr />
@@ -69,11 +69,15 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="text-danger">@ViewBag.Error </div>
+        }
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    Already registered? <a asp-controller="Users" asp-action="Login">Click here </a>to login.
 </div>
 
 @section Scripts {

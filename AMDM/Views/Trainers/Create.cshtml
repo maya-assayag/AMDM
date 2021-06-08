@@ -59,7 +59,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="TrainerGender" class="control-label"></label>
-                <select asp-for="TrainerGender" class="form-control"></select>
+                <select asp-for="TrainerGender" class="form-control">
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
                 <span asp-validation-for="TrainerGender" class="text-danger"></span>
             </div>
             <div class="form-group">

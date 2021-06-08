@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AMDM.Services;
 
 namespace AMDM
 {
@@ -26,6 +27,8 @@ namespace AMDM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<UserService>();
+            services.AddTransient<TraineeService>();
             services.AddControllersWithViews();
 
             services.AddDbContext<AMDMContext>(options =>
@@ -41,6 +44,7 @@ namespace AMDM
                 { 
                     options.LoginPath = "/Users/Login";
                     options.AccessDeniedPath = "/Users/AccessDenied"; 
+                   
                 }
                 );
         }

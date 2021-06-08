@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using AMDM.Services;
 
 namespace AMDM.Controllers
 {
     public class TraineesController : Controller
     {
         private readonly AMDMContext _context;
+        private readonly UserService _service;
 
-        public TraineesController(AMDMContext context)
+        public TraineesController(AMDMContext context, UserService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Trainees
@@ -58,16 +64,42 @@ namespace AMDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(trainee);
-                await _context.SaveChangesAsync();
-                User u = new User();
-                u.Email = trainee.Email;
-                u.Password = trainee.Password;
-                u.Type = UserType.Trainee;
-                return RedirectToAction("Register","Users",u);
-                //return RedirectToAction(nameof(Index));
+                var t = _context.Trainee.FirstOrDefault(t =>
+                   t.Id == trainee.Id);
+                if (t == null)
+                {
+                    _context.Add(trainee);
+                    await _context.SaveChangesAsync();
+                    User u = new User();
+                    u.Email = trainee.Email;
+                    u.Password = trainee.Password;
+                    u.Type = UserType.Trainee;
+
+                    bool res = await _service.Register(u, HttpContext);
+
+                    if (res == true)
+                    {
+                        return RedirectToAction(nameof(Index), "Home");
+                    }
+                    else
+                    {
+                        ViewData["Error"] = "Registration failed, please try again";
+                    }
+                }
+                else
+                {
+                   ViewData["Error"] = "This user already exists in the system";
+                   
+                }
+
+                return View(trainee);
             }
-            return View(trainee);
+            else
+            {
+                ViewData["Error"] = "!!!!This user already exists in the system";
+                return RedirectToAction("Login", "User");
+            }
+            //return View(trainee);
         }
 
         // GET: Trainees/Edit/5

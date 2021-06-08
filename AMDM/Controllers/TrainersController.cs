@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using Microsoft.AspNetCore.Authorization;
+using AMDM.Services;
 
 namespace AMDM.Controllers
 {
+    [Authorize(Roles ="Admin,Trainer")]
+
     public class TrainersController : Controller
     {
         private readonly AMDMContext _context;
+        private readonly UserService _service;
 
-        public TrainersController(AMDMContext context)
+        public TrainersController(AMDMContext context, UserService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Trainers
@@ -58,9 +64,27 @@ namespace AMDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(trainer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                User user = new User();
+                user.Email = trainer.Email;
+                user.Password = trainer.Password;
+                user.Type = UserType.Trainer;
+
+                var res= await _service.Register(user, HttpContext);
+                if(res==true)
+                {
+                    _context.Add(trainer);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                
+                    ViewData["Error"] = "This user/trainer already exists in the system";
+
+                    return View(trainer);
+                }
+                
+                
             }
             return View(trainer);
         }

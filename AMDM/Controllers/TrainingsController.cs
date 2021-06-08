@@ -172,5 +172,35 @@ namespace AMDM.Controllers
         {
             return _context.Training.Any(e => e.Id == id);
         }
+
+        // GET: Trainings/Register
+        //public IActionResult Register()
+        //{
+              //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
+              //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name");
+        //    return View();
+        //}
+
+        // POST: Trainings/Register
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(Training training,string Id)
+        {
+            if (ModelState.IsValid)
+            {
+                Trainee trainee = _context.Trainee.FirstOrDefault(t => t.Id == Id);
+                training.Trainees.Add(trainee);
+
+                //_context.Add(training);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+                return View(training);
+            }
+            ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
+            ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
+            return View(training);
+        }
     }
 }

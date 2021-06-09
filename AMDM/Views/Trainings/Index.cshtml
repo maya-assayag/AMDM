@@ -10,7 +10,7 @@
     <a asp-action="Create">Create New</a>
 </p>
 <form asp-action="Search">
-    <input name="query" placeholder="Search trainings..." />
+    <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." />
     <input type="submit" value="Search" class="btn btn-primary" />
 </form>
 <table class="table">
@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
             </td>
             <td>
-                <a asp-action="Register" asp-route-id="@item.Id">Register</a> |
+                <a name="register" id="register" asp-action="Register" asp-route-id="@item.Id">Register</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -68,3 +68,38 @@
 }
     </tbody>
 </table>
+
+@section Scripts
+{
+    <script src="~/js/search.js"></script>
+
+
+    <script type="text/html" id="hidden-template">
+        <tr>
+            <td>
+                {trainingType.Name}
+            </td>
+            <td>
+                {trainer.id}
+            </td>
+            <td>
+                {date}
+            </td>
+            <td>
+                {time}
+            </td>
+            <td>
+                {studio}
+            </td>
+            <td>
+                {maxRegisterTrainees}
+            </td>
+            <td>
+                <a href="/Trainings/Register/{id}">Register</a> |
+                <a href="/Trainings/Edit/{id}">Edit</a> |
+                <a href="/Trainings/Details/{id}">Details</a> |
+                <a href="/Trainings/Delete/{id}">Delete</a>
+            </td>
+        </tr>
+    </script>
+    }

@@ -33,7 +33,8 @@ namespace AMDM.Controllers
                         || t.Trainer.LastName.Contains(query) 
                         || t.TrainingType.Name.Contains(query)
                         || query==null);
-            return View("Index",await aMDMContext.ToListAsync());
+            return Json(await aMDMContext.ToListAsync());
+            
         }
 
         // GET: Trainings/Details/5
@@ -196,11 +197,14 @@ namespace AMDM.Controllers
                 //_context.Add(training);
                 //await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return View(training);
+
+                return View("Index", training);
+                //return View(training);
+                //return View(await _context.Training.Include(Trainee).)?????
             }
             ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
-            return View(training);
+            return View("Index",training);
         }
     }
 }

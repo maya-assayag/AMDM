@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using AMDM.Services;
 
 namespace AMDM.Controllers
 {
     public class TrainingsController : Controller
     {
         private readonly AMDMContext _context;
+        private readonly TrainingService _service;
 
-        public TrainingsController(AMDMContext context)
+        public TrainingsController(AMDMContext context, TrainingService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Trainings

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
 using AMDM.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace AMDM.Controllers
 {
@@ -188,26 +189,22 @@ namespace AMDM.Controllers
         // POST: Trainings/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(Training training,string Id)
+        [HttpGet]
+        public async Task<IActionResult> Register(int trainingID)
         {
             if (ModelState.IsValid)
             {
-                Trainee trainee = _context.Trainee.FirstOrDefault(t => t.Id == Id);
-                training.Trainees.Add(trainee);
-
-                //_context.Add(training);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-
-                return View("Index", training);
+                var Id = HttpContext.Session.GetString("Id");
+                await Task.Run(() => _service.Register(trainingID, Id));
+                return Ok();
                 //return View(training);
                 //return View(await _context.Training.Include(Trainee).)?????
             }
-            ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
-            ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
-            return View("Index",training);
+            return BadRequest(new { Error = "model is not valid" });
+
+            //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
+            //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
+            
         }
     }
 }

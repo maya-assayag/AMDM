@@ -15,10 +15,25 @@ namespace AMDM.Services
             _context = context;
         }
 
-        public async void Register(Training training,string traineeId)
+        public async Task Register(int trainingId,string traineeId)
         {
-            var trainee = _context.Trainee.FirstOrDefault(t => t.Id == traineeId);
-            training.Trainees.Add(trainee);
+            var training = _context.Training.FirstOrDefault(t => t.Id == trainingId);
+            if (training != null)
+            {
+                var trainee = _context.Trainee.FirstOrDefault(t => t.Id == traineeId);
+                if (trainee!=null)
+                {
+                    if (training.Trainees == null)
+                    {
+                        training.Trainees = new List<Trainee>();
+                    }
+                   
+                    training.Trainees.Add(trainee);
+                    await _context.SaveChangesAsync();
+                }
+                
+            }
+           
 
         }
     }

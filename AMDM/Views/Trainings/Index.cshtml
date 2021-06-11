@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
             </td>
             <td>
-                <a name="register" id="register" asp-action="Register" asp-route-id="@item.Id">Register</a> |
+                <a name="register" id="register" href="#" onclick="register(@item.Id)">Register</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -71,6 +71,7 @@
 
 @section Scripts
 {
+    <script src="~/js/register.js"></script>
     <script src="~/js/search.js"></script>
 
 

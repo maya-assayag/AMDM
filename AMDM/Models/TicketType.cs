@@ -16,7 +16,7 @@ namespace AMDM.Models
         public double Price { get; set; }
         [Range(0, 10000)]
         [Display(Name = "Number of punching holes")]
-        public int PunchingHolesNumber { get; set; }
+        public int? PunchingHolesNumber { get; set; }
 
         public List<Ticket> Tickets { get; set; }
 

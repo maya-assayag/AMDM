@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using AMDM.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace AMDM.Controllers
 {
     public class TicketTypesController : Controller
     {
         private readonly AMDMContext _context;
-
-        public TicketTypesController(AMDMContext context)
+        private readonly TicketTypeService _service;
+        public TicketTypesController(AMDMContext context, TicketTypeService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: TicketTypes
@@ -42,6 +45,30 @@ namespace AMDM.Controllers
 
             return View(ticketType);
         }
+        // GET: TrainingTypes/Purchase
+        //public IActionResult Purchase()
+        //{
+        //    return View();
+        //}
+
+        // POST: TrainingTypes/Purchase
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Purchase(int ticketTypeId)
+        {
+            if (ModelState.IsValid)
+            {
+                var traineeId = HttpContext.Session.GetString("Id");
+                await Task.Run(() => _service.Purchase(ticketTypeId, traineeId));
+                return Ok();
+                //return View(training);
+                //return View(await _context.Training.Include(Trainee).)?????
+            }
+            return BadRequest(new { Error = "model is not valid" });
+        }
+
 
         // GET: TicketTypes/Create
         public IActionResult Create()

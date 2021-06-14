@@ -30,6 +30,8 @@ namespace AMDM
             services.AddTransient<UserService>();
             services.AddTransient<TraineeService>();
             services.AddTransient<TrainingService>();
+            services.AddTransient<TicketTypeService>();
+
             services.AddControllersWithViews();
 
             services.AddDbContext<AMDMContext>(options =>

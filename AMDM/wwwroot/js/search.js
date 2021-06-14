@@ -28,7 +28,9 @@
 
                         var temp = template;
 
-                        $each(val, function (key, value) {
+                        console.log(val);
+
+                        $.each(val, function (key, value) {
                             temp = temp.replaceAll('{' + key + '}', value);
                         });
 

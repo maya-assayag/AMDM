@@ -21,9 +21,14 @@ namespace AMDM.Controllers
         {
             _logger = logger;
         }
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+        public IActionResult Index(Trainee trainee)
         {
-            return View();
+
+            return View(trainee);
         }
         public IActionResult AdminIndex()
         {

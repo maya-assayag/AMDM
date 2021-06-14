@@ -69,6 +69,7 @@ namespace AMDM.Controllers
                 if (t == null)
                 {
                     _context.Add(trainee);
+                    //trainee.Ticket = new Ticket();
                     await _context.SaveChangesAsync();
                     User u = new User();
                     u.Email = trainee.Email;

@@ -231,21 +231,53 @@ namespace AMDM.Controllers
             {
                 var q = _context.User.FirstOrDefault(u => 
                     u.Email == user.Email && u.Password==user.Password);
-                if (q != null)
+                if(q!=null)
                 {
-                    //HttpContext.Session.SetString("email", q.Email);
-                    _service.Signin(q,HttpContext);
-                    if(q.Type.ToString() == "Admin")
+                    if (q.Type == UserType.Trainee)
                     {
-                        return RedirectToAction("AdminIndex", "Home");
+                        Trainee trainee = _context.Trainee.FirstOrDefault(t =>
+                            t.Email == user.Email);
+                        if (q != null)
+                        {
+                            _service.Signin(q, HttpContext);
+                            return RedirectToAction(nameof(Index), "Home", trainee);
+                        }
+                        else
+                        {
+                            ViewData["Error"] = "Email and/or password are incorrect";
+                        }
+
                     }
-                    
-                    return RedirectToAction(nameof(Index), "Home");
+                    else if (q.Type == UserType.Trainer)
+                    {
+                        Trainer trainer = _context.Trainer.FirstOrDefault(t =>
+                            t.Email == user.Email);
+                        if (q != null)
+                        {
+                            _service.Signin(q, HttpContext);
+                            return RedirectToAction(nameof(Index), "Home", trainer);
+                        }
+                        else
+                        {
+                            ViewData["Error"] = "Email and/or password are incorrect";
+                        }
+                    }
+                    else
+                    {
+                        if (q != null)
+                        {
+                            _service.Signin(q, HttpContext);
+                            return RedirectToAction("AdminIndex", "Home");
+                        }
+                        else
+                        {
+                            ViewData["Error"] = "Email and/or password are incorrect";
+                        }
+
+                    }
                 }
-                else
-                {
-                    ViewData["Error"] = "Email and/or password are incorrect";
-                }
+                
+               
             }
             return View(user);
         }

@@ -37,7 +37,11 @@ namespace AMDM.Controllers
                         || t.Trainer.LastName.Contains(query) 
                         || t.TrainingType.Name.Contains(query)
                         || query==null);
-            return Json(await aMDMContext.ToListAsync());
+
+            var q = from t in aMDMContext
+                    select new { t.Id, t.Studio, t.Trainer, t.TrainingType.Name };
+
+            return Json(await q.ToListAsync());
             
         }
 
@@ -181,15 +185,17 @@ namespace AMDM.Controllers
         // GET: Trainings/Register
         //public IActionResult Register()
         //{
-              //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
-              //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name");
+        //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
+        //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name");
         //    return View();
         //}
 
         // POST: Trainings/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpGet]
+        //[HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(int trainingID)
         {
             if (ModelState.IsValid)

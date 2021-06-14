@@ -5,6 +5,9 @@
 }
 
 <h1>Index</h1>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+@Html.AntiForgeryToken()}
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -38,34 +41,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainingType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trainer.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Studio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
-            </td>
-            <td>
-                <a name="register" id="register" href="#" onclick="register(@item.Id)">Register</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trainer.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Studio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
+                </td>
+                <td>
+                    <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -78,7 +82,7 @@
     <script type="text/html" id="hidden-template">
         <tr>
             <td>
-                {trainingType.Name}
+                {name}
             </td>
             <td>
                 {trainer.id}
@@ -103,4 +107,4 @@
             </td>
         </tr>
     </script>
-    }
+}

@@ -44,7 +44,7 @@
                 <td>
                     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                     {
-                        <a class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id" asp-action="Purchase">Purchase</a>
+                        <a class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id" href="" @*asp-action="Purchase"*@>Purchase</a>
                     }
                     |
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -57,5 +57,5 @@
 </table>
 @section Scripts
 {
-    <script src="~/js/purchase.js"></script>
+    <script src="~/js/purchase.js" asp-append-version="true"></script>
 }

@@ -31,6 +31,7 @@ namespace AMDM
             services.AddTransient<TraineeService>();
             services.AddTransient<TrainingService>();
             services.AddTransient<TicketTypeService>();
+            services.AddTransient<TicketService>();
 
             services.AddControllersWithViews();
 

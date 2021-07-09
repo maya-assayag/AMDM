@@ -7,15 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using Microsoft.AspNetCore.Http;
+using AMDM.Services;
 
 namespace AMDM.Controllers
 {
     public class TicketsController : Controller
     {
         private readonly AMDMContext _context;
+        private readonly TicketService _service;
 
-        public TicketsController(AMDMContext context)
+        public TicketsController(AMDMContext context, TicketService service)
         {
+            _service = service;
             _context = context;
         }
 
@@ -25,6 +29,23 @@ namespace AMDM.Controllers
             var aMDMContext = _context.Ticket.Include(t => t.TicketType).Include(t => t.Trainee);
             return View(await aMDMContext.ToListAsync());
         }
+
+        // GET: Tickets/IsExists
+        public async Task<IActionResult> IsExists()
+        {
+            var traineeId = HttpContext.Session.GetString("Id");
+            var res= await Task.Run(() => _service.IsExists(traineeId));
+            if (res!=null)
+            {
+                return Ok();
+            }
+            
+            //return View(training);
+            //return View(await _context.Training.Include(Trainee).)?????
+        
+            return BadRequest(new { Error = "Expiry Date is not valid" });
+        }
+
 
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)

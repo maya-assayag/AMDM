@@ -1,7 +1,9 @@
-﻿using AMDM.Models;
+﻿using AMDM.Data;
+using AMDM.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,13 @@ namespace AMDM.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private readonly AMDMContext _context;
         private readonly ILogger<HomeController> _logger;
         //private readonly MoreDemosContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AMDMContext context)
         {
+            _context = context;
             _logger = logger;
         }
         //public IActionResult Index()
@@ -27,8 +31,9 @@ namespace AMDM.Controllers
         //}
         public IActionResult Index(Trainee trainee)
         {
-
-            return View(trainee);
+            Trainee trainee_ = _context.Trainee.Include(t => t.Ticket).FirstOrDefault(t =>
+                              t.Id == trainee.Id);
+            return View(trainee_);
         }
         public IActionResult AdminIndex()
         {

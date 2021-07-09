@@ -235,12 +235,12 @@ namespace AMDM.Controllers
                 {
                     if (q.Type == UserType.Trainee)
                     {
-                        Trainee trainee = _context.Trainee.FirstOrDefault(t =>
-                            t.Email == user.Email);
+                        //Trainee trainee = _context.Trainee.FirstOrDefault(t =>
+                        //    t.Email == user.Email);
                         if (q != null)
                         {
                             _service.Signin(q, HttpContext);
-                            return RedirectToAction(nameof(Index), "Home", trainee);
+                            return RedirectToAction(nameof(Index), "Home"/*, trainee*/);
                         }
                         else
                         {

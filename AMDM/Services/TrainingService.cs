@@ -27,7 +27,11 @@ namespace AMDM.Services
                     {
                         training.Trainees = new List<Trainee>();
                     }
-                   
+                    if(trainee.Trainings == null)
+                    {
+                        trainee.Trainings = new List<Training>();
+                    }
+                    trainee.Trainings.Add(training);
                     training.Trainees.Add(trainee);
                     await _context.SaveChangesAsync();
                 }

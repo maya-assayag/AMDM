@@ -29,10 +29,14 @@ namespace AMDM.Controllers
         //{
         //    return View();
         //}
-        public IActionResult Index(Trainee trainee)
+        public IActionResult Index(/*Trainee trainee*/)
         {
-            Trainee trainee_ = _context.Trainee.Include(t => t.Ticket).FirstOrDefault(t =>
-                              t.Id == trainee.Id);
+            var traineeId = HttpContext.Session.GetString("Id");
+            Trainee trainee_ = _context.Trainee
+                .Include(t => t.Ticket)
+                .Include(t =>t.Trainings)
+                .FirstOrDefault(t =>
+                              t.Id == traineeId/*trainee.Id*/);
             return View(trainee_);
         }
         public IActionResult AdminIndex()

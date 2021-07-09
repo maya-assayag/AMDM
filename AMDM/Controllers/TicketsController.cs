@@ -30,22 +30,6 @@ namespace AMDM.Controllers
             return View(await aMDMContext.ToListAsync());
         }
 
-        // GET: Tickets/IsExists
-        public async Task<IActionResult> IsExists()
-        {
-            var traineeId = HttpContext.Session.GetString("Id");
-            var res= await Task.Run(() => _service.IsExists(traineeId));
-            if (res!=null)
-            {
-                return Ok();
-            }
-            
-            //return View(training);
-            //return View(await _context.Training.Include(Trainee).)?????
-        
-            return BadRequest(new { Error = "Expiry Date is not valid" });
-        }
-
 
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)

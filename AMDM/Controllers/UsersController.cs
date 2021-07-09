@@ -225,22 +225,20 @@ namespace AMDM.Controllers
                 // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
                 [HttpPost]
                 [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Email,Password")] User user)
+        public async Task<IActionResult> Login([Bind("Email,Password")] User user_)
         {
             if (ModelState.IsValid)
             {
-                var q = _context.User.FirstOrDefault(u => 
-                    u.Email == user.Email && u.Password==user.Password);
-                if(q!=null)
+                var user = _context.User.FirstOrDefault(u => 
+                    u.Email == user_.Email && u.Password== user_.Password);
+                if(user != null)
                 {
-                    if (q.Type == UserType.Trainee)
+                    if (user.Type == UserType.Trainee)
                     {
-                        //Trainee trainee = _context.Trainee.FirstOrDefault(t =>
-                        //    t.Email == user.Email);
-                        if (q != null)
+                        if (user != null)
                         {
-                            _service.Signin(q, HttpContext);
-                            return RedirectToAction(nameof(Index), "Home"/*, trainee*/);
+                            _service.Signin(user, HttpContext);
+                            return RedirectToAction("TraineeIndex", "Home");
                         }
                         else
                         {
@@ -248,14 +246,14 @@ namespace AMDM.Controllers
                         }
 
                     }
-                    else if (q.Type == UserType.Trainer)
+                    else if (user.Type == UserType.Trainer)
                     {
                         Trainer trainer = _context.Trainer.FirstOrDefault(t =>
-                            t.Email == user.Email);
-                        if (q != null)
+                            t.Email == user_.Email);
+                        if (user != null)
                         {
-                            _service.Signin(q, HttpContext);
-                            return RedirectToAction(nameof(Index), "Home", trainer);
+                            _service.Signin(user, HttpContext);
+                            return RedirectToAction("TrainerIndex", "Home");
                         }
                         else
                         {
@@ -264,9 +262,9 @@ namespace AMDM.Controllers
                     }
                     else
                     {
-                        if (q != null)
+                        if (user != null)
                         {
-                            _service.Signin(q, HttpContext);
+                            _service.Signin(user, HttpContext);
                             return RedirectToAction("AdminIndex", "Home");
                         }
                         else
@@ -279,7 +277,7 @@ namespace AMDM.Controllers
                 
                
             }
-            return View(user);
+            return View(user_);
         }
 
 

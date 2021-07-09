@@ -29,15 +29,23 @@ namespace AMDM.Controllers
         //{
         //    return View();
         //}
-        public IActionResult Index(/*Trainee trainee*/)
+        public IActionResult TraineeIndex()
         {
             var traineeId = HttpContext.Session.GetString("Id");
-            Trainee trainee_ = _context.Trainee
+            Trainee trainee = _context.Trainee
                 .Include(t => t.Ticket)
                 .Include(t =>t.Trainings)
                 .FirstOrDefault(t =>
-                              t.Id == traineeId/*trainee.Id*/);
-            return View(trainee_);
+                              t.Id == traineeId);
+            return View(trainee);
+        }
+        public IActionResult TrainerIndex()
+        {
+            var trainerId = HttpContext.Session.GetString("Id");
+            Trainer trainer = _context.Trainer
+                .FirstOrDefault(t =>
+                              t.Id == trainerId);
+            return View(trainer);
         }
         public IActionResult AdminIndex()
         {

@@ -27,6 +27,7 @@ namespace AMDM.Controllers
         public async Task<IActionResult> Index()
         {
             var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType);
+            
             return View(await aMDMContext.ToListAsync());
         }
         public async Task<IActionResult> Search(string query)

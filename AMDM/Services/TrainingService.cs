@@ -33,6 +33,7 @@ namespace AMDM.Services
                     }
                     trainee.Trainings.Add(training);
                     training.Trainees.Add(trainee);
+
                     await _context.SaveChangesAsync();
                 }
                 

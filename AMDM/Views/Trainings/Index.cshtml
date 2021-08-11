@@ -37,6 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.MaxRegisterTrainees)
             </th>
+            <th>
+                Place left
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -61,6 +64,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalTraineesLeft)
                 </td>
                 <td>
                     <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a> |

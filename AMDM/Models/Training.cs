@@ -36,5 +36,13 @@ namespace AMDM.Models
         public int MaxRegisterTrainees { get; set; }
         public List<Trainee> Trainees { get; set; }
 
+        public int TotalTraineesLeft
+        {
+            get
+            {
+                return Trainees != null ? MaxRegisterTrainees - Trainees.Count() : MaxRegisterTrainees;
+            }
+        }
+
     }
 }

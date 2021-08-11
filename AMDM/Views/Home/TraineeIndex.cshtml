@@ -5,7 +5,7 @@
 }
 @using Microsoft.AspNetCore.Http;
 
-<div class="text-center">
+<div id="contectDiv" class="text-center">
 
 
     <h1 class="display-4">
@@ -13,7 +13,7 @@
     </h1>
     <hr />
     <div>
-        <div class="card display-4">
+        <div id="profileDiv" style="display: none;" class="card display-4">
             <div class="card-body">
                 <h5 class="card-title">Profile</h5>
                 <a asp-controller="Trainees" asp-action="Details" asp-route-id="@Context.Session.GetString("Id")" class="btn btn-primary">My Profile</a>
@@ -53,76 +53,33 @@
         @if (Model.Trainings != null)
         {
             <h5 class="card-title">Your workouts this week:</h5>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].TrainingType)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].Trainer)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].Time)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].Studio)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Trainings[0].MaxRegisterTrainees)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Trainings)
-                    {
-                        @if (item.Date >= DateTime.Now.Date && item.Date < DateTime.Now.AddDays(7).Date)
-                         {
-
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TrainingType.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Trainer.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Time)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Studio)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
-                                </td>
-                                <td>
-                                    <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a> |
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                </td>
-                            </tr>
-                         }
-                     }
-                </tbody>
-         </table>
-        }
-        else
+            @foreach (var item in Model.Trainings)
             {
-                <h5 class="card-title">you dont have trainings this week</h5>
+                @if (item.Date >= DateTime.Now.Date && item.Date < DateTime.Now.AddDays(7).Date)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Traning type:</strong> @Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer name:</strong> @Html.DisplayFor(modelItem => item.Trainer.Id)</h6>
+                            <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                            <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
+                            <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="card-link btn btn-danger">Un Register</a>
+                        </div>
+                    </div>
+                }
             }
+               
+        }
+else
+        {
+            <h5 class="card-title">you dont have trainings this week</h5>
+        }
 
     </div>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
 @section Scripts
 {
     <script src="~/js/ticket.js"></script>

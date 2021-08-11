@@ -17,11 +17,14 @@
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="AdminIndex">AMDM</a>
 
                 }
-                else
+                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AMDM</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">AMDM</a>
                 }
-
+                @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">AMDM</a>
+                }
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

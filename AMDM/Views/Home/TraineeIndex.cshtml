@@ -59,8 +59,8 @@
                 }
 
             </div>
-        </div>
-        @if (Model.Trainings != null)
+        </div>   
+        @if (Model.Trainings.FindAll(training => training.Date >= DateTime.Now.Date && training.Date < DateTime.Now.AddDays(7).Date).Count() > 0)
         {
             <h5 class="card-title">Your workouts this week:</h5>
             @foreach (var item in Model.Trainings)

@@ -5,6 +5,11 @@
 }
 @using Microsoft.AspNetCore.Http;
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
 <div id="contectDiv" class="text-center">
 
 
@@ -24,8 +29,8 @@
 
                 @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                 {
-                        <h5 class="card-title">Add training</h5>
-                        <a asp-controller="Trainings" asp-action="Create">+</a>
+                    <h5 class="card-title">Add training</h5>
+                    <a asp-controller="Trainings" asp-action="Create">+</a>
                 }
                 @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                 {
@@ -41,7 +46,7 @@
         <div class="card display-4">
             <div class="card-body">
                 <h5 class="card-title"></h5>
-                @if (Model.Ticket.ExpiredDate>DateTime.Now.Date)
+                @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
                 {
                     <h5 id="expired-date-ticket" class="card-title">your ticket is valid until: @Model.Ticket.ExpiredDate.Date.ToShortDateString()</h5>
                 }
@@ -69,14 +74,14 @@
                             <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
                             <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                             <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="card-link btn btn-danger">Un Register</a>
+                            <a name="unregister" class="unregister card-link btn btn-danger" href="#" training-id="@item.Id">Unregister</a>
                         </div>
                     </div>
                 }
             }
-               
+
         }
-else
+        else
         {
             <h5 class="card-title">you dont have trainings this week</h5>
         }
@@ -88,4 +93,5 @@ else
 @section Scripts
 {
     <script src="~/js/ticket.js"></script>
+    <script src="~/js/unregister.js"></script>
 }

@@ -89,13 +89,15 @@
                             }
                             if (flag)
                             {
-                                <p class="text-success">You are already registered for this training</p>
+                                <div>
+                                    <p class="text-success">You are already registered for this training</p>
+                                    <a name="unregister" class="unregister" href="#" training-id="@item.Id">Unregister</a> |
+                                </div>
                             }
                             else
                             {
                                 <div>
-                                    <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a>
-                                    |
+                                    <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
                                 </div>
                             }
                         }
@@ -123,6 +125,7 @@
 @section Scripts
 {
     <script src="~/js/register.js"></script>
+    <script src="~/js/unregister.js"></script>
     <script src="~/js/search.js"></script>
 
 

@@ -1,20 +1,19 @@
 ﻿$(function () {
-    $('.register').click(function() {
+    $('.unregister').click(function() {
 
         var trainingId = $(this).attr('training-id');
 
-        var form = $('#__AjaxAntiForgeryForm');
-        var token = $('input[name="__RequestVerificationToken"]', form).val();
+    var form = $('#__AjaxAntiForgeryForm');
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
 
             $.ajax({
                 method :'post',
                 //method: 'get',
-                url: '/Trainings/Register',
+                url: '/Trainings/Unregister',
                
                 data: {
                    '__RequestVerificationToken': token,
-                    'trainingID': trainingId
-                }
+                        'trainingID': trainingId }
 
             }).done(function (data) {
                 console.log(data);
@@ -23,7 +22,7 @@
                 console.log(error);
                 alert(error);
             });
-    });
+        });
     
 
 

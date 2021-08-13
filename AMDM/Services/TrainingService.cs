@@ -1,5 +1,6 @@
 ﻿using AMDM.Data;
 using AMDM.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,33 @@ namespace AMDM.Services
                 
             }
            
+
+        }
+        public async Task Unregister(int trainingId, string traineeId)
+        {
+            var training = _context.Training.Include(training => training.Trainees).FirstOrDefault(t => t.Id == trainingId);
+            if (training != null)
+            {
+                var trainee = _context.Trainee.Include(trainee => trainee.Trainings).FirstOrDefault(t => t.Id == traineeId);
+                if (trainee != null)
+                {
+                    if (training.Trainees != null)
+                    {
+                        training.Trainees.Remove(trainee);
+                        await _context.SaveChangesAsync();
+                    }
+                    if (trainee.Trainings != null)
+                    {
+                        trainee.Trainings.Remove(training);
+                        await _context.SaveChangesAsync();
+                    }
+                    
+
+                    await _context.SaveChangesAsync();
+                }
+
+            }
+
 
         }
     }

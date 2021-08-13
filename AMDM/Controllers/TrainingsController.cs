@@ -213,5 +213,23 @@ namespace AMDM.Controllers
             //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
             
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Unregister(int trainingID)
+        {
+            if (ModelState.IsValid)
+            {
+                var Id = HttpContext.Session.GetString("Id");
+                await Task.Run(() => _service.Unregister(trainingID, Id));
+                return Ok();
+                //return View(training);
+                //return View(await _context.Training.Include(Trainee).)?????
+            }
+            return BadRequest(new { Error = "model is not valid" });
+
+            //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
+            //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
+
+        }
     }
 }

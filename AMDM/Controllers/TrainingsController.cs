@@ -26,7 +26,7 @@ namespace AMDM.Controllers
         // GET: Trainings
         public async Task<IActionResult> Index()
         {
-            var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType);
+            var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.Trainees).Include(t => t.TrainingType);
             
             return View(await aMDMContext.ToListAsync());
         }

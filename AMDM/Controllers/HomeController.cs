@@ -33,8 +33,9 @@ namespace AMDM.Controllers
         {
             var traineeId = HttpContext.Session.GetString("Id");
             Trainee trainee = _context.Trainee
-                .Include(t => t.Ticket)
-                .Include(t =>t.Trainings)
+                .Include(trainee => trainee.Ticket)
+                .Include(trainee=> trainee.Trainings).ThenInclude(training=> training.TrainingType)
+                .Include(trainee => trainee.Trainings).ThenInclude(training => training.Trainer)
                 .FirstOrDefault(t =>
                               t.Id == traineeId);
             return View(trainee);

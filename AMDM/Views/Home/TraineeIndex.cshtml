@@ -21,14 +21,19 @@
         </div>
         <div class="card display-4">
             <div class="card-body">
-                <h5 class="card-title">Add training</h5>
+
                 @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                 {
-                    <a asp-controller="Trainings" asp-action="Create">+</a>
+                        <h5 class="card-title">Add training</h5>
+                        <a asp-controller="Trainings" asp-action="Create">+</a>
                 }
                 @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                 {
-                    <a asp-controller="Trainings" asp-action="Index">+</a>
+                    @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
+                    {
+                        <h5 class="card-title">Register to training</h5>
+                        <a asp-controller="Trainings" asp-action="Index">+</a>
+                    }
                 }
 
             </div>
@@ -36,9 +41,9 @@
         <div class="card display-4">
             <div class="card-body">
                 <h5 class="card-title"></h5>
-                @if (Model.Ticket != null)
+                @if (Model.Ticket.ExpiredDate>DateTime.Now.Date)
                 {
-                    <h5 id="expired-date-ticket" class="card-title">your ticket is valid until: @Model.Ticket.ExpiredDate</h5>
+                    <h5 id="expired-date-ticket" class="card-title">your ticket is valid until: @Model.Ticket.ExpiredDate.Date.ToShortDateString()</h5>
                 }
                 else
                 {
@@ -59,9 +64,9 @@
                 {
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title"><strong>Traning type:</strong> @Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer name:</strong> @Html.DisplayFor(modelItem => item.Trainer.Id)</h6>
-                            <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                            <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
                             <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                             <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="card-link btn btn-danger">Un Register</a>

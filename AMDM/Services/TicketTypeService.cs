@@ -1,4 +1,5 @@
 ﻿using AMDM.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,20 @@ namespace AMDM.Services
 
         public async Task Purchase(int ticketTypeId, string traineeId)
         {
+            //_context.Ticket.wh
             var ticketType = _context.TicketType.FirstOrDefault(t => t.Id == ticketTypeId);
             if (ticketType != null)
             {
-                var trainee = _context.Trainee.FirstOrDefault(t => t.Id == traineeId);
+                //_context.Trainee
+                //.Include(t => t.Ticket)
+                //.Include(t => t.Trainings)
+                //.FirstOrDefault(t =>
+                //              t.Id == traineeId);
+                var trainee = _context.Trainee.Include(t=> t.Ticket).FirstOrDefault(t => t.Id == traineeId);
                 if (trainee != null)
                 {
-                    if (trainee.Ticket == null)
-                    {
+                    //if (trainee.Ticket == null)
+                    //{
                         trainee.Ticket = new Models.Ticket();
                         trainee.Ticket.PurchaseDate = DateTime.UtcNow;
                         trainee.Ticket.TicketTypeId = ticketTypeId;
@@ -55,7 +62,7 @@ namespace AMDM.Services
                         ticketType.Tickets.Add(trainee.Ticket);
                         await _context.SaveChangesAsync();
 
-                    }
+                    //}
 
                     //training.Trainees.Add(trainee);
                     //await _context.SaveChangesAsync();

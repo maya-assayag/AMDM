@@ -3,15 +3,19 @@
 @{
     ViewData["Title"] = "Index";
 }
+@using Microsoft.AspNetCore.Http;
 
-<h1>Index</h1>
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
-@Html.AntiForgeryToken()}
+    @Html.AntiForgeryToken()
+}
+@if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <form asp-action="Search">
     <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." />
     <input type="submit" value="Search" class="btn btn-primary" />
@@ -46,37 +50,73 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrainingType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Trainer.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Studio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalTraineesLeft)
-                </td>
-                <td>
-                    <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-            
-         }
+            if (item.Date > DateTime.Now.Date)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrainingType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trainer.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Studio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalTraineesLeft)
+                    </td>
+                    <td>
+                        @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                        {
+                            bool flag = false;
+                            foreach (var trainee in item.Trainees)
+                            {
+                                if (trainee.Id == Context.Session.GetString("Id"))
+                                {
+                                    flag = true;
+
+                                }
+                                break;
+                            }
+                            if (flag)
+                            {
+                                <p class="text-success">You are already registered for this training</p>
+                            }
+                            else
+                            {
+                                <div>
+                                    <a name="register" class="register" href="#" trainee-id="@item.Id">Register</a>
+                                    |
+                                </div>
+                            }
+                        }
+                        @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                            </div>
+
+                        }
+
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                    </td>
+                </tr>
+
+
+            }
+
+        }
     </tbody>
 </table>
 

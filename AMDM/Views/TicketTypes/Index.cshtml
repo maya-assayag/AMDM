@@ -44,7 +44,7 @@
                 <td>
                     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                     {
-                        <a class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>
+                        <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>
                     }
                     |
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

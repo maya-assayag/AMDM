@@ -31,9 +31,22 @@ namespace AMDM.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            Tweets twts = new Tweets();
+            string key = "oxI5o7yTTILkj5pMrY5SssNc0";
+            string secret = "EsB7x3NsHEf0TSApnhk0BLiUSBrcbfg9mMtr1HiFDaNoDdwS9O";
+            string token = "1426478447614992387-ot1KHO0OWfSLK4tcPFqa7AlF1vFf3v";
+            string tokenSecret = "6n8ciXQYIpRUJwJ3vO1Le0JxODVgGnLZvKmJ2HUIwT8V0";
+
+            var service = new TweetSharp.TwitterService(key, secret);
+            service.AuthenticateWith(token, tokenSecret);
+            twts.AllTweets = (List<TwitterStatus>)service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+            {
+                ScreenName = "AmdmGym",
+            });
+
+            return View(twts);
         }
-         [HttpPost]
+        [HttpPost]
         public ActionResult Index(Tweets twts)
         {
             string key = "oxI5o7yTTILkj5pMrY5SssNc0";
@@ -41,19 +54,26 @@ namespace AMDM.Controllers
             string token = "1426478447614992387-ot1KHO0OWfSLK4tcPFqa7AlF1vFf3v";
             string tokenSecret = "6n8ciXQYIpRUJwJ3vO1Le0JxODVgGnLZvKmJ2HUIwT8V0";
 
-            string message = twts.tweets;
-
-
+            string message = twts.Tweet;
             var service = new TweetSharp.TwitterService(key, secret);
             service.AuthenticateWith(token, tokenSecret);
+            twts.AllTweets = (List<TwitterStatus>)service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+            {
+                ScreenName = "AmdmGym",
+            });
+            _context.SaveChangesAsync();
+            //var currentTweets = service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
+            //{
+            //    ScreenName = "AmdmGym",
+            //});
 
-            var result = service.SendTweet(new SendTweetOptions
+
+            service.SendTweet(new SendTweetOptions
             {
                 Status = message
             });
-
-            twts.tweets = "";
-            return View();
+            twts.Tweet = "";
+            return View(twts);
         }
         public IActionResult TraineeIndex()
         {

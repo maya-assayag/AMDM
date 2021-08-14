@@ -1,0 +1,20 @@
+﻿@model AppTwitter.Models.Tweets
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="form-control">
+            <label class="label-primary">     Enter Your Tweet  </label>@Html.TextBoxFor(m => m.tweets)<br />
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</body>
+</html>

@@ -34,42 +34,23 @@ namespace AMDM.Controllers
             return View();
         }
          [HttpPost]
-        public ActionResult Index(Tweets twts)//, HttpPostedFileBase postedFile)
+        public ActionResult Index(Tweets twts)
         {
-            string key = "fd65RkMwjagLVroErFwxnVRXa";
-            string secret = "lk2TW0vcL0cdIjRGuIgIpnyvYxvHtdVXe5cMjJIW3queTpYtdp";
-            string token = "1425442820232519684-2pb5cUcEovoAJjHKcIJi1mm7IytE9Z";
-            string tokenSecret = "nwo3NWbsD9Qu3xQleYckrdormITF1jcp6Coq3ZhhHGiIg";
+            string key = "oxI5o7yTTILkj5pMrY5SssNc0";
+            string secret = "EsB7x3NsHEf0TSApnhk0BLiUSBrcbfg9mMtr1HiFDaNoDdwS9O";
+            string token = "1426478447614992387-ot1KHO0OWfSLK4tcPFqa7AlF1vFf3v";
+            string tokenSecret = "6n8ciXQYIpRUJwJ3vO1Le0JxODVgGnLZvKmJ2HUIwT8V0";
 
             string message = twts.tweets;
 
-            //Enter the Image Path if you want to upload image .
-
-             string  imagePath = @"C:\maorTest.jpg";/////////////////
 
             var service = new TweetSharp.TwitterService(key, secret);
             service.AuthenticateWith(token, tokenSecret);
 
-            //this Condition  will check weather you want to upload a image & text or only text 
-            if (imagePath.Length > 0)
+            var result = service.SendTweet(new SendTweetOptions
             {
-                using (var stream = new FileStream(imagePath, FileMode.Open))
-                {
-                    var result = service.SendTweetWithMedia(new SendTweetWithMediaOptions
-                    {
-                        Status = message,
-                        Images = new Dictionary<string, Stream> { { "john", stream } }
-                    });
-                }
-            }
-            else // just message
-            {
-                var result = service.SendTweet(new SendTweetOptions
-                {
-                    Status = message
-                });
-
-            }
+                Status = message
+            });
 
             twts.tweets = "";
             return View();

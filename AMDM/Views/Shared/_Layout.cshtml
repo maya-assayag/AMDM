@@ -21,7 +21,7 @@
                 {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">AMDM</a>
                 }
-                @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                 {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">AMDM</a>
                 }
@@ -41,7 +41,7 @@
                             {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TraineeIndex">Home</a>
                             }
-                            @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                            @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                             {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TrainerIndex">Home</a>
                             }

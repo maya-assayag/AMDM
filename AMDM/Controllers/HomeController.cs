@@ -62,10 +62,6 @@ namespace AMDM.Controllers
                 ScreenName = "AmdmGym",
             });
             _context.SaveChangesAsync();
-            //var currentTweets = service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
-            //{
-            //    ScreenName = "AmdmGym",
-            //});
 
 
             service.SendTweet(new SendTweetOptions

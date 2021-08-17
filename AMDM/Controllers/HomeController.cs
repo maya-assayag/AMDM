@@ -101,17 +101,44 @@ namespace AMDM.Controllers
             AdminViewModel adminView = new AdminViewModel();
             var tickets = _context.Ticket
                 .Include(t => t.TicketType)
-                .ToList()
-                .GroupBy(t => t.TicketType.Name);
+                .ToList();
+
+            var ticketsTypes=tickets
+                .GroupBy(t => t.TicketType.Id);
 
 
             IList<int> counters = new List<int>();
-            foreach (var ticket in tickets)
+            foreach (var ticket in ticketsTypes)
             {
                 counters.Add(ticket.Count());
             }
 
-            adminView.TicketsPie = counters;
+            adminView.TicketsTypesPie = counters;
+            adminView.SumOfRevenueThisMonth = 0;
+
+            foreach (var ticket in tickets)
+            {
+                if(ticket.PurchaseDate.Month==DateTime.Now.Month && ticket.PurchaseDate.Year == DateTime.Now.Year)
+                {
+                    adminView.SumOfRevenueThisMonth += ticket.TicketType.Price;
+                }
+                
+            }
+
+            adminView.SumOfTicketPurchasedThisMonth = 0;
+            foreach (var ticket in tickets)
+            {
+                if (ticket.PurchaseDate.Month == DateTime.Now.Month && ticket.PurchaseDate.Year == DateTime.Now.Year)
+                {
+                    adminView.SumOfTicketPurchasedThisMonth ++;
+                }
+
+            }
+
+            adminView.ActiveTrainees = _context.Trainee.Include(trainee => trainee.Ticket)
+                .Where(trainee => (trainee.Ticket != null && trainee.Ticket.ExpiredDate > DateTime.Now))
+                .ToList()
+                .Count();
 
             //TODO: get user data and insert into model
             // adminView.User = currentUser;

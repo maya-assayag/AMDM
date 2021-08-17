@@ -13,7 +13,9 @@ namespace AMDM.Models
 
         public string Name { get; set; }
         [Range(0, 10000)]
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
+
         [Range(0, 10000)]
         [Display(Name = "Number of punching holes")]
         public int? PunchingHolesNumber { get; set; }

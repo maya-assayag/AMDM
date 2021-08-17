@@ -80,7 +80,7 @@ namespace AMDM.Controllers
 
                     if (res == true)
                     {
-                        return RedirectToAction(nameof(Index), "Home");
+                        return RedirectToAction("TraineeIndex", "Home");
                     }
                     else
                     {

@@ -34,28 +34,36 @@
                 }
                 @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                 {
-                    @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
+                    if (Model.Ticket != null)
                     {
-                        <h5 class="card-title">Register to training</h5>
-                        <a asp-controller="Trainings" asp-action="Index">+</a>
+                        @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
+                        {
+                            <h5 class="card-title">Register to training</h5>
+                            <a asp-controller="Trainings" asp-action="Index">+</a>
+                        }
+
                     }
-                }
+
+                 }
 
             </div>
         </div>
         <div class="card display-4">
             <div class="card-body">
                 <h5 class="card-title"></h5>
-                @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
+                @if (Model.Ticket != null)
                 {
-                    <h5 id="expired-date-ticket" class="card-title">your ticket is valid until: @Model.Ticket.ExpiredDate.Date.ToShortDateString()</h5>
+                    @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
+                    {
+                        <h5 id="expired-date-ticket" class="card-title">your ticket is valid until: @Model.Ticket.ExpiredDate.Date.ToShortDateString()</h5>
+                    }
                 }
                 else
                 {
-                    <h5 class="card-title">
-                        You do not have a ticket , to purchase a ticket
-                        <a asp-controller="TicketTypes" asp-action="Index">click here</a>
-                    </h5>
+                <h5 class="card-title">
+                    You do not have a ticket , to purchase a ticket
+                    <a asp-controller="TicketTypes" asp-action="Index">click here</a>
+                </h5>
                 }
 
             </div>

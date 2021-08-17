@@ -96,7 +96,25 @@ namespace AMDM.Controllers
         }
         public IActionResult AdminIndex()
         {
-            return View();
+            AdminViewModel adminView = new AdminViewModel();
+            var tickets = _context.Ticket
+                .Include(t => t.TicketType)
+                .ToList()
+                .GroupBy(t => t.TicketType.Name);
+
+
+            IList<int> counters = new List<int>();
+            foreach (var ticket in tickets)
+            {
+                counters.Add(ticket.Count());
+            }
+
+            adminView.TicketsPie = counters;
+
+            //TODO: get user data and insert into model
+            // adminView.User = currentUser;
+
+            return View(adminView);
         }
 
         public IActionResult Privacy()

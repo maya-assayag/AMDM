@@ -29,7 +29,12 @@ namespace AMDM.Controllers
             _context = context;
             _logger = logger;
         }
-        public IActionResult Index()
+
+        public IActionResult LandingPage()
+        {
+            return View();
+        }
+        public IActionResult Twitter()
         {
             Tweets twts = new Tweets();
             string key = "oxI5o7yTTILkj5pMrY5SssNc0";
@@ -47,7 +52,7 @@ namespace AMDM.Controllers
             return View(twts);
         }
         [HttpPost]
-        public ActionResult Index(Tweets twts)
+        public ActionResult Twitter(Tweets twts)
         {
             string key = "oxI5o7yTTILkj5pMrY5SssNc0";
             string secret = "EsB7x3NsHEf0TSApnhk0BLiUSBrcbfg9mMtr1HiFDaNoDdwS9O";

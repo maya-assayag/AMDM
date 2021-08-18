@@ -15,6 +15,7 @@ using System.IO;
 using System.Web;
 using AppTwitter.Models;
 using static AMDM.Models.AdminViewModel;
+using System.Text.Json;
 
 namespace AMDM.Controllers
 {
@@ -152,22 +153,23 @@ namespace AMDM.Controllers
                 .Include(training => training.TrainingType)
                 .ToList();
 
-            adminView.AllTrainingsBarplot = new List<BarplotItem>();
+            IList<BarplotItem> barplotItems = new List<BarplotItem>();
 
 
             foreach (Training training in allTrainings)
             {
-                adminView.AllTrainingsBarplot.Add(new BarplotItem {
+                barplotItems.Add(new BarplotItem
+                {
 
                     Id = training.Id,
                     Name = training.TrainingType.Name,
                     MaxParticipant = training.MaxRegisterTrainees,
                     ActualParticipant = training.MaxRegisterTrainees - training.TotalTraineesLeft
                 });
-
-                
-                
             }
+
+            adminView.AllTrainingsBarplot = barplotItems;
+
 
             //TODO: get user data and insert into model
             // adminView.User = currentUser;

@@ -11,8 +11,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TweetSharp;
-using System.IO;
-using System.Web;
 using AppTwitter.Models;
 using static AMDM.Models.AdminViewModel;
 using System.Text.Json;
@@ -24,19 +22,18 @@ namespace AMDM.Controllers
     {
         private readonly AMDMContext _context;
         private readonly ILogger<HomeController> _logger;
-        //private readonly MoreDemosContext _context;
-        
+
 
         public HomeController(ILogger<HomeController> logger, AMDMContext context)
         {
             _context = context;
             _logger = logger;
         }
-
-        public IActionResult LandingPage()
+        public async Task<IActionResult> LandingPage()
         {
-            return View();
+            return View(await _context.Places.ToListAsync());
         }
+
         public IActionResult Twitter()
         {
             Tweets twts = new Tweets();
@@ -119,8 +116,6 @@ namespace AMDM.Controllers
             }
 
 
-
-
             adminView.TicketsTypesPurchasedLollipop = map;
             adminView.SumOfRevenueThisMonth = 0;
 
@@ -175,15 +170,6 @@ namespace AMDM.Controllers
             // adminView.User = currentUser;
 
             return View(adminView);
-        }
-
-        public IActionResult Privacy()
-        {
-            //if(HttpContext.Session.GetString("email") == null)
-            //{
-            //    return RedirectToAction("Login", "Users");
-            //}
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

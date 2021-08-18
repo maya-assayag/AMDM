@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Models;
+using WebApplication1.Models;
 
 namespace AMDM.Data
 {
@@ -27,5 +28,7 @@ namespace AMDM.Data
         public DbSet<AMDM.Models.TrainingType> TrainingType { get; set; }
 
         public DbSet<AMDM.Models.User> User { get; set; }
+
+        public DbSet<WebApplication1.Models.Place> Places { get; set; }
     }
 }

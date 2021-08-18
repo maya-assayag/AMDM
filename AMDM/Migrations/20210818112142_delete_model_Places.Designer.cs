@@ -4,14 +4,16 @@ using AMDM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AMDM.Migrations
 {
     [DbContext(typeof(AMDMContext))]
-    partial class AMDMContextModelSnapshot : ModelSnapshot
+    [Migration("20210818112142_delete_model_Places")]
+    partial class delete_model_Places
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

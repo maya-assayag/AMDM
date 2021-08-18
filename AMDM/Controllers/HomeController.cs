@@ -106,14 +106,19 @@ namespace AMDM.Controllers
             var ticketsTypes=tickets
                 .GroupBy(t => t.TicketType.Id);
 
+            IList<KeyValuePair<string, int>> map = new List<KeyValuePair<string, int>>();
 
-            IList<int> counters = new List<int>();
+
+           
             foreach (var ticket in ticketsTypes)
             {
-                counters.Add(ticket.Count());
+                map.Add(new KeyValuePair<string, int>(ticket.First().TicketType.Name + " with " + ticket.First().TicketType.PunchingHolesNumber + " punching", ticket.Count()));                    
             }
 
-            adminView.TicketsTypesPie = counters;
+
+
+
+            adminView.TicketsTypesPurchasedLollipop = map;
             adminView.SumOfRevenueThisMonth = 0;
 
             foreach (var ticket in tickets)
@@ -134,7 +139,7 @@ namespace AMDM.Controllers
                 }
 
             }
-
+            adminView.AllTrainees = _context.Trainee.Count();
             adminView.ActiveTrainees = _context.Trainee.Include(trainee => trainee.Ticket)
                 .Where(trainee => (trainee.Ticket != null && trainee.Ticket.ExpiredDate > DateTime.Now))
                 .ToList()

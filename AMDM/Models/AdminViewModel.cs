@@ -8,7 +8,10 @@ namespace AMDM.Models
 {
     public class AdminViewModel
     {
-        public IList<int> TicketsTypesPie { get; set; }
+        //public IList<int> TicketsTypesPie { get; set; }
+        //public IList<string> TicketsTypesNames { get; set; }
+        public IList<KeyValuePair<string, int>> TicketsTypesPurchasedLollipop { get; set; }
+
         public User User { get; set; }
 
         [DataType(DataType.Currency)]
@@ -17,5 +20,7 @@ namespace AMDM.Models
         public int SumOfTicketPurchasedThisMonth { get; set; }
 
         public int ActiveTrainees { get; set; }
+
+        public int AllTrainees { get; set; }
     }
 }

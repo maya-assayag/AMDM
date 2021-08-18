@@ -8,9 +8,18 @@ namespace AMDM.Models
 {
     public class AdminViewModel
     {
+        public class BarplotItem
+        {
+            public int Id;
+            public string Name;
+            public int MaxParticipant;
+            public int ActualParticipant;
+        }
         //public IList<int> TicketsTypesPie { get; set; }
         //public IList<string> TicketsTypesNames { get; set; }
         public IList<KeyValuePair<string, int>> TicketsTypesPurchasedLollipop { get; set; }
+
+        public IList<BarplotItem> AllTrainingsBarplot { get; set; }
 
         public User User { get; set; }
 

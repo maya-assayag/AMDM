@@ -14,6 +14,7 @@ using TweetSharp;
 using System.IO;
 using System.Web;
 using AppTwitter.Models;
+using static AMDM.Models.AdminViewModel;
 
 namespace AMDM.Controllers
 {
@@ -23,6 +24,7 @@ namespace AMDM.Controllers
         private readonly AMDMContext _context;
         private readonly ILogger<HomeController> _logger;
         //private readonly MoreDemosContext _context;
+        
 
         public HomeController(ILogger<HomeController> logger, AMDMContext context)
         {
@@ -144,6 +146,28 @@ namespace AMDM.Controllers
                 .Where(trainee => (trainee.Ticket != null && trainee.Ticket.ExpiredDate > DateTime.Now))
                 .ToList()
                 .Count();
+
+            var allTrainings = _context.Training
+                .Include(training => training.Trainees)
+                .Include(training => training.TrainingType)
+                .ToList();
+
+            adminView.AllTrainingsBarplot = new List<BarplotItem>();
+
+
+            foreach (Training training in allTrainings)
+            {
+                adminView.AllTrainingsBarplot.Add(new BarplotItem {
+
+                    Id = training.Id,
+                    Name = training.TrainingType.Name,
+                    MaxParticipant = training.MaxRegisterTrainees,
+                    ActualParticipant = training.MaxRegisterTrainees - training.TotalTraineesLeft
+                });
+
+                
+                
+            }
 
             //TODO: get user data and insert into model
             // adminView.User = currentUser;

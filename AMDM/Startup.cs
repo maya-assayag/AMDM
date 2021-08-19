@@ -28,7 +28,7 @@ namespace AMDM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddNodeServices();
+            //services.AddNodeServices();
 
 
             services.AddTransient<UserService>();
@@ -85,7 +85,8 @@ namespace AMDM
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Users}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=LandingPage}");
+                //pattern: "{controller=Users}/{action=Login}/{id?}");
             });
         }
     }

@@ -37,7 +37,7 @@
 
 
 
-                </div>
+            </div>
         </div>
         <div class="card display-4">
             <div class="card-body">
@@ -52,6 +52,9 @@
             <div class="card-body">
                 <h5 class="card-title">Add a new trainer</h5>
                 <a asp-controller="Trainers" asp-action="Create">+</a>
+                <h5 class="card-title">
+                    <a asp-controller="Trainers" asp-action="Index">See all trainers</a>
+                </h5>
             </div>
         </div>
         <div class="card display-4">
@@ -70,6 +73,12 @@
             <div class="card-body">
                 <h5 class="card-title">Add a new TicketType</h5>
                 <a asp-controller="TicketTypes" asp-action="Create">+</a>
+            </div>
+        </div>
+        <div class="card display-4">
+            <div class="card-body">
+                <h5 class="card-title">See all Trainees</h5>
+                <a asp-controller="Trainees" asp-action="Index">+</a>
             </div>
         </div>
     </div>

@@ -33,7 +33,6 @@ namespace AMDM.Controllers
         {
             return View(await _context.Places.ToListAsync());
         }
-
         public IActionResult Twitter()
         {
             Tweets twts = new Tweets();

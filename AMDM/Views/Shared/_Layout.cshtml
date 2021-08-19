@@ -13,19 +13,31 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
+
                 @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
                 {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="AdminIndex">AMDM</a>
+                }
+                else
+                {
+                    @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">AMDM</a>
+                    }
+                    else
+                    {
+                        @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">AMDM</a>
+                        }
+                        else
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="LandingPage">AMDM</a>
+                        }
+                    }
 
                 }
-                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">AMDM</a>
-                }
-                @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">AMDM</a>
-                }
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -50,7 +62,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+                        @if (Context.User == null && Context.User.Claims == null && Context.User.Claims.Count() < 0)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
@@ -60,6 +72,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainees" asp-action="Create">Register</a>
                             </li>
                         }
 

@@ -9,6 +9,20 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search">
+
+    <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." />
+
+
+    @*<label for="cars">filter by date:</label>
+    <select id="date-filter" type="submit" value="Search by dates...">
+            <option name="dateFilter" value="today">Today</option>
+            <option name="dateFilter" value="tomorrow">Tomorrow</option>
+            <option name="dateFilter" value="week">This week</option>
+            <option name="dateFilter" selected="selected" value="all">All Dates</option>
+        </select>*@
+    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
 <table class="table">
     <thead>
         <tr>

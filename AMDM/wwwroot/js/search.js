@@ -2,6 +2,7 @@
     $('form').submit(function (e) {
         e.preventDefault();
         var query = $('#query').val();
+        var filterDate = $('#dateFilter').val();
 
 
         // $('tbody').load('/Trainings/Search?query=' + query);
@@ -10,8 +11,10 @@
         $.ajax({
             //method :'post',
             url: '/Trainings/Search',
-            data: { 'query': query }
-                }).done(function (data) {
+            data: {
+                'query': query,
+                'dateFilter': filterDate
+            }}).done(function (data) {
 
                     //$('tbody').html('');
                     //for (var i = 0; i < data.length; i++)

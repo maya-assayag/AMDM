@@ -27,6 +27,6 @@ namespace AMDM.Models
         [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
 
-        public UserType Type { get; set; } //= UserType.Nothing;
+        public UserType Type { get; set; } = UserType.Nothing;
     }
 }

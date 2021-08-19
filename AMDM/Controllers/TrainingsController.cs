@@ -26,21 +26,61 @@ namespace AMDM.Controllers
         // GET: Trainings
         public async Task<IActionResult> Index()
         {
-            var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.Trainees).Include(t => t.TrainingType);
+            var aMDMContext = _context.Training
+                .Include(t => t.Trainer)
+                .Include(t => t.Trainees)
+                .Include(t => t.TrainingType)
+                .OrderBy(t => t.Date);
+
             
             return View(await aMDMContext.ToListAsync());
         }
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> Search(string query ,string dateFilter)
         {
-            var aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
+            /*var*/
+            IQueryable<Training> aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
                 .Where(t=>
-                        t.Trainer.FirstName.Contains(query) 
+                        t.Date>= DateTime.Now.Date
+                        && (query == null
+                        || t.Trainer.FirstName.Contains(query) 
                         || t.Trainer.LastName.Contains(query) 
-                        || t.TrainingType.Name.Contains(query)
-                        || query==null);
+                        || t.TrainingType.Name.Contains(query)));
+
+            //LinQ:
+            //Example
+            //var q = from a in _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
+            //        where (query == null
+            //            || a.Trainer.FirstName.Contains(query)
+            //            || a.Trainer.LastName.Contains(query)
+            //            || a.TrainingType.Name.Contains(query))
+            //        join ...
+            //        group ...
+            //        orderby a.Date descending
+            //        select a;//return each one from the resulte that predicated true on the filter  
+            // or
+            //        select a.TrainingType.Name
+            // or you can make an aninomys object and return him
+            //        select new { Id= a.Id , Summary = a.TrainingType.Name ....};
+            //
+            if (dateFilter == "today")
+            {
+                aMDMContext.Where(training => training.Date == DateTime.Now.Date);
+            }
+            if (dateFilter == "tomorrow")
+            {
+                aMDMContext.Where(training => training.Date == DateTime.Now.Date.AddDays(1));
+            }
+            if (dateFilter == "week")
+            {
+                aMDMContext.Where(training => (training.Date >= DateTime.Now.Date && training.Date <= DateTime.Now.Date.AddDays(7)));
+            }
 
             var q = from t in aMDMContext
+                    //orderby t.Date 
                     select new { t.Id, t.Studio, t.Trainer, t.TrainingType.Name };
+           
+                    
+            //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK
 
             return Json(await q.ToListAsync());
             

@@ -30,7 +30,59 @@ namespace AMDM.Controllers
         {
             return View(await _context.Trainee.ToListAsync());
         }
-       
+        public async Task<IActionResult> Search(string query/*, string dateFilter*/)
+        {
+            /*var*/
+            IQueryable<Trainee> aMDMContext = _context.Trainee
+                .Where(t =>
+                        query == null
+                        || t.FirstName.Contains(query)
+                        || t.LastName.Contains(query)
+                        || t.PhoneNumber.ToString().Contains(query)
+                        || t.Id.ToString().Contains(query)
+                        || t.Email.Contains(query));
+
+            //LinQ:
+            //Example
+            //var q = from a in _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
+            //        where (query == null
+            //            || a.Trainer.FirstName.Contains(query)
+            //            || a.Trainer.LastName.Contains(query)
+            //            || a.TrainingType.Name.Contains(query))
+            //        join ...
+            //        group ...
+            //        orderby a.Date descending
+            //        select a;//return each one from the resulte that predicated true on the filter  
+            // or
+            //        select a.TrainingType.Name
+            // or you can make an aninomys object and return him
+            //        select new { Id= a.Id , Summary = a.TrainingType.Name ....};
+            //
+            //filter example:
+            //if (dateFilter == "today")
+            //{
+            //    aMDMContext.Where(training => training.Date == DateTime.Now.Date);
+            //}
+            //if (dateFilter == "tomorrow")
+            //{
+            //    aMDMContext.Where(training => training.Date == DateTime.Now.Date.AddDays(1));
+            //}
+            //if (dateFilter == "week")
+            //{
+            //    aMDMContext.Where(training => (training.Date >= DateTime.Now.Date && training.Date <= DateTime.Now.Date.AddDays(7)));
+            //}
+
+            var q = from t in aMDMContext
+                        //orderby t.Date 
+                    select new { t.Id, t.FirstName, t.LastName, t.Email, t.PhoneNumber };
+
+
+            //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK
+
+            return Json(await q.ToListAsync());
+
+        }
+
         // GET: Trainees/Details/5
         public async Task<IActionResult> Details(string id)
         {

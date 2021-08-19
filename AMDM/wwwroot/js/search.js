@@ -2,8 +2,9 @@
     $('form').submit(function (e) {
         e.preventDefault();
         var query = $('#query').val();
-        var filterDate = $('#dateFilter').val();
-
+        /*var filterDate = $('#dateFilter').val();*/
+        var select = document.getElementById('date-filter');
+        var dateFilter = select.options[select.selectedIndex].value;
 
         // $('tbody').load('/Trainings/Search?query=' + query);
 
@@ -13,7 +14,7 @@
             url: '/Trainings/Search',
             data: {
                 'query': query,
-                'dateFilter': filterDate
+                'dateFilter': dateFilter
             }}).done(function (data) {
 
                     //$('tbody').html('');

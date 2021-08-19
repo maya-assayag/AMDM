@@ -22,11 +22,11 @@
 
 
     <label for="cars">filter by date:</label>
-    <select id="date-filter" name="dateFilter" type="submit" value="Search by dates...">
-        <option name="dateFilter" value="today">Today</option>
-        <option name="dateFilter" value="tomorrow">Tomorrow</option>
-        <option name="dateFilter" value="week">This week</option>
-        <option name="dateFilter" selected="selected" value="all">All Dates</option>
+    <select id="date-filter" name="dateFilter" value="Search by dates...">
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="week">This week</option>
+        <option selected="selected" value="all">All Dates</option>
     </select>
     <input type="submit" value="Search" class="btn btn-primary" />
 </form>
@@ -107,7 +107,7 @@
                             else
                             {
                                 <div>
-                                    <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
+                                    <a name="register" class="register" href="#" training-id="@item.Id" @*onclick="this.disabled = true; this.class='unregister';"*@>Register</a> |
                                 </div>
                             }
                         }

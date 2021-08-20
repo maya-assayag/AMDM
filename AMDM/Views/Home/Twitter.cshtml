@@ -9,9 +9,9 @@
     <title>Index</title>
 </head>
 <body>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    @using (Html.BeginForm("Twitter", "Home", FormMethod.Post))
     {
-        <div class="form-control">
+        <div class="form-control" >
             <label class="label-primary"> Enter Your Tweet </label>@Html.TextBoxFor(m => m.Tweet)<br />
             <input type="submit" value="Submit" />
         </div>

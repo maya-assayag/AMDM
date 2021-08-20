@@ -145,6 +145,7 @@ namespace AMDM.Controllers
             var allTrainings = _context.Training
                 .Include(training => training.Trainees)
                 .Include(training => training.TrainingType)
+                .Where(training => training.Date>=DateTime.Now.Date)
                 .ToList();
 
             IList<BarplotItem> barplotItems = new List<BarplotItem>();

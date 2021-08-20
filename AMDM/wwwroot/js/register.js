@@ -1,7 +1,10 @@
-﻿$(function () {
+﻿
+$(function () {
     $('.register').click(function() {
 
         var trainingId = $(this).attr('training-id');
+        var a = $(this);
+        var registeredMessage = $('.already-registered-message');
 
         var form = $('#__AjaxAntiForgeryForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();
@@ -17,8 +20,11 @@
                 }
 
             }).done(function (data) {
-                console.log(data);
-                alert(data);
+                a.attr('name', 'unregister');
+                a.attr('class', 'unregister');
+                a.text('Unregister');
+                console.log(registeredMessage);
+                registeredMessage.attr('show','yes')
             }).fail(function (error) {
                 console.log(error);
                 alert(error);

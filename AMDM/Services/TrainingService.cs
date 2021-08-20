@@ -18,10 +18,10 @@ namespace AMDM.Services
 
         public async Task Register(int trainingId,string traineeId)
         {
-            var training = _context.Training.FirstOrDefault(t => t.Id == trainingId);
+            var training = _context.Training.Include(t =>t.Trainees).FirstOrDefault(t => t.Id == trainingId);
             if (training != null)
             {
-                var trainee = _context.Trainee.FirstOrDefault(t => t.Id == traineeId);
+                var trainee = _context.Trainee.Include(t => t.Trainings).FirstOrDefault(t => t.Id == traineeId);
                 if (trainee!=null)
                 {
                     if (training.Trainees == null)
@@ -32,10 +32,18 @@ namespace AMDM.Services
                     {
                         trainee.Trainings = new List<Training>();
                     }
-                    trainee.Trainings.Add(training);
-                    training.Trainees.Add(trainee);
+                    if(!training.Trainees.Contains(trainee))
+                        trainee.Trainings.Add(training);
+                    if(!trainee.Trainings.Contains(training))
+                        training.Trainees.Add(trainee);
 
-                    await _context.SaveChangesAsync();
+                    //try
+                    //{
+                        await _context.SaveChangesAsync();
+                    //}
+                    //catch (Exception e) {
+                    //    Console.WriteLine(e.InnerException.ToString());
+                    //}
                 }
                 
             }

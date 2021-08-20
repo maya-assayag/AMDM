@@ -86,30 +86,34 @@
                     </td>
                     <td>
                         @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                        {
+                         {
                             bool flag = false;
                             foreach (var trainee in item.Trainees)
                             {
                                 if (trainee.Id == Context.Session.GetString("Id"))
                                 {
                                     flag = true;
-
+                                    break;
                                 }
-                                break;
+
                             }
                             if (flag)
                             {
                                 <div>
-                                    <p class="text-success">You are already registered for this training</p>
+                                    <p class="text-success already-registered-message" name="already-registered-message" show="no"> 
+                                        already registered to this training
+                                    </p>
                                     <a name="unregister" class="unregister" href="#" training-id="@item.Id">Unregister</a> |
                                 </div>
                             }
                             else
                             {
+                                
                                 <div>
-                                    <a name="register" class="register" href="#" training-id="@item.Id" @*onclick="this.disabled = true; this.class='unregister';"*@>Register</a> |
+                                    <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
                                 </div>
                             }
+
                         }
                         @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                         {

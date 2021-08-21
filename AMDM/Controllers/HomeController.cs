@@ -50,6 +50,10 @@ namespace AMDM.Controllers
 
             return View(twts);
         }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Twitter(Tweets twts)
         {

@@ -91,8 +91,12 @@ namespace AMDM.Controllers
                 return NotFound();
             }
 
-            var trainee = await _context.Trainee
+            Trainee trainee = await _context.Trainee
+                .Include(trainee => trainee.Ticket)
+                .Include(trainee => trainee.Trainings).ThenInclude(training => training.TrainingType)
+                .Include(trainee => trainee.Trainings).ThenInclude(training => training.Trainer)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (trainee == null)
             {
                 return NotFound();

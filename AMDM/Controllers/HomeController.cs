@@ -18,6 +18,7 @@ using System.Text.Json;
 namespace AMDM.Controllers
 {
     [Authorize]
+
     public class HomeController : Controller
     {
         private readonly AMDMContext _context;
@@ -34,6 +35,7 @@ namespace AMDM.Controllers
         {
             return View(await _context.Places.ToListAsync());
         }
+        
         public IActionResult Twitter()
         {
             Tweets twts = new Tweets();

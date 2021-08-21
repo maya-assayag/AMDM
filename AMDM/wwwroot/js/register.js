@@ -1,13 +1,14 @@
 ﻿
 $(function () {
-    $('.register').click(function() {
-
+    $('.register').click(function () {
         var trainingId = $(this).attr('training-id');
         var a = $(this);
-        var registeredMessage = $('.already-registered-message');
+        var p = $('.registered-message-' + trainingId.toString());//.show();
+        
 
         var form = $('#__AjaxAntiForgeryForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();
+
 
             $.ajax({
                 method :'post',
@@ -23,14 +24,11 @@ $(function () {
                 a.attr('name', 'unregister');
                 a.attr('class', 'unregister');
                 a.text('Unregister');
-                console.log(registeredMessage);
-                registeredMessage.attr('show','yes')
+                p.show();
             }).fail(function (error) {
                 console.log(error);
                 alert(error);
             });
     });
-    
-
 
 });

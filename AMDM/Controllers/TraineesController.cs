@@ -127,17 +127,26 @@ namespace AMDM.Controllers
                     u.Email = trainee.Email;
                     u.Password = trainee.Password;
                     u.Type = UserType.Trainee;
-
-                    bool res = await _service.Register(u, HttpContext);
-
-                    if (res == true)
+                    if((trainee.DateOfBirth > DateTime.Now.Date.AddYears(-10)) && (trainee.DateOfBirth < DateTime.Now.Date.AddYears(-120)))
                     {
-                        return RedirectToAction("TraineeIndex", "Home");
-                    }
-                    else
+                       
+                        ViewData["Error"] = "Registration failed, the studio allow to 10-120 ages, please try again";
+                        
+                    } else
                     {
-                        ViewData["Error"] = "Registration failed, please try again";
+                        bool res = await _service.Register(u, HttpContext);
+
+                        if (res == true)
+                        {
+                            return RedirectToAction("TraineeIndex", "Home");
+                        }
+                        else
+                        {
+                            ViewData["Error"] = "Registration failed, please try again";
+                        }
                     }
+
+                    
                 }
                 else
                 {

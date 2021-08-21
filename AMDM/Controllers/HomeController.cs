@@ -29,6 +29,7 @@ namespace AMDM.Controllers
             _context = context;
             _logger = logger;
         }
+        [AllowAnonymous]
         public async Task<IActionResult> LandingPage()
         {
             return View(await _context.Places.ToListAsync());

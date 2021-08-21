@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TrainingTypeId" class="control-label"></label>
-                <select asp-for="TrainingTypeId" class ="form-control" asp-items="ViewBag.TrainingTypeId"></select>
+                <select asp-for="TrainingTypeId" class="form-control" asp-items="ViewBag.TrainingTypeId"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="TrainerId" class="control-label"></label>
-                <select asp-for="TrainerId" class ="form-control" asp-items="ViewBag.TrainerId"></select>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="TrainerId" class="control-label"></label>
+            <select asp-for="TrainerId" class="form-control" asp-items="ViewBag.TrainerId"></select>
+        </div>*@
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
@@ -40,6 +40,10 @@
                 <input asp-for="MaxRegisterTrainees" class="form-control" />
                 <span asp-validation-for="MaxRegisterTrainees" class="text-danger"></span>
             </div>
+            @if (ViewBag.Error != null)
+            {
+                <div class="text-danger">@ViewBag.Error </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

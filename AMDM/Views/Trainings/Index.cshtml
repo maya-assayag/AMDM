@@ -85,36 +85,48 @@
                         @Html.DisplayFor(modelItem => item.TotalTraineesLeft)
                     </td>
                     <td>
-                        @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                         {
-                            bool flag = false;
-                            foreach (var trainee in item.Trainees)
-                            {
-                                if (trainee.Id == Context.Session.GetString("Id"))
+                        <div class="registration-rap" training-id-rap="@item.Id">
+                                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                                 {
-                                    flag = true;
-                                    break;
-                                }
+                                    bool flag = false;
+                                    foreach (var trainee in item.Trainees)
+                                    {
+                                        if (trainee.Id == Context.Session.GetString("Id"))
+                                        {
+                                            flag = true;
+                                            break;
+                                        }
 
-                            }
-                            if (flag)
-                            {
-                                <div>
-                                    <p class="text-success already-registered-message" name="already-registered-message" show="no"> 
+                                    }
+                                <div class="registration" registration-flag="@flag.ToString()">
+                                    <p class="text-success already-registered-message already-registered-message-@item.Id" style="display: none;">
                                         already registered to this training
                                     </p>
-                                    <a name="unregister" class="unregister" href="#" training-id="@item.Id">Unregister</a> |
+                                    <a name="" class="display-registration display-registration-@item.Id" href="#" training-id="@item.Id"></a> |
                                 </div>
-                            }
-                            else
-                            {
-                                
-                                <div>
-                                    <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
-                                </div>
-                            }
-
+                                            @*if (flag)
+                        {
+                            <div>
+                                <p class="text-success already-registered-message-@item.Id">
+                                    already registered to this training
+                                </p>
+                                <a name="unregister" class="unregister" href="#" training-id="@item.Id">Unregister</a> |
+                            </div>
                         }
+                        else
+                        {
+
+                            <div>
+                                <p class="text-success already-registered-message-register registered-message-@item.Id">
+                                    already registered to this training
+                                </p>
+                                <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
+                            </div>
+                        }*@
+
+
+                         }
+                        </div>
                         @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                         {
                             <div>
@@ -138,6 +150,7 @@
 
 @section Scripts
 {
+    <script src="~/js/training-registration.js"></script>
     <script src="~/js/register.js"></script>
     <script src="~/js/unregister.js"></script>
     <script src="~/js/search.js"></script>

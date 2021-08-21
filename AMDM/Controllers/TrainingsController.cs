@@ -111,6 +111,7 @@ namespace AMDM.Controllers
         {
             ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
             ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name");
+            //var training = _context.Training.Include(training => training.Trainer);
             return View();
         }
 
@@ -119,13 +120,22 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TrainingTypeId,TrainerId,Date,Time,Studio,MaxRegisterTrainees")] Training training)
+        public async Task<IActionResult> Create([Bind("Id,TrainingTypeId,Date,Time,Studio,MaxRegisterTrainees")] Training training)
         {
+            training.TrainerId = HttpContext.Session.GetString("Id");
             if (ModelState.IsValid)
             {
-                _context.Add(training);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if(training.Date<DateTime.Now.Date ||(training.Date==DateTime.Now.Date && training.Time<DateTime.Now))
+                {
+                    ViewData["Error"] = "Failed to create training, The date and time of the training can't be in the past!, please try again";
+                }
+                else
+                {
+                    _context.Add(training);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                
             }
             ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);

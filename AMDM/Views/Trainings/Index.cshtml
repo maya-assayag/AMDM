@@ -60,7 +60,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Date > DateTime.Now.Date)
+            if (item.Date > DateTime.Now.Date && item.TotalTraineesLeft>0)
             {
                 <tr>
                     <td>

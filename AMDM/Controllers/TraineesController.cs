@@ -120,24 +120,24 @@ namespace AMDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                var t = _context.Trainee.FirstOrDefault(t =>
-                   t.Id == trainee.Id);
-                if (t == null)
+                if ((trainee.DateOfBirth > DateTime.Now.Date.AddYears(-10)) || (trainee.DateOfBirth < DateTime.Now.Date.AddYears(-120)))
                 {
-                    _context.Add(trainee);
-                    //trainee.Ticket = new Ticket();
-                    await _context.SaveChangesAsync();
-                    User u = new User();
-                    u.Email = trainee.Email;
-                    u.Password = trainee.Password;
-                    u.Type = UserType.Trainee;
-                    if((trainee.DateOfBirth > DateTime.Now.Date.AddYears(-10)) && (trainee.DateOfBirth < DateTime.Now.Date.AddYears(-120)))
+                    ViewData["Error"] = "Registration failed, the studio allow to 10-120 ages, please try again";
+                }
+                else
+                {
+                    var t = _context.Trainee.FirstOrDefault(t =>
+                   t.Id == trainee.Id);
+                    if (t == null)
                     {
-                       
-                        ViewData["Error"] = "Registration failed, the studio allow to 10-120 ages, please try again";
-                        
-                    } else
-                    {
+                        _context.Add(trainee);
+                        //trainee.Ticket = new Ticket();
+                        await _context.SaveChangesAsync();
+                        User u = new User();
+                        u.Email = trainee.Email;
+                        u.Password = trainee.Password;
+                        u.Type = UserType.Trainee;
+
                         bool res = await _service.Register(u, HttpContext);
 
                         if (res == true)
@@ -149,23 +149,18 @@ namespace AMDM.Controllers
                             ViewData["Error"] = "Registration failed, please try again";
                         }
                     }
-
-                    
+                    else
+                    {
+                        ViewData["Error"] = "This user already exists in the system";
+                    }
                 }
-                else
-                {
-                   ViewData["Error"] = "This user already exists in the system";
-                   
-                }
-
-                return View(trainee);
             }
             else
             {
                 ViewData["Error"] = "!!!!This user already exists in the system";
                 return RedirectToAction("Login", "User");
             }
-            //return View(trainee);
+            return View(trainee);
         }
 
         // GET: Trainees/Edit/5

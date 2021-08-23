@@ -116,27 +116,32 @@ namespace AMDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User();
-                user.Email = trainer.Email;
-                user.Password = trainer.Password;
-                user.Type = UserType.Trainer;
-
-                var res= await _service.Register(user, HttpContext);
-                if(res==true)
+                if ((trainer.DateOfBirth > DateTime.Now.Date.AddYears(-16)) || (trainer.DateOfBirth < DateTime.Now.Date.AddYears(-70)))
                 {
-                    _context.Add(trainer);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    ViewData["Error"] = "failed to create training, trainer must be 16-70 years old";
                 }
                 else
                 {
-                
-                    ViewData["Error"] = "This user/trainer already exists in the system";
+                    User user = new User();
+                    user.Email = trainer.Email;
+                    user.Password = trainer.Password;
+                    user.Type = UserType.Trainer;
 
-                    return View(trainer);
+                    var res = await _service.Register(user, HttpContext);
+                    if (res == true)
+                    {
+                        _context.Add(trainer);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ViewData["Error"] = "This user/trainer already exists in the system";
+                        //return View(trainer);
+                    }
+
                 }
-                
-                
+
             }
             return View(trainer);
         }

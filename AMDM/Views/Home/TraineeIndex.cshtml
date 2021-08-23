@@ -27,11 +27,11 @@
         <div class="card display-4">
             <div class="card-body">
 
-                @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                @*@if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                 {
                     <h5 class="card-title">Add training</h5>
                     <a asp-controller="Trainings" asp-action="Create">+</a>
-                }
+                }*@
                 @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                 {
                     if (Model.Ticket != null)
@@ -100,5 +100,5 @@
 
 @section Scripts
 {
-    <script src="~/js/unregister.js"></script>
+    <script src="~/js/training-registration.js"></script>
 }

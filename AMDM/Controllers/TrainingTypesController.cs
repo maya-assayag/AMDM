@@ -24,6 +24,15 @@ namespace AMDM.Controllers
         {
             return View(await _context.TrainingType.ToListAsync());
         }
+        public async Task<IActionResult> GetAllTrainingTypes()
+        {
+            var allTypes=_context.TrainingType;
+            var q = from t in allTypes
+                        //orderby t.Date 
+                    select new { t.Name };
+            
+            return Json(await q.ToListAsync());
+        }
 
         // GET: TrainingTypes/Details/5
         public async Task<IActionResult> Details(int? id)

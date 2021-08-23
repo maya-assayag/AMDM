@@ -1,12 +1,63 @@
 ﻿$(function () {
-    $('form').submit(function (e) {
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/TrainingTypes/GetAllTrainingTypes',
+        }).done(function (data) {
+            //$('#type-filter').html('');
+            
+
+            var template = $('#hidden-template-trainings-types-filter').html();
+            
+            $.each(data, function (i, val) {
+
+                var temp = template;
+
+                $.each(val, function (key, value) {
+                    temp = temp.replaceAll('{' + key + '}', value);
+                });
+
+                $('#type-filter').append(temp);
+
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Trainers/GetAllTrainersNames',
+        }).done(function (data) {
+            //$('#type-filter').html('');
+
+            console.log(data);
+            var template = $('#hidden-template-trainers-names-filter').html();
+
+            $.each(data, function (i, val) {
+
+                var temp = template;
+
+                $.each(val, function (key, value) {
+                    temp = temp.replaceAll('{' + key + '}', value);
+                });
+
+                $('#trainer-filter').append(temp);
+
+            });
+        });
+    });
+
+    $('form').on('submit',function (e) {
         e.preventDefault();
         var query = $('#query').val();
-        /*var filterDate = $('#dateFilter').val();*/
-        var select = document.getElementById('date-filter');
-        var dateFilter = select.options[select.selectedIndex].value;
+       
+        var selectDate = document.getElementById('date-filter');
+        var dateFilter = selectDate.options[selectDate.selectedIndex].value;
 
-        // $('tbody').load('/Trainings/Search?query=' + query);
+        var selectType = document.getElementById('type-filter');
+        var typeFilter = selectType.options[selectType.selectedIndex].value;
+
+        var selectTrainer = document.getElementById('trainer-filter');
+        var trainerFilter = selectTrainer.options[selectTrainer.selectedIndex].value;
 
 
         $.ajax({
@@ -14,9 +65,12 @@
             url: '/Trainings/Search',
             data: {
                 'query': query,
-                'dateFilter': dateFilter
-            }}).done(function (data) {
-
+                'dateFilter': dateFilter,
+                'typeFilter': typeFilter,
+                'trainerFilter': trainerFilter
+            }
+        }).done(function (data) {
+            
                     //$('tbody').html('');
                     //for (var i = 0; i < data.length; i++)
                     //{
@@ -26,7 +80,7 @@
 
                     $('tbody').html('');
 
-                    var template = $('#hidden-template').html();
+                    var template = $('#hidden-template-search-resulte').html();
 
                     $.each(data, function (i, val) {
 

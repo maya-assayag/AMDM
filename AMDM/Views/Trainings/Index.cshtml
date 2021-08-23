@@ -26,7 +26,17 @@
         <option value="today">Today</option>
         <option value="tomorrow">Tomorrow</option>
         <option value="week">This week</option>
-        <option selected="selected" value="all">All Dates</option>
+        <option selected="selected" value="all">All dates</option>
+    </select>
+    <label>filter by training type:</label>
+    <select id="type-filter" name="typeFilter" value="Search by trainings types...">
+        <option selected="selected" value="all">All trainings types</option>
+
+    </select>
+    <label>filter by trainer name:</label>
+    <select id="trainer-filter" name="trainerFilter" value="Search by trainer name...">
+        <option selected="selected" value="all">All trainers</option>
+
     </select>
     <input type="submit" value="Search" class="btn btn-primary" />
 </form>
@@ -104,25 +114,7 @@
                                     </p>
                                     <a name="" class="display-registration display-registration-@item.Id" href="#" training-id="@item.Id"></a> |
                                 </div>
-                                            @*if (flag)
-                        {
-                            <div>
-                                <p class="text-success already-registered-message-@item.Id">
-                                    already registered to this training
-                                </p>
-                                <a name="unregister" class="unregister" href="#" training-id="@item.Id">Unregister</a> |
-                            </div>
-                        }
-                        else
-                        {
-
-                            <div>
-                                <p class="text-success already-registered-message-register registered-message-@item.Id">
-                                    already registered to this training
-                                </p>
-                                <a name="register" class="register" href="#" training-id="@item.Id">Register</a> |
-                            </div>
-                        }*@
+                                          
 
 
                          }
@@ -156,13 +148,13 @@
     <script src="~/js/search.js"></script>
 
 
-    <script type="text/html" id="hidden-template">
+    <script type="text/html" id="hidden-template-search-resulte">
         <tr>
             <td>
                 {name}
             </td>
             <td>
-                {trainer.id}
+                {firstName}
             </td>
             <td>
                 {date}
@@ -177,11 +169,17 @@
                 {maxRegisterTrainees}
             </td>
             <td>
-                <a href="/Trainings/Register/{id}">Register</a> |
-                <a href="/Trainings/Edit/{id}">Edit</a> |
-                <a href="/Trainings/Details/{id}">Details</a> |
+                {totalTraineesLeft}
+            </td>
+            <td>
                 <a href="/Trainings/Delete/{id}">Delete</a>
             </td>
         </tr>
+    </script>
+    <script type="text/html" id="hidden-template-trainings-types-filter">
+        <option value="{name}">{name}</option>
+    </script>
+    <script type="text/html" id="hidden-template-trainers-names-filter">
+        <option value="{firstName}">{firstName}</option>
     </script>
 }

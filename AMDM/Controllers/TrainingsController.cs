@@ -35,16 +35,27 @@ namespace AMDM.Controllers
             
             return View(await aMDMContext.ToListAsync());
         }
-        public async Task<IActionResult> Search(string query ,string dateFilter)
+        public async Task<IActionResult> Search(string query, string dateFilter, string typeFilter, string trainerFilter)
         {
             /*var*/
-            IQueryable<Training> aMDMContext = _context.Training.Include(t => t.Trainer).Include(t => t.TrainingType)
+            IQueryable<Training> aMDMContext = _context.Training
+                .Include(t => t.Trainer)
+                .Include(t => t.TrainingType)
+                .Include(t=> t.Trainees)
                 .Where(t=>
                         t.Date>= DateTime.Now.Date
                         && (query == null
                         || t.Trainer.FirstName.Contains(query) 
                         || t.Trainer.LastName.Contains(query) 
                         || t.TrainingType.Name.Contains(query)));
+            if (typeFilter != null && !typeFilter.Equals("all"))
+            {
+                aMDMContext = aMDMContext.Where(t => t.TrainingType.Name.Equals(typeFilter));
+            }
+            if (trainerFilter != null && !trainerFilter.Equals("all"))
+            {
+                aMDMContext = aMDMContext.Where(t => t.Trainer.FirstName.Equals(trainerFilter));
+            }
 
             //LinQ:
             //Example
@@ -74,10 +85,9 @@ namespace AMDM.Controllers
             {
                 aMDMContext.Where(training => (training.Date >= DateTime.Now.Date && training.Date <= DateTime.Now.Date.AddDays(7)));
             }
-
             var q = from t in aMDMContext
                     //orderby t.Date 
-                    select new { t.Id, t.Studio, t.Trainer, t.TrainingType.Name };
+                    select new { t.TrainingType.Name, t.Trainer.FirstName, t.Date, t.Time, t.Studio, t.MaxRegisterTrainees, t.TotalTraineesLeft };
            
                     
             //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK

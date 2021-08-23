@@ -12,7 +12,7 @@ using AMDM.Services;
 
 namespace AMDM.Controllers
 {
-    [Authorize(Roles ="Admin,Trainer")]
+    //[Authorize(Roles ="Admin,Trainer")]
 
     public class TrainersController : Controller
     {
@@ -29,6 +29,16 @@ namespace AMDM.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Trainer.ToListAsync());
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllTrainersNames()
+        {
+            var allTrainersNames =_context.Trainer;
+            var q = from t in allTrainersNames
+                        //orderby t.Date 
+                    select new { t.FirstName };
+
+            return Json(await q.ToListAsync());
         }
         public async Task<IActionResult> Search(string query/*, string dateFilter*/)
         {

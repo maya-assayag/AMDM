@@ -35,7 +35,9 @@ namespace AMDM.Controllers
         {
             return View(await _context.Places.ToListAsync());
         }
-        
+
+
+        [Authorize(Roles = "Admin,Trainer")]
         public IActionResult Twitter()
         {
             Tweets twts = new Tweets();

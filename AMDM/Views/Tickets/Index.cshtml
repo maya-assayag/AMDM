@@ -67,10 +67,10 @@
                     @Html.DisplayFor(modelItem => item.RemainingPunchingHoles)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    @Html.DisplayFor(modelItem => item.PurchaseDate.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExpiredDate)
+                    @Html.DisplayFor(modelItem => item.ExpiredDate.Date)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

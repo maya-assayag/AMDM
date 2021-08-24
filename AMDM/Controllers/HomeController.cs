@@ -50,9 +50,12 @@ namespace AMDM.Controllers
             service.AuthenticateWith(token, tokenSecret);
             twts.AllTweets = (List<TwitterStatus>)service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
             {
-                ScreenName = "AmdmGym",
+                ScreenName = "AmdmGym"
             });
-
+            foreach(TwitterStatus tweet in twts.AllTweets)
+            {
+                tweet.CreatedDate=tweet.CreatedDate.AddHours(DateTimeOffset.Now.Offset.TotalHours);
+            }
             return View(twts);
         }
         public IActionResult Privacy()
@@ -82,10 +85,12 @@ namespace AMDM.Controllers
             service.AuthenticateWith(token, tokenSecret);
             twts.AllTweets = (List<TwitterStatus>)service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
             {
-                ScreenName = "AmdmGym",
+                ScreenName = "AmdmGym"
             });
-            _context.SaveChangesAsync();
-
+            foreach (TwitterStatus tweet in twts.AllTweets)
+            {
+                tweet.CreatedDate=tweet.CreatedDate.AddHours(DateTimeOffset.Now.Offset.TotalHours);
+            }
 
             service.SendTweet(new SendTweetOptions
             {

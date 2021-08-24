@@ -51,9 +51,9 @@
                                     <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
                                     <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                                     <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
-                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <a asp-controller="Trainings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
+                                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
+                                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
 
     </div>
 
-    <a asp-controller="Home" asp-action="Index">Post a tweet</a>
+    <a asp-controller="Home" asp-action="Twitter">Post a tweet</a>
 
 </div>
 @section Scripts

@@ -126,9 +126,11 @@ namespace AMDM.Controllers
                 }
                 else
                 {
-                    var t = _context.Trainee.FirstOrDefault(t =>
-                   t.Id == trainee.Id);
-                    if (t == null)
+                   var t = _context.Trainee.FirstOrDefault(t =>
+                   t.Id==trainee.Id);
+                   var t2 = _context.Trainee.FirstOrDefault(t =>
+                   t.Email.Equals(trainee.Email));
+                    if (t == null && t2==null)
                     {
                         _context.Add(trainee);
                         //trainee.Ticket = new Ticket();

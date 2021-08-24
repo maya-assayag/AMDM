@@ -140,7 +140,12 @@ namespace AMDM.Controllers
                     user.Type = UserType.Trainer;
 
                     var res = await _service.Register(user, HttpContext);
-                    if (res == true)
+
+                    var t = _context.Trainer.FirstOrDefault(t =>
+                    t.Id == trainer.Id);
+                    var t2 = _context.Trainer.FirstOrDefault(t =>
+                    t.Email.Equals(trainer.Email));
+                    if (res == true && t == null && t2 == null)
                     {
                         _context.Add(trainer);
                         await _context.SaveChangesAsync();

@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('.form-control').submit(function () {
+    $('#tweet-submit').submit(function () {
 
         $('#all-tweets').load();
     });

@@ -4,29 +4,33 @@
 }
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-    <body>
-        @using (Html.BeginForm("Twitter", "Home", FormMethod.Post))
-        {
-            <div class="form-control" >
-                <label class="label-primary"> Enter Your Tweet </label>@Html.TextBoxFor(m => m.Tweet)<br />
-                <input type="submit" value="Submit" />
-            </div>
-        }
-
-        <h1>AMDM Tweets:</h1>
-        <div id="all-tweets">
-
-            @foreach (TweetSharp.TwitterStatus twitt in Model.AllTweets)
-            {
-                @Html.DisplayFor(modelItem => twitt.CreatedDate)
-                <label>&emsp;</label>
-                @Html.DisplayFor(modelItem => twitt.Text)
-                <br />
-            }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Twitter", "Home", FormMethod.Post))
+    {
+        <div class="form-control">
+            <label class="label-primary"> Enter Your Tweet </label>@Html.TextBoxFor(m => m.Tweet)<br />
+            <input type="submit" value="Submit" />
         </div>
-    </body>
+    }
+
+    <h1>AMDM Tweets:</h1>
+    <div id="all-tweets">
+
+        @foreach (TweetSharp.TwitterStatus twitt in Model.AllTweets)
+        {
+            @Html.DisplayFor(modelItem => twitt.CreatedDate)
+            <label>&emsp;</label>
+            @Html.DisplayFor(modelItem => twitt.Text)
+            <br />
+        }
+    </div>
+</body>
 </html>
+@section Scripts
+{
+    <script src="~/js/twitter.js"></script>
+}

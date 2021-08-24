@@ -82,6 +82,7 @@
                             <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
                             <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                             <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
+                            <a name="unregister" class="unregister card-link btn btn-danger" href="#" training-id="@item.Id">Unregister</a>
                         </div>
                     </div>
                 }

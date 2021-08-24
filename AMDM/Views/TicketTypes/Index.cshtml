@@ -47,9 +47,16 @@
                         <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>
                     }
                     |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                    {
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action = "Delete" asp-route-id="@item.Id"> Delete </a>|
+                        </div>
+                    }
+
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+
                 </td>
             </tr>
         }

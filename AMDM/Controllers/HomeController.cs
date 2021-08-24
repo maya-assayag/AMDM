@@ -62,6 +62,16 @@ namespace AMDM.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> GetAllTweets()
+        {
+            var allTweets = new Tweets();
+
+            //var q = from t in allTypes
+            //            //orderby t.Date 
+            //        select new { t.Name };
+
+            return Json(allTweets);
+        }
         [HttpPost]
         public ActionResult Twitter(Tweets twts)
         {

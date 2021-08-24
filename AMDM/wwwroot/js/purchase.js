@@ -18,8 +18,8 @@
                 }
 
             }).done(function (data) {
-                console.log(data);
-                alert(data);
+                
+               
             }).fail(function (error) {
                 console.log(error);
                 alert(error);

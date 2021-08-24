@@ -8,6 +8,30 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search">
+
+    <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
+
+
+    @*<label for="cars">filter by date:</label>
+    <select id="date-filter" name="dateFilter" value="Search by dates...">
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="week">This week</option>
+        <option selected="selected" value="all">All dates</option>
+    </select>
+    <label>filter by training type:</label>
+    <select id="type-filter" name="typeFilter" value="Search by trainings types...">
+        <option selected="selected" value="all">All trainings types</option>
+
+    </select>
+    <label>filter by trainer name:</label>
+    <select id="trainer-filter" name="trainerFilter" value="Search by trainer name...">
+        <option selected="selected" value="all">All trainers</option>
+
+    </select>*@
+    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
 <table class="table">
     <thead>
         <tr>

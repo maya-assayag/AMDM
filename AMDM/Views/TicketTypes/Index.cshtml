@@ -13,7 +13,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search">
+
+    <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
+    <input type="submit" value="Search" class="btn btn-primary" />
+</form>
 <table class="table">
+
     <thead>
         <tr>
             <th>
@@ -44,18 +50,19 @@
                 <td>
                     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                     {
-                        <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>
+                        <div>
+                            <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>|
+                        </div>
                     }
-                    |
                     @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
                     {
                         <div>
                             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action = "Delete" asp-route-id="@item.Id"> Delete </a>|
+                            <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>|
                         </div>
                     }
 
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
 
                 </td>
             </tr>
@@ -65,4 +72,23 @@
 @section Scripts
 {
     <script src="~/js/purchase.js"></script>
+    <script src="~/js/ticket-type-search.js"></script>
+    <script type="text/html" id="hidden-template-search-resulte">
+        <tr>
+            <td>
+                {name}
+            </td>
+            <td>
+                {price}
+            </td>
+            <td>
+                {punchingHolesNumber}
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="{id}">Edit</a> |
+                <a asp-action="Details" asp-route-id="{id}">Details</a> |
+                <a asp-action="Delete" asp-route-id="{id}">Delete</a>
+            </td>
+        </tr>
+    </script>
 }

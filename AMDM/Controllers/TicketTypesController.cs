@@ -23,6 +23,22 @@ namespace AMDM.Controllers
         }
 
         // GET: TicketTypes
+        public async Task<IActionResult> Search(string query)
+        {
+            /*var*/
+            IQueryable<TicketType> aMDMContext = _context.TicketType
+                .Where(t => query == null
+                        || t.Name.Contains(query)
+                        || t.Price.ToString().Contains(query)
+                        || t.PunchingHolesNumber.ToString().Contains(query));
+
+            var q = from t in aMDMContext
+                    select new { t.Name, t.Price, t.PunchingHolesNumber };
+
+
+            return Json(await q.ToListAsync());
+
+        }
         public async Task<IActionResult> Index()
         {
             return View(await _context.TicketType.ToListAsync());

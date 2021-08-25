@@ -126,11 +126,11 @@ namespace AMDM.Controllers
                 }
                 else
                 {
-                   var t = _context.Trainee.FirstOrDefault(t =>
-                   t.Id==trainee.Id);
-                   var t2 = _context.Trainee.FirstOrDefault(t =>
-                   t.Email.Equals(trainee.Email));
-                    if (t == null && t2==null)
+                   var t = _context.Trainee.FirstOrDefault(t =>t.Id==trainee.Id);
+                   var t2 = _context.User.FirstOrDefault(t =>t.Email.Equals(trainee.Email));
+                   var t3 = _context.Trainer.FirstOrDefault(t => t.Id == trainee.Id);
+
+                    if (t == null && t2==null && t3 == null)
                     {
                         _context.Add(trainee);
                         //trainee.Ticket = new Ticket();
@@ -195,23 +195,41 @@ namespace AMDM.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if ((trainee.DateOfBirth > DateTime.Now.Date.AddYears(-10)) || (trainee.DateOfBirth < DateTime.Now.Date.AddYears(-120)))
                 {
-                    _context.Update(trainee);
-                    await _context.SaveChangesAsync();
+                    ViewData["Error"] = "Registration failed, the studio allow to 10-120 ages, please try again";
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!TraineeExists(trainee.Id))
+                    Trainee t = _context.Trainee.FirstOrDefault(t =>t.Email.Equals(trainee.Email) && ! (t.Id.Equals(id)));
+                    Trainer t2= _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainee.Email));
+                    if (t == null && t2==null)
                     {
-                        return NotFound();
+                        try
+                        {
+                            _context.Update(trainee);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!TraineeExists(trainee.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
+
                     }
                     else
                     {
-                        throw;
+                        ViewData["Error"] = "This email address is already exists in the system";
                     }
+
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(trainee);
         }

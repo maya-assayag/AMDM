@@ -123,18 +123,18 @@ namespace AMDM.Controllers
         }
 
 
-                // POST: Users/Login
-                // To protect from overposting attacks, enable the specific properties you want to bind to.
-                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Email,Password")] User user_)
+        // POST: Users/Login
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([Bind("Email,Password")] User user_)
         {
             if (ModelState.IsValid)
             {
-                var user = _context.User.FirstOrDefault(u => 
-                    u.Email == user_.Email && u.Password== user_.Password);
-                if(user != null)
+                var user = _context.User.FirstOrDefault(u =>
+                    u.Email == user_.Email && u.Password == user_.Password);
+                if (user != null)
                 {
                     if (user.Type == UserType.Trainee)
                     {
@@ -177,8 +177,12 @@ namespace AMDM.Controllers
 
                     }
                 }
-                
-               
+                else
+                {
+                    ViewData["Error"] = "Email and/or password are incorrect";
+                }
+
+
             }
             return View(user_);
         }

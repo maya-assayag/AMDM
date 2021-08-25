@@ -12,24 +12,25 @@
 
     <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
 
+    <label>filter by trainee id:</label>
+    <input name="trainee-id-query" id="trainee-id-query" autocomplete="off" placeholder="Search by trainee id..." />
 
-    @*<label for="cars">filter by date:</label>
-    <select id="date-filter" name="dateFilter" value="Search by dates...">
+    <label>filter by purchase dates:</label>
+    <select id="purchase-date-filter" name="purchaseDateFilter" value="Search by purchase dates...">
         <option value="today">Today</option>
         <option value="tomorrow">Tomorrow</option>
         <option value="week">This week</option>
         <option selected="selected" value="all">All dates</option>
     </select>
-    <label>filter by training type:</label>
-    <select id="type-filter" name="typeFilter" value="Search by trainings types...">
-        <option selected="selected" value="all">All trainings types</option>
 
+    <label>filter by expired dates:</label>
+    <select id="expired-date-filter" name="expiredDateFilter" value="Search by expired dates...">
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="week">This week</option>
+        <option selected="selected" value="all">All dates</option>
     </select>
-    <label>filter by trainer name:</label>
-    <select id="trainer-filter" name="trainerFilter" value="Search by trainer name...">
-        <option selected="selected" value="all">All trainers</option>
 
-    </select>*@
     <input type="submit" value="Search" class="btn btn-primary" />
 </form>
 <table class="table">
@@ -37,6 +38,12 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TicketType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trainee.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trainee)
@@ -56,28 +63,77 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketType.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Trainee.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RemainingPunchingHoles)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PurchaseDate.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpiredDate.Date)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trainee.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trainee.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemainingPunchingHoles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiredDate.Date)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
+
+@section Scripts
+{
+    <script src="~/js/ticket-search.js"></script>
+
+
+    <script type="text/html" id="hidden-template-search-resulte">
+        <tr>
+            <td>
+                {name}
+            </td>
+            <td>
+                {id}
+            </td>
+            <td>
+                {firstName}
+            </td>
+            <td>
+                {item}
+            </td>
+            <td>
+                {purchaseDate}
+            </td>
+            <td>
+                {expiredDate}
+            </td>
+            <td>
+                {remainingPunchingHoles}
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="{id}">Edit</a> |
+                <a asp-action="Details" asp-route-id="{id}">Details</a> |
+                <a asp-action="Delete" asp-route-id="{id}">Delete</a>
+            </td>
+        </tr>
+    </script>
+    @*<script type="text/html" id="hidden-template-trainings-types-filter">
+        <option value="{name}">{name}</option>
+    </script>
+    <script type="text/html" id="hidden-template-trainers-names-filter">
+        <option value="{firstName}">{firstName}</option>
+    </script>*@
+}

@@ -262,16 +262,29 @@ namespace AMDM.Controllers
             if (ModelState.IsValid)
             {
                 var Id = HttpContext.Session.GetString("Id");
-                await Task.Run(() => _service.Register(trainingID, Id));
-                return Ok();
+
+                Ticket ticket = _context.Ticket.FirstOrDefault(t => t.TraineeId.Equals(Id));
+                DateTime ticketExpirationDate = ticket.ExpiredDate;
+                Training training = _context.Training.FirstOrDefault(t => t.Id==trainingID);
+
+                if (DateTime.Compare(training.Date,ticketExpirationDate)>0)
+                {
+                    //ViewData["Error"] = "Registration failed, your tiket's expiration date is before the trining date";
+                }
+                else
+                {
+                    await Task.Run(() => _service.Register(trainingID, Id));
+                    return Ok();
+                }
                 //return View(training);
                 //return View(await _context.Training.Include(Trainee).)?????
             }
             return BadRequest(new { Error = "model is not valid" });
 
+
             //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
-            
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

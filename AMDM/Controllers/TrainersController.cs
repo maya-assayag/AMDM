@@ -130,31 +130,37 @@ namespace AMDM.Controllers
             {
                 if ((trainer.DateOfBirth > DateTime.Now.Date.AddYears(-16)) || (trainer.DateOfBirth < DateTime.Now.Date.AddYears(-70)))
                 {
-                    ViewData["Error"] = "failed to create training, trainer must be 16-70 years old";
+                    ViewData["Error"] = "failed to create trainer, trainer must be 16-70 years old";
                 }
                 else
                 {
-                    User user = new User();
-                    user.Email = trainer.Email;
-                    user.Password = trainer.Password;
-                    user.Type = UserType.Trainer;
+                    var t = _context.Trainer.FirstOrDefault(t =>t.Id == trainer.Id);
+                    var t2 = _context.User.FirstOrDefault(t =>t.Email.Equals(trainer.Email));
+                    var t3 = _context.Trainee.FirstOrDefault(t => t.Id == trainer.Id);
 
-                    var res = await _service.Register(user, HttpContext);
 
-                    var t = _context.Trainer.FirstOrDefault(t =>
-                    t.Id == trainer.Id);
-                    var t2 = _context.Trainer.FirstOrDefault(t =>
-                    t.Email.Equals(trainer.Email));
-                    if (res == true && t == null && t2 == null)
+                    if (t == null && t2 == null && t3==null)
                     {
-                        _context.Add(trainer);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        User user = new User();
+                        user.Email = trainer.Email;
+                        user.Password = trainer.Password;
+                        user.Type = UserType.Trainer;
+
+                        var res = await _service.Register(user, HttpContext);
+                        if (res == true)
+                        {
+                            _context.Add(trainer);
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            ViewData["Error"] = "This user/trainer already exists in the system";
+                        }
                     }
                     else
                     {
                         ViewData["Error"] = "This user/trainer already exists in the system";
-                        //return View(trainer);
                     }
 
                 }
@@ -193,23 +199,40 @@ namespace AMDM.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                if ((trainer.DateOfBirth > DateTime.Now.Date.AddYears(-16)) || (trainer.DateOfBirth < DateTime.Now.Date.AddYears(-70)))
                 {
-                    _context.Update(trainer);
-                    await _context.SaveChangesAsync();
+                    ViewData["Error"] = "failed to create trainer, trainer must be 16-70 years old";
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!TrainerExists(trainer.Id))
+                    var t = _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainer.Email) && !(t.Id.Equals(id)));
+                    var t2 = _context.Trainee.FirstOrDefault(t => t.Email.Equals(trainer.Email));
+
+                    if (t == null && t2==null)
                     {
-                        return NotFound();
+                        try
+                        {
+                            _context.Update(trainer);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!TrainerExists(trainer.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {
-                        throw;
+                        ViewData["Error"] = "This email address is already exists in the system";
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(trainer);
         }

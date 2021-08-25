@@ -278,9 +278,10 @@ namespace AMDM.Controllers
             }
             return BadRequest(new { Error = "model is not valid" });
 
+
             //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
-            
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

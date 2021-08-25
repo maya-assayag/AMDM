@@ -21,7 +21,8 @@ namespace AMDM.Services
         public async Task Register(int trainingId,string traineeId)
         {
             var ticket = _context.Ticket.FirstOrDefault(ticket => ticket.TraineeId == traineeId);
-            if(ticket!= null)
+            
+            if (ticket!= null)
             {
                 if(ticket.RemainingPunchingHoles>0)
                 {
@@ -30,14 +31,18 @@ namespace AMDM.Services
                 else
                 {
                     
-                    throw new InvalidOperationException("You have no punches left in the ticket");
+                    throw new Exception("You have no punches left in the ticket");
                 }
             }
             else
             {
-                throw new InvalidOperationException("You have no ticket");
+                throw new Exception("You have no ticket");
             }
             var training = _context.Training.Include(t =>t.Trainees).FirstOrDefault(t => t.Id == trainingId);
+            if (DateTime.Compare(training.Date, ticket.ExpiredDate) > 0)
+            {
+                throw new Exception("Registration failed, your tiket's expiration date is before the trining date");
+            }
             if (training != null)
             {
                 var trainee = _context.Trainee.Include(t => t.Trainings).FirstOrDefault(t => t.Id == traineeId);
@@ -71,6 +76,25 @@ namespace AMDM.Services
         }
         public async Task Unregister(int trainingId, string traineeId)
         {
+            var ticket = _context.Ticket.Include(t=> t.TicketType).FirstOrDefault(ticket => ticket.TraineeId == traineeId);
+           
+
+            if (ticket != null)
+            {
+                int temp = ticket.RemainingPunchingHoles + 1;
+                if (ticket.TicketType.PunchingHolesNumber >= temp)
+                {
+                    ++ticket.RemainingPunchingHoles;
+                }
+                else
+                {
+                    throw new Exception("You can not get a punch credit from a previous ticket");
+                }
+            }
+            else
+            {
+                throw new Exception("You have no valid ticket, So you can not get a punch credit from a previous ticket");
+            }
             var training = _context.Training.Include(training => training.Trainees).FirstOrDefault(t => t.Id == trainingId);
             if (training != null)
             {

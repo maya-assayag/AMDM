@@ -267,7 +267,7 @@ namespace AMDM.Controllers
                     await Task.Run(() => _service.Register(trainingID, Id));
                     return Ok();
                 }
-                catch (IndexOutOfRangeException e)
+                catch (Exception e)
                 {
                     ViewData["Error"] = e.Message;
                     

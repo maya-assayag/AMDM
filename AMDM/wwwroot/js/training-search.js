@@ -27,9 +27,7 @@
         $.ajax({
             url: '/Trainers/GetAllTrainersNames',
         }).done(function (data) {
-            //$('#type-filter').html('');
 
-            console.log(data);
             var template = $('#hidden-template-trainers-names-filter').html();
 
             $.each(data, function (i, val) {

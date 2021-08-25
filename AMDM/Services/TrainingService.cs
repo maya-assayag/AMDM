@@ -11,6 +11,8 @@ namespace AMDM.Services
     public class TrainingService
     {
         private readonly AMDMContext _context;
+        
+
         public TrainingService(AMDMContext context)
         {
             _context = context;
@@ -18,6 +20,23 @@ namespace AMDM.Services
 
         public async Task Register(int trainingId,string traineeId)
         {
+            var ticket = _context.Ticket.FirstOrDefault(ticket => ticket.TraineeId == traineeId);
+            if(ticket!= null)
+            {
+                if(ticket.RemainingPunchingHoles>0)
+                {
+                    --ticket.RemainingPunchingHoles;
+                }
+                else
+                {
+                    
+                    throw new InvalidOperationException("You have no punches left in the ticket");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("You have no ticket");
+            }
             var training = _context.Training.Include(t =>t.Trainees).FirstOrDefault(t => t.Id == trainingId);
             if (training != null)
             {

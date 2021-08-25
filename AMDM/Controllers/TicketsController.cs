@@ -10,6 +10,10 @@ using AMDM.Models;
 using Microsoft.AspNetCore.Http;
 using AMDM.Services;
 
+using System.Text.Json;
+
+
+
 namespace AMDM.Controllers
 {
     public class TicketsController : Controller
@@ -104,7 +108,31 @@ namespace AMDM.Controllers
 
             return View(ticket);
         }
+        // GET: Tickets/Details/5
+        public async Task<IActionResult> DetailsByTraineeId(string? traineeId)
+        {
+            if (traineeId == null)
+            {
+                return NotFound();
+            }
+            
+                var ticket =_context.Ticket
+                    .Include(t => t.TicketType)
+                    .Include(t => t.Trainee)
+                    .Where(m => m.Trainee.Id == traineeId);
 
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            var q = from t in ticket
+                        //orderby t.Date 
+                    select new { t.TicketType.Name, t.TicketType.PunchingHolesNumber, t.RemainingPunchingHoles, t.ExpiredDate};
+            return Json(await q.FirstOrDefaultAsync());
+            //return Json(json);
+
+        }
         // GET: Tickets/Create
         public IActionResult Create()
         {

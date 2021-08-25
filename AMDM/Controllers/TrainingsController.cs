@@ -262,8 +262,17 @@ namespace AMDM.Controllers
             if (ModelState.IsValid)
             {
                 var Id = HttpContext.Session.GetString("Id");
-                await Task.Run(() => _service.Register(trainingID, Id));
-                return Ok();
+                try
+                {
+                    await Task.Run(() => _service.Register(trainingID, Id));
+                    return Ok();
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    ViewData["Error"] = e.Message;
+                    
+                }
+                
                 //return View(training);
                 //return View(await _context.Training.Include(Trainee).)?????
             }

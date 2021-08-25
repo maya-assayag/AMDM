@@ -15,6 +15,16 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
+@if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+{
+    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Your ticket</h5>
+            <h6>@Context.Session.GetString("Id")</h6>
+            
+        </div>
+    </div>
+}
 
 <form asp-action="Search">
 
@@ -70,7 +80,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Date > DateTime.Now.Date && item.TotalTraineesLeft>0)
+            if (item.Date > DateTime.Now.Date && item.TotalTraineesLeft > 0)
             {
                 <tr>
                     <td>
@@ -96,28 +106,28 @@
                     </td>
                     <td>
                         <div class="registration-rap" training-id-rap="@item.Id">
-                                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                            @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                            {
+                                bool flag = false;
+                                foreach (var trainee in item.Trainees)
                                 {
-                                    bool flag = false;
-                                    foreach (var trainee in item.Trainees)
+                                    if (trainee.Id == Context.Session.GetString("Id"))
                                     {
-                                        if (trainee.Id == Context.Session.GetString("Id"))
-                                        {
-                                            flag = true;
-                                            break;
-                                        }
-
+                                        flag = true;
+                                        break;
                                     }
+
+                                }
                                 <div class="registration" registration-flag="@flag.ToString()">
                                     <p class="text-success already-registered-message already-registered-message-@item.Id" style="display: none;">
                                         already registered to this training
                                     </p>
                                     <a name="" class="display-registration display-registration-@item.Id" href="#" training-id="@item.Id"></a> |
                                 </div>
-                                          
 
 
-                         }
+
+                            }
                         </div>
                         @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                         {
@@ -138,15 +148,25 @@
 
         }
     </tbody>
+    @if (ViewBag.Error != null)
+    {
+        <div class="text-danger">@ViewBag.Error <br /></div>
+    }
 </table>
 
 @section Scripts
 {
     <script src="~/js/training-registration.js"></script>
-    @*<script src="~/js/register.js"></script>
-    <script src="~/js/unregister.js"></script>*@
+    <script src="~/js/ticket.js"></script>
+
     <script src="~/js/training-search.js"></script>
 
+    <script type="text/html" id="hidden-template-trainee-ticket">
+        <h6>{name} ticket</h6>
+        <h6>Ticket with {punchingHolesNumber} punches</h6>
+        <h6>You have left: {remainingPunchingHoles} ticket's punches</h6>
+        <h6>Expired at: {expiredDate}</h6>
+    </script>
 
     <script type="text/html" id="hidden-template-search-resulte">
         <tr>

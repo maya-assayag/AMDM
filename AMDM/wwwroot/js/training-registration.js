@@ -72,7 +72,7 @@ $(function () {
         var trainingId = $(this).attr('training-id');
         var a = $(this);
         var p = $('.already-registered-message-' + trainingId.toString());
-        console.log(p);
+
 
         var form = $('#__AjaxAntiForgeryForm');
         var token = $('input[name="__RequestVerificationToken"]', form).val();

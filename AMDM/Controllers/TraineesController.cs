@@ -38,8 +38,8 @@ namespace AMDM.Controllers
                         query == null
                         || t.FirstName.Contains(query)
                         || t.LastName.Contains(query)
-                        || t.PhoneNumber.ToString().Contains(query)
-                        || t.Id.ToString().Contains(query)
+                        || t.Id.Contains(query)
+                        || t.PhoneNumber.Contains(query)
                         || t.Email.Contains(query));
 
             //LinQ:
@@ -74,7 +74,7 @@ namespace AMDM.Controllers
 
             var q = from t in aMDMContext
                         //orderby t.Date 
-                    select new { t.Id, t.FirstName, t.LastName, t.Email, t.PhoneNumber };
+                    select new { t.FirstName, t.LastName, t.Id, t.DateOfBirth, t.Height,t.Weight, t.Email, t.Password, t.PhoneNumber, t.TraineeGender };
 
 
             //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK

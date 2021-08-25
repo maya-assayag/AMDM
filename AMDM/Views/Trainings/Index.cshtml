@@ -21,11 +21,20 @@
         <div class="card-body">
             <h5 class="card-title">Your ticket</h5>
             <h6>@Context.Session.GetString("Id")</h6>
-            
+
         </div>
     </div>
 }
+<div class="alert-section">
 
+
+
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="text-danger">@ViewBag.Error <br /></div>
+}
 <form asp-action="Search">
 
     <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." />
@@ -148,10 +157,6 @@
 
         }
     </tbody>
-    @if (ViewBag.Error != null)
-    {
-        <div class="text-danger">@ViewBag.Error <br /></div>
-    }
 </table>
 
 @section Scripts
@@ -201,5 +206,15 @@
     </script>
     <script type="text/html" id="hidden-template-trainers-names-filter">
         <option value="{firstName}">{firstName}</option>
+    </script>
+    <script type="text/html" id="hidden-template-registration-error-alert">
+        <div class="alert alert-danger" role="alert">
+            {error}
+        </div> 
+    </script>
+    <script type="text/html" id="hidden-template-registration-success-alert">
+        <div class="alert alert-primary" role="alert">
+            {message}
+        </div>
     </script>
 }

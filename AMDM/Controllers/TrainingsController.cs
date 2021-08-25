@@ -259,6 +259,7 @@ namespace AMDM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(int trainingID)
         {
+            
             if (ModelState.IsValid)
             {
                 var Id = HttpContext.Session.GetString("Id");
@@ -269,8 +270,14 @@ namespace AMDM.Controllers
                 }
                 catch (Exception e)
                 {
-                    ViewData["Error"] = e.Message;
-                    
+                 
+                     ViewData["Error"] = e.Message;
+
+                    return BadRequest(new { Error = e.Message });
+
+
+
+
                 }
                 
                 //return View(training);

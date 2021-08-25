@@ -62,9 +62,41 @@ $(function () {
             a.attr('class', 'unregister');
             a.text('Unregister');
             p.show();
+            $('.alert-section').html('');
+
+            var template = $('#hidden-template-registration-success-alert').html();
+
+
+
+            var temp = template;
+
+            
+            temp = temp.replaceAll('{' + "message" + '}', "The registration was successful");
+            
+
+            $('.alert-section').append(temp);
+
         }).fail(function (error) {
-            console.log(error);
-            alert(error);
+            console.log(error.responseJSON);
+            /*alert(error.responseJSON.error);*/
+            $('.alert-section').html('');
+
+            var template = $('#hidden-template-registration-error-alert').html();
+
+            
+
+            var temp = template;
+
+            $.each(error.responseJSON, function (key, value) {
+                temp = temp.replaceAll('{' + key + '}', value);
+            });
+
+            $('.alert-section').append(temp);
+
+            
+
+
+
         });
     });
     $(document).on('click', '.unregister', function () {

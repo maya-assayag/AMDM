@@ -226,7 +226,7 @@ namespace AMDM.Controllers
                                 throw;
                             }
                         }
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Details", new { id = trainer.Id });
                     }
                     else
                     {

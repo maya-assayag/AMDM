@@ -77,7 +77,6 @@ namespace AMDM.Controllers
                     select new { t.FirstName, t.LastName, t.Id, t.DateOfBirth, t.Height,t.Weight, t.Email, t.Password, t.PhoneNumber, t.TraineeGender };
 
 
-            //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK
 
             return Json(await q.ToListAsync());
 

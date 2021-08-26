@@ -4,14 +4,7 @@
         e.preventDefault();
         var query = $('#query').val();
        
-        //var selectDate = document.getElementById('date-filter');
-        //var dateFilter = selectDate.options[selectDate.selectedIndex].value;
-
-        //var selectType = document.getElementById('type-filter');
-        //var typeFilter = selectType.options[selectType.selectedIndex].value;
-
-        //var selectTrainer = document.getElementById('trainer-filter');
-        //var trainerFilter = selectTrainer.options[selectTrainer.selectedIndex].value;
+      
 
 
         $.ajax({
@@ -19,19 +12,23 @@
             url: '/Trainers/Search',
             data: {
                 'query': query
-                //'dateFilter': dateFilter,
-                //'typeFilter': typeFilter,
-                //'trainerFilter': trainerFilter
+                
             }
         }).done(function (data) {
-
+            
             console.log(data);
             $('tbody').html('');
 
             var template = $('#hidden-template-search-resulte').html();
 
             $.each(data, function (i, val) {
+                console.log(val);
+                if (val.trainerGender == 0) {
+                    val.trainerGender = 'Female';
 
+                } else {
+                    val.trainerGender = 'Male';
+                }
                 var temp = template;
 
                 val.dateOfBirth = new Date(val.dateOfBirth).toLocaleDateString('en-GB')

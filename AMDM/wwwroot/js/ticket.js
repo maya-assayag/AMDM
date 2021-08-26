@@ -9,6 +9,7 @@
             }
         }).done(function (data) {
             console.log(data);
+            data.expiredDate = new Date(data.expiredDate).toLocaleDateString('en-GB')
             var template = $('#hidden-template-trainee-ticket').html();
             
             

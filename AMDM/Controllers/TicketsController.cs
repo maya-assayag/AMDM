@@ -44,29 +44,29 @@ namespace AMDM.Controllers
            
             if (purchaseDateFilter == "today")
             {
-                aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date);
             }
             if (purchaseDateFilter == "tomorrow")
             {
-                aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date.AddDays(1));
+                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date.AddDays(1));
             }
             if (purchaseDateFilter == "week")
             {
-                aMDMContext.Where(ticket => (ticket.PurchaseDate >= DateTime.Now.Date && ticket.PurchaseDate <= DateTime.Now.Date.AddDays(7)));
+                aMDMContext = aMDMContext.Where(ticket => (ticket.PurchaseDate >= DateTime.Now.Date && ticket.PurchaseDate <= DateTime.Now.Date.AddDays(7)));
             }
 
 
             if (expiredDateFilter == "today")
             {
-                aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date);
             }
             if (expiredDateFilter == "tomorrow")
             {
-                aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date.AddDays(1));
+                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date.AddDays(1));
             }
             if (expiredDateFilter == "week")
             {
-                aMDMContext.Where(ticket => (ticket.ExpiredDate >= DateTime.Now.Date && ticket.ExpiredDate <= DateTime.Now.Date.AddDays(7)));
+                aMDMContext = aMDMContext.Where(ticket => (ticket.ExpiredDate >= DateTime.Now.Date && ticket.ExpiredDate <= DateTime.Now.Date.AddDays(7)));
             }
             
             var q = from t in aMDMContext

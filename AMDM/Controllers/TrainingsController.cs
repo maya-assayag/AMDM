@@ -62,6 +62,7 @@ namespace AMDM.Controllers
                 .Include(t => t.Trainer)
                 .Include(t => t.TrainingType)
                 .Include(t=> t.Trainees)
+                .OrderBy(t=>t.Date)
                 .Where(t=>
                         t.Date>= DateTime.Now.Date
                         && (query == null

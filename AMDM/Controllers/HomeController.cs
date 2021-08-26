@@ -83,20 +83,19 @@ namespace AMDM.Controllers
             string message = twts.Tweet;
             var service = new TweetSharp.TwitterService(key, secret);
             service.AuthenticateWith(token, tokenSecret);
+
+            service.SendTweet(new SendTweetOptions
+            {
+                Status = message
+            });
             twts.AllTweets = (List<TwitterStatus>)service.ListTweetsOnUserTimeline(new ListTweetsOnUserTimelineOptions
             {
                 ScreenName = "AmdmGym"
             });
             foreach (TwitterStatus tweet in twts.AllTweets)
             {
-                tweet.CreatedDate=tweet.CreatedDate.AddHours(DateTimeOffset.Now.Offset.TotalHours);
+                tweet.CreatedDate = tweet.CreatedDate.AddHours(DateTimeOffset.Now.Offset.TotalHours);
             }
-
-            service.SendTweet(new SendTweetOptions
-            {
-                Status = message
-            });
-            twts.Tweet = "";
             return View(twts);
         }
         public IActionResult TraineeIndex()

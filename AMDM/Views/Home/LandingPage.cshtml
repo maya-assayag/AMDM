@@ -5,7 +5,7 @@
 }
 @using Microsoft.AspNetCore.Http;
 
-<div class="container">
+<div>
     <div>
         <h1 class="welcome-section">
             <div id="wel">
@@ -31,37 +31,49 @@
         </p>
     </div>
 
-    <div>
-        <img src="..\css\people.jpg" class="img-fluid landing-page-img-1" alt="...">
-        <div class="about-us-section text-right">
+    <div class="container">
+        <div class="row">
+            <img src="..\css\people.jpg" class="img-fluid landing-page-img-1 col-6" alt="...">
 
-            <h2 class="about-us-title">About Us:</h2>
-            <p class="about-us-body">
-                Nice to meet you, we're the entrepreneurs of AMDM.
-                We're here to keep you calm. Here you can manage your training, acquire tickets, 
-                track past and future training, and learn about your better work!
-            </p>
+
+            <div class="about-us-section col-4">
+
+
+                <h2 class="about-us-title">
+                    <br />
+                    About Us:
+                </h2>
+                <p class="about-us-body">
+                    Nice to meet you, we're the entrepreneurs of AMDM.
+                    We're here to keep you calm. Here you can manage your training, acquire tickets,
+                    track past and future training, and learn about your better work!
+                </p>
+                <div>
+                    <style>
+                        #map {
+                            height: 400px;
+                            width: 600px;
+                        }
+                    </style>
+                    <br />
+                    <br />
+                    <h3> Our branches:</h3>
+
+
+                    @foreach (var item in Model)
+                    {
+                        @Html.DisplayFor(modelItem => item.Address)
+                        <br />
+                    }
+                    <div id="map"></div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div>
-        <style>
-            #map {
-                height: 400px;
-                width: 600px;
-            }
-        </style>
-        <br />
-        <br />
-        <h3> Our branches:</h3>
 
 
-        @foreach (var item in Model)
-        {
-            @Html.DisplayFor(modelItem => item.Address)
-            <br />
-        }
-        <div id="map"></div>
     </div>
+            
+    
 
 
     @*<video autoplay muted loop id="myVideo">

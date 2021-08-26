@@ -35,6 +35,26 @@ namespace AMDM.Controllers
             
             return View(await aMDMContext.ToListAsync());
         }
+        public async Task<IActionResult> GetAllTraineesIdOfTraining(int trainingId)
+        {
+            Training training = _context.Training.Include(t=>t.Trainees)
+                .Where(training => training.Id == trainingId).FirstOrDefault();
+
+            List<string> traineesId = new List<string>();
+
+            if(training != null)
+            {
+                if(training.Trainees!=null)
+                {
+                    foreach (Trainee trainee in training.Trainees)
+                    {
+                        traineesId.Add(trainee.Id);
+                    }
+                } 
+            }
+            var q= Json(traineesId);
+            return Json(traineesId);
+        }
         public async Task<IActionResult> Search(string query, string dateFilter, string typeFilter, string trainerFilter)
         {
             /*var*/
@@ -88,7 +108,7 @@ namespace AMDM.Controllers
 
             var q = from t in aMDMContext
                         //orderby t.Date 
-                    select new { t.TrainingType.Name, t.Trainer.FirstName, t.Date, t.Time, t.Studio, t.MaxRegisterTrainees, t.TotalTraineesLeft };
+                    select new { t.TrainingType.Name, t.Trainer.FirstName, t.Date, t.Time, t.Studio, t.MaxRegisterTrainees, t.TotalTraineesLeft ,t.Id};
 
 
             //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK

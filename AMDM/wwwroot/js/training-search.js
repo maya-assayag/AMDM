@@ -47,6 +47,12 @@
     $('form').on('submit',function (e) {
         e.preventDefault();
         var query = $('#query').val();
+
+        var userType = $('#query').attr('user-type');
+        var traineeId = '';
+        if (userType == "Trainee") {
+            traineeId = $('#query').attr('user-id');
+        }
        
         var selectDate = document.getElementById('date-filter');
         var dateFilter = selectDate.options[selectDate.selectedIndex].value;
@@ -69,34 +75,68 @@
             }
         }).done(function (data) {
             
-                    //$('tbody').html('');
-                    //for (var i = 0; i < data.length; i++)
-                    //{
-                    //    var template = '<tr><td>' + data[i].title + '</td><td>' + data[i].body + '</td></tr>';
-                    //    $('tbody').append(template);
-                    //}
+            console.log(data);
 
-                    $('tbody').html('');
+            $('tbody').html('');
+            
+            var template = $('#hidden-template-search-resulte').html();
 
-                    var template = $('#hidden-template-search-resulte').html();
-
-                    $.each(data, function (i, val) {
-
-                        var temp = template;
-
-                        console.log(val);
-
-                        $.each(val, function (key, value) {
-                            temp = temp.replaceAll('{' + key + '}', value);
+            $.each(data, function (i, val) {
+                var flag = false;
+                console.log(val.id);
+                if (userType == "Trainee") {
+                    //var allWrappers = document.getElementsByClassName("registration-after-search");
+                    //var allp = document.getElementsByClassName("already-registered-message-after-search");
+                    $.ajax({
+                        //method :'post',
+                        url: '/Trainings/GetAllTraineesIdOfTraining',
+                        data: {
+                            'trainingId': val.id,
+                        }
+                    }).done(function (traineesIdOnTraining) {
+                        console.log(traineesIdOnTraining);
+                        $.each(traineesIdOnTraining, function (i, trainee) {
+                            if (trainee == traineeId) {
+                                flag = true;
+                                $(".display-registration-after-search-"+val.id).addClass("unregister");
+                                $(".display-registration-after-search-"+val.id).attr("name", "unregister");
+                                $(".display-registration-after-search-"+val.id).text("Unregister");
+                                $(".already-registered-message-after-search-" + val.id).show();
+                            }
                         });
+                        if (flag == false) {
+                            $(".display-registration-after-search-" + val.id).addClass("register");
+                            $(".display-registration-after-search-" + val.id).attr("name", "register");
+                            $(".display-registration-after-search-" + val.id).text("Register");
+                            $(".already-registered-message-after-search-" + val.id).hide();
+                        }
+                        flag = false;
 
-                        $('tbody').append(temp);
-
+                    }).fail(function (error) {
+                        console.log(eroor);
                     });
+                }
+                
 
 
 
+
+
+                var temp = template;
+
+                console.log(val);
+
+                $.each(val, function (key, value) {
+                    temp = temp.replaceAll('{' + key + '}', value);
                 });
+
+                $('tbody').append(temp);
+
+            });
+
+
+
+        });
 
 
 

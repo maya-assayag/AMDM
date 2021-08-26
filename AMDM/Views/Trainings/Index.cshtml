@@ -20,8 +20,6 @@
     <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Your ticket</h5>
-            <h6>@Context.Session.GetString("Id")</h6>
-
         </div>
     </div>
 }
@@ -37,7 +35,7 @@
 }
 <form asp-action="Search">
 
-    <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." />
+    <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." user-id="@Context.Session.GetString("Id")" user-type="@Context.Session.GetString("Type")" />
 
 
     <label for="cars">filter by date:</label>
@@ -197,7 +195,13 @@
                 {totalTraineesLeft}
             </td>
             <td>
-                <a href="/Trainings/Delete/{id}">Delete</a>
+                <div class="registration-after-search">
+                    <p class="text-success already-registered-message-after-search-{id}" style="display: none;">
+                        already registered to this training
+                    </p>
+                    <a name="" class="display-registration-after-search-{id}" href="#" training-id="{id}"></a> |
+                </div>
+                <a asp-action="Details" asp-route-id="{Id}">Details</a>
             </td>
         </tr>
     </script>

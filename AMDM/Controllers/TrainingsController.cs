@@ -75,21 +75,22 @@ namespace AMDM.Controllers
             //
             if (dateFilter == "today")
             {
-                aMDMContext.Where(training => training.Date == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(training => DateTime.Compare(training.Date,DateTime.Now.Date)==0);
             }
             if (dateFilter == "tomorrow")
             {
-                aMDMContext.Where(training => training.Date == DateTime.Now.Date.AddDays(1));
+                aMDMContext = aMDMContext.Where(training => DateTime.Compare(training.Date, DateTime.Now.Date.AddDays(1)) == 0);
             }
             if (dateFilter == "week")
             {
-                aMDMContext.Where(training => (training.Date >= DateTime.Now.Date && training.Date <= DateTime.Now.Date.AddDays(7)));
+                aMDMContext = aMDMContext.Where(training => (DateTime.Compare(training.Date,DateTime.Now.Date)>=0 && DateTime.Compare(training.Date,DateTime.Now.Date.AddDays(7))<=0));
             }
+
             var q = from t in aMDMContext
-                    //orderby t.Date 
+                        //orderby t.Date 
                     select new { t.TrainingType.Name, t.Trainer.FirstName, t.Date, t.Time, t.Studio, t.MaxRegisterTrainees, t.TotalTraineesLeft };
-           
-                    
+
+
             //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK
 
             return Json(await q.ToListAsync());

@@ -9,6 +9,7 @@ using AMDM.Data;
 using AMDM.Models;
 using AMDM.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
@@ -87,6 +88,7 @@ namespace AMDM.Controllers
 
 
         // GET: TicketTypes/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -97,6 +99,7 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,PunchingHolesNumber")] TicketType ticketType)
         {
             if (ModelState.IsValid)
@@ -109,6 +112,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TicketTypes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -129,6 +133,7 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,PunchingHolesNumber")] TicketType ticketType)
         {
             if (id != ticketType.Id)
@@ -160,6 +165,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TicketTypes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -180,6 +186,7 @@ namespace AMDM.Controllers
         // POST: TicketTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ticketType = await _context.TicketType.FindAsync(id);

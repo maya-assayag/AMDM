@@ -12,7 +12,7 @@ using AMDM.Services;
 
 namespace AMDM.Controllers
 {
-    //[Authorize(Roles ="Admin,Trainer")]
+    [Authorize(Roles ="Admin,Trainer")]
 
     public class TrainersController : Controller
     {
@@ -89,7 +89,7 @@ namespace AMDM.Controllers
 
             //return View("Index", await aMDMContext.ToListAsync()); //NOT WORK
 
-            return Json(await q.ToListAsync());
+           return Json(await q.ToListAsync());
 
         }
 

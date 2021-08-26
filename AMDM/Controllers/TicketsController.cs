@@ -11,8 +11,7 @@ using Microsoft.AspNetCore.Http;
 using AMDM.Services;
 
 using System.Text.Json;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
@@ -80,7 +79,7 @@ namespace AMDM.Controllers
             return Json(await q.ToListAsync());
 
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
@@ -160,6 +159,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Tickets/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -182,6 +182,7 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TicketTypeId,TraineeId,RemainingPunchingHoles,PurchaseDate,ExpiredDate")] Ticket ticket)
         {
             if (id != ticket.Id)
@@ -215,6 +216,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Tickets/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

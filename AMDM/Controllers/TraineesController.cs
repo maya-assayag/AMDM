@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AMDM.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
@@ -26,6 +27,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Trainee.ToListAsync());
@@ -165,6 +167,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Edit/5
+
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -234,6 +237,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -254,6 +258,7 @@ namespace AMDM.Controllers
         // POST: Trainees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var trainee = await _context.Trainee.FindAsync(id);

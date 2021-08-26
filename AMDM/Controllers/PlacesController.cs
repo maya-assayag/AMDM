@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using WebApplication1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
@@ -43,6 +44,7 @@ namespace AMDM.Controllers
             return View(place);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Places/Create
         public IActionResult Create()
         {
@@ -52,6 +54,7 @@ namespace AMDM.Controllers
         // POST: Places/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Address,Lat,Lng")] Place place)
@@ -65,6 +68,7 @@ namespace AMDM.Controllers
             return View(place);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Places/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,6 +88,7 @@ namespace AMDM.Controllers
         // POST: Places/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Address,Lat,Lng")] Place place)
@@ -117,6 +122,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Places/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +143,7 @@ namespace AMDM.Controllers
         // POST: Places/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var place = await _context.Places.FindAsync(id);

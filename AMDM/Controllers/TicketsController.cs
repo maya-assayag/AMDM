@@ -46,13 +46,13 @@ namespace AMDM.Controllers
             {
                 aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date);
             }
-            if (purchaseDateFilter == "tomorrow")
+            if (purchaseDateFilter == "yesterday")
             {
-                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date.AddDays(1));
+                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate.AddDays(1) == DateTime.Now.Date);
             }
-            if (purchaseDateFilter == "week")
+            if (purchaseDateFilter == "weekAgo")
             {
-                aMDMContext = aMDMContext.Where(ticket => (ticket.PurchaseDate >= DateTime.Now.Date && ticket.PurchaseDate <= DateTime.Now.Date.AddDays(7)));
+                aMDMContext = aMDMContext.Where(ticket => (ticket.PurchaseDate <= DateTime.Now.Date && ticket.PurchaseDate >= DateTime.Now.Date.AddDays(-7)));
             }
 
 

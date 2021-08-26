@@ -9,12 +9,12 @@ using AMDM.Data;
 using AMDM.Models;
 using Microsoft.AspNetCore.Http;
 using AMDM.Services;
-
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private readonly AMDMContext _context;
@@ -25,6 +25,7 @@ namespace AMDM.Controllers
             _service = service;
             _context = context;
         }
+
         public async Task<IActionResult> Search(string query, string traineeId, string purchaseDateFilter, string expiredDateFilter)
         {
             /*var*/
@@ -41,7 +42,7 @@ namespace AMDM.Controllers
             {
                 aMDMContext = aMDMContext.Where(t => t.Trainee.Id.Equals(traineeId));
             }
-           
+
             if (purchaseDateFilter == "today")
             {
                 aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date);
@@ -68,7 +69,7 @@ namespace AMDM.Controllers
             {
                 aMDMContext = aMDMContext.Where(ticket => (ticket.ExpiredDate >= DateTime.Now.Date && ticket.ExpiredDate <= DateTime.Now.Date.AddDays(7)));
             }
-            
+
             var q = from t in aMDMContext
                         //orderby t.Date 
                     select new NewRecord(t.TicketType.Name, t.Id, t.Trainee.FirstName, t.Trainee.Id, t.RemainingPunchingHoles, t.PurchaseDate, t.ExpiredDate);
@@ -79,8 +80,9 @@ namespace AMDM.Controllers
             return Json(await q.ToListAsync());
 
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: Tickets
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var aMDMContext = _context.Ticket.Include(t => t.TicketType).Include(t => t.Trainee);
@@ -89,6 +91,7 @@ namespace AMDM.Controllers
 
 
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Admin,Trainee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -107,18 +110,20 @@ namespace AMDM.Controllers
 
             return View(ticket);
         }
+
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Admin,Trainee")]
         public async Task<IActionResult> DetailsByTraineeId(string? traineeId)
         {
             if (traineeId == null)
             {
                 return NotFound();
             }
-            
-                var ticket =_context.Ticket
-                    .Include(t => t.TicketType)
-                    .Include(t => t.Trainee)
-                    .Where(m => m.Trainee.Id == traineeId);
+
+            var ticket = _context.Ticket
+                .Include(t => t.TicketType)
+                .Include(t => t.Trainee)
+                .Where(m => m.Trainee.Id == traineeId);
 
             if (ticket == null)
             {
@@ -127,12 +132,14 @@ namespace AMDM.Controllers
 
             var q = from t in ticket
                         //orderby t.Date 
-                    select new { t.TicketType.Name, t.TicketType.PunchingHolesNumber, t.RemainingPunchingHoles, t.ExpiredDate};
+                    select new { t.TicketType.Name, t.TicketType.PunchingHolesNumber, t.RemainingPunchingHoles, t.ExpiredDate };
             return Json(await q.FirstOrDefaultAsync());
             //return Json(json);
 
         }
+
         // GET: Tickets/Create
+        [Authorize(Roles = "Trainee")]
         public IActionResult Create()
         {
             ViewData["TicketTypeId"] = new SelectList(_context.TicketType, "Id", "Id");
@@ -182,7 +189,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TicketTypeId,TraineeId,RemainingPunchingHoles,PurchaseDate,ExpiredDate")] Ticket ticket)
         {
             if (id != ticket.Id)
@@ -216,7 +222,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Tickets/Delete/5
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

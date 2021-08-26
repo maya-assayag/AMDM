@@ -58,6 +58,7 @@ namespace AMDM.Controllers
             }
             return View(twts);
         }
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

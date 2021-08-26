@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
+    [Authorize]
     public class TicketTypesController : Controller
     {
         private readonly AMDMContext _context;
@@ -40,12 +41,15 @@ namespace AMDM.Controllers
             return Json(await q.ToListAsync());
 
         }
+        [Authorize(Roles = "Admin,Trainee")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TicketType.ToListAsync());
         }
 
+
         // GET: TicketTypes/Details/5
+        [Authorize(Roles = "Admin,Trainee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -99,7 +103,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,TicketPeriod,PunchingHolesNumber")] TicketType ticketType)
         {
             if (ModelState.IsValid)
@@ -133,7 +136,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,TicketPeriod,PunchingHolesNumber")] TicketType ticketType)
         {
             if (id != ticketType.Id)
@@ -163,9 +165,8 @@ namespace AMDM.Controllers
             }
             return View(ticketType);
         }
-
-        // GET: TicketTypes/Delete/5
         [Authorize(Roles = "Admin")]
+        // GET: TicketTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -186,7 +187,6 @@ namespace AMDM.Controllers
         // POST: TicketTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ticketType = await _context.TicketType.FindAsync(id);
@@ -194,7 +194,6 @@ namespace AMDM.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool TicketTypeExists(int id)
         {
             return _context.TicketType.Any(e => e.Id == id);

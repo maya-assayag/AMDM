@@ -12,8 +12,7 @@ using AMDM.Services;
 
 namespace AMDM.Controllers
 {
-    [Authorize(Roles ="Admin,Trainer")]
-
+    [Authorize]
     public class TrainersController : Controller
     {
         private readonly AMDMContext _context;
@@ -26,11 +25,11 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainers
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Trainer.ToListAsync());
         }
-        [AllowAnonymous]
         public async Task<IActionResult> GetAllTrainersNames()
         {
             var allTrainersNames =_context.Trainer;
@@ -94,6 +93,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainers/Details/5
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -114,6 +114,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainers/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -170,6 +171,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainers/Edit/5
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -238,6 +240,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)

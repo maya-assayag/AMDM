@@ -26,7 +26,6 @@ namespace AMDM.Controllers
             _service = service;
         }
 
-
         public async void Register(User user)
         {
             var q = _context.User.FirstOrDefault(u => u.Email == user.Email);
@@ -35,23 +34,16 @@ namespace AMDM.Controllers
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-
-
                 var u = _context.User.FirstOrDefault(u =>
                      u.Email == user.Email && u.Password == user.Password);
 
-
                 Signin(u);
-
             }
             else
             {
                 ViewData["Error"] = "This user already exists.";
-            }
-            
+            }       
         }
-
-
 
         public async Task<IActionResult>Logout()
         {
@@ -66,36 +58,35 @@ namespace AMDM.Controllers
         //    return View();
         //}
         // GET: Users/Type
-        public IActionResult Type()
-        {
-            return View();
-        }
-        // POST: Users/Type
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Type([Bind("Type")] User user)
-        {
-            //if (ModelState.IsValid)
-            //{
-            //    if (user.Type.ToString() == "Trainee")
-            //    {
-            //        return RedirectToAction("Create", "Trainees");
-            //    }
+        //public IActionResult Type()
+        //{
+        //    return View();
+        //}
+        //// POST: Users/Type
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Type([Bind("Type")] User user)
+        //{
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    if (user.Type.ToString() == "Trainee")
+        //    //    {
+        //    //        return RedirectToAction("Create", "Trainees");
+        //    //    }
 
-            //}
-            if (user.Type.ToString() == "Trainee")
-            {
-                return RedirectToAction("Create", "Trainees");
-            }
-            if (user.Type.ToString() == "Trainer")
-            {
-                return RedirectToAction("Create", "Trainers");
-            }
-            return View(user);
-        }
-
+        //    //}
+        //    if (user.Type.ToString() == "Trainee")
+        //    {
+        //        return RedirectToAction("Create", "Trainees");
+        //    }
+        //    if (user.Type.ToString() == "Trainer")
+        //    {
+        //        return RedirectToAction("Create", "Trainers");
+        //    }
+        //    return View(user);
+        //}
 
         // GET: Users/Login
         public IActionResult Login()
@@ -121,7 +112,6 @@ namespace AMDM.Controllers
                 new ClaimsPrincipal(claimsIdentity)
                 ,authProperties);
         }
-
 
         // POST: Users/Login
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -174,27 +164,21 @@ namespace AMDM.Controllers
                         {
                             ViewData["Error"] = "Email and/or password are incorrect";
                         }
-
                     }
                 }
                 else
                 {
                     ViewData["Error"] = "Email and/or password are incorrect";
                 }
-
-
             }
             return View(user_);
         }
-
-
 
         // GET: Users/Login
         public IActionResult AccessDenied()
         {
             return View();
         }
-
 
 
         //// GET: Users

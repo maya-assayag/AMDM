@@ -18,11 +18,38 @@
                 }
 
             }).done(function (data) {
+                $('.alert-section').html('');
+
+                var template = $('#hidden-template-purchase-success-alert').html();
+
+
+
+                var temp = template;
+
+
+                temp = temp.replaceAll('{' + "message" + '}', "The purchase was made successfully");
+
+
+                $('.alert-section').append(temp);
                 
                
             }).fail(function (error) {
                 console.log(error);
                 alert(error);
+
+                $('.alert-section').html('');
+
+                var template = $('#hidden-template-purchase-error-alert').html();
+
+
+
+                var temp = template;
+
+                $.each(error.responseJSON, function (key, value) {
+                    temp = temp.replaceAll('{' + key + '}', value);
+                });
+
+                $('.alert-section').append(temp);
             });
         });
     

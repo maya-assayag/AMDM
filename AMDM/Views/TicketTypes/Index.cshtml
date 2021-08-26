@@ -18,6 +18,11 @@
     <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
     <input type="submit" value="Search" class="btn btn-primary" />
 </form>
+<div class="alert-section">
+
+
+
+</div>
 <table class="table">
 
     <thead>
@@ -90,5 +95,15 @@
                 <a asp-action="Delete" asp-route-id="{id}">Delete</a>
             </td>
         </tr>
+    </script>
+    <script type="text/html" id="hidden-template-purchase-error-alert">
+        <div class="alert alert-danger" role="alert">
+            {error}
+        </div>
+    </script>
+    <script type="text/html" id="hidden-template-purchase-success-alert">
+        <div class="alert alert-primary" role="alert">
+            {message}
+        </div>
     </script>
 }

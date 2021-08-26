@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using AMDM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {

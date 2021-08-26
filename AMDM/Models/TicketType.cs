@@ -20,6 +20,8 @@ namespace AMDM.Models
         [Display(Name = "Number of punching holes")]
         public int? PunchingHolesNumber { get; set; }
 
+        public KeyValuePair<int,string> PeriodInDays { get; set; }
+
         public List<Ticket> Tickets { get; set; }
 
 

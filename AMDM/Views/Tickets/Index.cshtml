@@ -18,8 +18,8 @@
     <label>filter by purchase dates:</label>
     <select id="purchase-date-filter" name="purchaseDateFilter" value="Search by purchase dates...">
         <option value="today">Today</option>
-        <option value="tomorrow">Tomorrow</option>
-        <option value="week">This week</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="weekAgo">Last week</option>
         <option selected="selected" value="all">All dates</option>
     </select>
 
@@ -115,13 +115,13 @@
                 {item}
             </td>
             <td>
+                {remainingPunchingHoles}
+            </td>
+            <td>
                 {purchaseDate}
             </td>
             <td>
                 {expiredDate}
-            </td>
-            <td>
-                {remainingPunchingHoles}
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="{id}">Edit</a> |

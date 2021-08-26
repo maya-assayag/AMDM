@@ -5,28 +5,62 @@
 }
 @using Microsoft.AspNetCore.Http;
 
-<div class="text-center">
-
-
-    <h1 class="display-4">
-        Welcome
-    </h1>
-    <img src="..\css\yoga.jpg" class="img-fluid" alt="...">
+<div class="container">
     <div>
-        <h2> AMDM STUDIO:</h2>
-        <p>
+        <h1 class="welcome-section">
+            <div id="wel">
+                WEL
+            </div>
+            <div id="come">
+                <br />COME
+            </div>
+        </h1>
+        <img src="..\css\img4.jpg" class="img-fluid landing-page-img-0" alt="...">
+    </div>
+    
+    <div class="text-center">
+        <h2 class="amdm-studio-title">AMDM STUDIO:</h2>
+        <p class="amdm-studio-body">
             If you were thinking about where the motivation would come from, you get to the right place!
             Where do I get the motivation? What about the diet? How to eat right? How to persevere despite the difficulty?
             Just show up! When you get here, you'll figure it out!
             AMDM's studios are designed and equipped with the best facilities and equipment in the world.
             At AMDM the trainers have certificates! They get professional training monthly! Our trainers attend world conferences with the movers in the field, and with professors who specialize in nutrition and movement. They are always up to date and bring the latest training from all over the world to our studio.
             Our trainers will accompany your movements and explain to you about them. The attitude will be personal even when you choose to train in a group. They will make sure the movements are right for you, They guide you to alternate movements if you have medicals issues. They were with you not only while training but also beyond the day when you want to get informed with them on nutrition.
-            Long story short, We are waiting for you!
+            <br /><strong>Long story short, We are waiting for you!</strong>
         </p>
     </div>
+
     <div>
-        <h2>About Us:</h2>
-        <p>....</p>
+        <img src="..\css\people.jpg" class="img-fluid landing-page-img-1" alt="...">
+        <div class="about-us-section text-right">
+
+            <h2 class="about-us-title">About Us:</h2>
+            <p class="about-us-body">
+                Nice to meet you, we're the entrepreneurs of AMDM.
+                We're here to keep you calm. Here you can manage your training, acquire tickets, 
+                track past and future training, and learn about your better work!
+            </p>
+        </div>
+    </div>
+    <div>
+        <style>
+            #map {
+                height: 400px;
+                width: 600px;
+            }
+        </style>
+        <br />
+        <br />
+        <h3> Our branches:</h3>
+
+
+        @foreach (var item in Model)
+        {
+            @Html.DisplayFor(modelItem => item.Address)
+            <br />
+        }
+        <div id="map"></div>
     </div>
 
 
@@ -36,22 +70,7 @@
         </video>*@
 </div>
 
-<style>
-    #map {
-        height: 400px;
-        width: 600px;
-    }
-</style>
-<br />
-<br />
-<h2> Our branches:</h2>
 
-
-@foreach (var item in Model)
-{
-            @Html.DisplayFor(modelItem => item.Address)<br/>
-}
-<div id="map"></div>
 
 <script>
     var map;
@@ -72,13 +91,12 @@
          }
     }
 
- </script>
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9UtESz_iXjjwcMQUgAtM6mC9ZS88bvRI&callback=initMap" async defer></script>
 
-@section Styles { 
-
-@*load css files*@
+@section Styles {
+    <link rel="stylesheet" href="~/css/landing-page.css" />
 
 }
 

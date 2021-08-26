@@ -1,0 +1,33 @@
+﻿#wel {
+    font-size: 135px;
+    color: #000000;
+    line-height: 0.961;
+    font-weight: 500;
+    margin-top: 50px;
+    margin-left: 110px;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    
+}
+#come {
+    font-size: 135px;
+    color: #000000;
+    line-height: 0.961;
+    font-weight: 500;
+    margin-top: 50px;
+    margin-left: 110px;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+.amdm-studio-title {
+    font-size: 85px;
+}
+.amdm-studio-body {
+    font-size: 20px;
+}
+.landing-page-img-1 {
+    width: 50%;
+}
+

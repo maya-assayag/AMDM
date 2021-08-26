@@ -35,6 +35,9 @@
 
                         var temp = template;
 
+                        val.expiredDate = new Date(val.expiredDate).toLocaleDateString('en-GB')
+                        val.purchaseDate = new Date(val.purchaseDate).toLocaleDateString('en-GB')
+
                         console.log(val);
 
                         $.each(val, function (key, value) {

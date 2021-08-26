@@ -34,6 +34,8 @@
 
                 var temp = template;
 
+                val.dateOfBirth = new Date(val.dateOfBirth).toLocaleDateString('en-GB')
+
                 console.log(val);
 
                 $.each(val, function (key, value) {

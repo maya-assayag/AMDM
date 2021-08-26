@@ -84,6 +84,8 @@
 
                         var temp = template;
 
+                        val.time = new Date(val.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                        val.date = new Date(val.date).toLocaleDateString('en-GB')
                         console.log(val);
 
                         $.each(val, function (key, value) {

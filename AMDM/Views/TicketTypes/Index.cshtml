@@ -34,6 +34,9 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TicketPeriod)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PunchingHolesNumber)
             </th>
             <th></th>
@@ -42,35 +45,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PunchingHolesNumber)
-                </td>
-                <td>
-                    @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                    {
-                        <div>
-                            <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>|
-                        </div>
-                    }
-                    @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
-                    {
-                        <div>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>|
-                        </div>
-                    }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PunchingHolesNumber)
+            </td>
+            <td>
+                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                {
+                    <div>
+                        <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>|
+                    </div>
+                }
+                @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                {
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>|
+                    </div>
+                }
 
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

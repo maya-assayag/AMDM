@@ -11,7 +11,8 @@ namespace AMDM.Models
         public enum Period
         {
             Day=1,
-            Month=30,
+            Week=7,
+            Month=31,
             Year=365
         }
         [Key]

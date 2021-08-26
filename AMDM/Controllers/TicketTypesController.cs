@@ -100,7 +100,7 @@ namespace AMDM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,PunchingHolesNumber")] TicketType ticketType)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,TicketPeriod,PunchingHolesNumber")] TicketType ticketType)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +134,7 @@ namespace AMDM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,PunchingHolesNumber")] TicketType ticketType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,TicketPeriod,PunchingHolesNumber")] TicketType ticketType)
         {
             if (id != ticketType.Id)
             {

@@ -42,19 +42,23 @@ namespace AMDM.Services
                         }
 
                         
-                        if (ticketType.Name == "Month" || ticketType.Name == "Free Monthly" || ticketType.Name == "Trial")
+                        if (ticketType.TicketPeriod == Models.TicketType.Period.Month)
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddMonths(1);
                         }
-                        else if(ticketType.Name == "Year")
+                        else if(ticketType.TicketPeriod == Models.TicketType.Period.Day)
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddYears(1);
                         }
-                        else if (ticketType.Name == "Week")
+                        else if (ticketType.TicketPeriod == Models.TicketType.Period.Year)
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddDays(7);
                         }
-                        if(ticketType.Tickets==null)
+                        else if (ticketType.TicketPeriod == Models.TicketType.Period.Week)
+                        {
+                            trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddDays(7);
+                        }
+                        if (ticketType.Tickets==null)
                         {
                             ticketType.Tickets = new List<Models.Ticket>();
                         }

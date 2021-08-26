@@ -262,7 +262,9 @@ namespace AMDM.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var trainee = await _context.Trainee.FindAsync(id);
+            var user = await _context.User.FindAsync(trainee.Email);
             _context.Trainee.Remove(trainee);
+            _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

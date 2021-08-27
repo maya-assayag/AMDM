@@ -31,10 +31,19 @@
             var template = $('#hidden-template-search-resulte').html();
 
             $.each(data, function (i, val) {
+                console.log(val);/////////
 
                 var temp = template;
 
+                if (val.traineeGender == 0) {
+                    val.traineeGender = 'Female';
+                }
+                else {
+                    val.traineeGender = 'Male';
+                }
+
                 val.dateOfBirth = new Date(val.dateOfBirth).toLocaleDateString('en-GB')
+
 
                 console.log(val);
 

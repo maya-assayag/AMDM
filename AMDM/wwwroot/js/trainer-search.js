@@ -23,10 +23,12 @@
 
             $.each(data, function (i, val) {
                 console.log(val);
-                if (val.trainerGender == 0) {
+                if (val.trainerGender == 0)
+                {
                     val.trainerGender = 'Female';
-
-                } else {
+                }
+                else
+                {
                     val.trainerGender = 'Male';
                 }
                 var temp = template;
@@ -40,14 +42,7 @@
                 });
 
                 $('tbody').append(temp);
-
             });
-
-
-
         });
-
-
-
     });
 });

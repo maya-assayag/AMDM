@@ -61,11 +61,11 @@ namespace AMDM.Services
                         }
                         else if (ticketType.TicketPeriod == Models.TicketType.Period.Day)
                         {
-                            trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddYears(1);
+                            trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddDays(1);
                         }
                         else if (ticketType.TicketPeriod == Models.TicketType.Period.Year)
                         {
-                            trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddDays(7);
+                            trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddYears(1);
                         }
                         else if (ticketType.TicketPeriod == Models.TicketType.Period.Week)
                         {
@@ -86,11 +86,6 @@ namespace AMDM.Services
                     }
 
                 }
-            
-            
-            
-
-
         }
     }
 }

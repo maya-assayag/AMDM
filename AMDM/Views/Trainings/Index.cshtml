@@ -20,58 +20,24 @@
 
     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
     {
-        <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Your ticket</h5>
-            </div>
+    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
+        <h5 class="card-title">Your ticket</h5>
+        <div class="card-body">
+
         </div>
-
-
-        <aside class="profile-card">
-            <header>
-                <!-- here’s the avatar -->
-                
-
-            </header>
-
-            <!-- bit of a bio; who are you? -->
-            <div class="profile-bio">
-
-                <p>
-                    It takes monumental improvement for us to change how we live our lives. Design is the way we access that improvement.
-                </p>
-
-            </div>
-
-            <!-- some social links to show off -->
-            <ul class="profile-social-links">
-                <li>
-                    <a target="_blank" href="https://www.facebook.com/creativedonut">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://twitter.com/dropyourbass">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://github.com/vipulsaxena">
-                        <i class="fa fa-github"></i>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://www.behance.net/vipulsaxena">
-
-                        <i class="fa fa-behance"></i>
-                    </a>
-                </li>
-            </ul>
-        </aside>
-
-
-
-
+        <div>
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-6" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-7" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-8" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-9" alt="...">
+            <img src="..\css\small-weight.png" class="img-fluid small-weight-icone icone-10" alt="...">
+        </div>
+    </div>
 
     }
 </div>
@@ -208,6 +174,9 @@
         }
     </tbody>
 </table>
+@section Styles {
+    <link rel="stylesheet" href="~/css/ticket-display.css" />
+}
 
 @section Scripts
 {
@@ -266,7 +235,7 @@
     <script type="text/html" id="hidden-template-registration-error-alert">
         <div class="alert alert-danger" role="alert">
             {error}
-        </div> 
+        </div>
     </script>
     <script type="text/html" id="hidden-template-registration-success-alert">
         <div class="alert alert-primary" role="alert">

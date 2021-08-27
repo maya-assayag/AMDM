@@ -1,6 +1,7 @@
 ﻿$(function () {
 
     $(document).ready(function () {
+        $('.small-weight-icone').hide();
         var userType = $('.ticket-section').attr('user-type');
         if (userType == "Trainee") {
             var traineeId = $('.display-trainee-ticket').attr('trainee-id');
@@ -22,7 +23,13 @@
                     temp = temp.replaceAll('{' + key + '}', value);
                 });
 
-                $('.display-trainee-ticket').append(temp);
+                $('.card-body').append(temp);
+
+                if (data.remainingPunchingHoles < 10) {
+                    for (var i = 1; i <= data.remainingPunchingHoles; i++) {
+                        $('.icone-'+i).show();
+                    }  
+                }
 
 
             }).fail(function (error) {

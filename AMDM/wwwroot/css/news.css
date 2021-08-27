@@ -37,7 +37,8 @@ $active-color: #333;
     appearance: none;
     backface-visibility: hidden;
 
-  &:checked{
+  &:checked
+{
     background-color: $active-color;
     animation: check 0.5s linear forwards;
 
@@ -87,6 +88,9 @@ $active-color: #333;
 }
 
 &__text {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
     color: #999;
     margin-bottom: 3rem;
     max-width: 300px;
@@ -96,18 +100,3 @@ $active-color: #333;
 
 
 
-// animation ---------------------------
-
-@keyframes check {
-    50%
-
-{
-    outline-color: $active-color;
-    box-shadow: 0 0 0 $radioBtn-size $active-color, 0 0 0 $radioBtn-size*3 rgba($active-color,0.2);
-}
-
-100% {
-    outline-color: $active-color;
-    box-shadow: 0 0 0 0 $active-color, 0 0 0 0 rgba($active-color,0);
-}
-}

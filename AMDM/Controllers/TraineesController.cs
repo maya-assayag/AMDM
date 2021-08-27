@@ -86,7 +86,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Details/5
-        [Authorize(Roles = "Admin,Trainer")]
+        [Authorize(Roles = "Admin,Trainer,Trainee")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)

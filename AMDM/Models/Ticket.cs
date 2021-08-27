@@ -8,7 +8,7 @@ namespace AMDM.Models
 {
     public class Ticket
     {
-        
+
         [Key] public int Id { get; set; }
 
         [Display(Name = "Ticket type")]
@@ -25,7 +25,7 @@ namespace AMDM.Models
         public int RemainingPunchingHoles { get; set; }
 
         [Display(Name = "Purchase date")]
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Date)]
         public DateTime PurchaseDate { get; set; }
 
         [Display(Name = "Expired date")]

@@ -32,7 +32,7 @@ namespace AMDM.Services
                     //if (trainee.Ticket == null)
                     //{
                         trainee.Ticket = new Models.Ticket();
-                        trainee.Ticket.PurchaseDate = DateTime.UtcNow;
+                        trainee.Ticket.PurchaseDate = DateTime.Now;
                         trainee.Ticket.TicketTypeId = ticketTypeId;
                         trainee.Ticket.TicketType = ticketType;
                         trainee.Ticket.Trainee = trainee;

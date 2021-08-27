@@ -1,7 +1,7 @@
 ﻿$(function () {
 
     $(document).ready(function () {
-        var userType = $('form').attr('user-type');
+        var userType = $('.ticket-section').attr('user-type');
         if (userType == "Trainee") {
             var traineeId = $('.display-trainee-ticket').attr('trainee-id');
             $.ajax({

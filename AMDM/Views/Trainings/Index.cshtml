@@ -15,14 +15,18 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-@if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-{
-    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Your ticket</h5>
+<div class="ticket-section" user-type="@Context.Session.GetString("Type")">
+
+
+    @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+    {
+        <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Your ticket</h5>
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 <div class="alert-section">
 
 
@@ -33,7 +37,7 @@
 {
     <div class="text-danger">@ViewBag.Error <br /></div>
 }
-<form user-type="@Context.Session.GetString("Type")" asp-action="Search">
+<form asp-action="Search">
 
     <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." user-id="@Context.Session.GetString("Id")" user-type="@Context.Session.GetString("Type")" />
 

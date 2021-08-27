@@ -104,6 +104,7 @@ namespace AMDM.Controllers
             var traineeId = HttpContext.Session.GetString("Id");
             Trainee trainee = _context.Trainee
                 .Include(trainee => trainee.Ticket)
+                .ThenInclude(ticket =>ticket.TicketType)
                 .Include(trainee=> trainee.Trainings).ThenInclude(training=> training.TrainingType)
                 .Include(trainee => trainee.Trainings).ThenInclude(training => training.Trainer)
                 .FirstOrDefault(t =>

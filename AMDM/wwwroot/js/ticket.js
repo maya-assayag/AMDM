@@ -23,7 +23,7 @@
                     temp = temp.replaceAll('{' + key + '}', value);
                 });
 
-                $('.card-body').append(temp);
+                $('.ticket-body').append(temp);
 
                 if (data.remainingPunchingHoles < 10) {
                     for (var i = 1; i <= data.remainingPunchingHoles; i++) {

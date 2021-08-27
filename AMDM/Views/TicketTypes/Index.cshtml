@@ -13,6 +13,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <form asp-action="Search">
 
     <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
@@ -96,9 +97,21 @@
                 {punchingHolesNumber}
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="{id}">Edit</a> |
-                <a asp-action="Details" asp-route-id="{id}">Details</a> |
-                <a asp-action="Delete" asp-route-id="{id}">Delete</a>
+                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                {
+                    <div>
+                        <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="{id}">Purchase</a>|
+                    </div>
+                }
+                @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                {
+                    <div>
+                        <a asp-action="Edit" asp-route-id="{id}">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="{id}"> Delete </a>|
+                    </div>
+                }
+
+                <a asp-action="Details" asp-route-id="{id}">Details</a>
             </td>
         </tr>
     </script>

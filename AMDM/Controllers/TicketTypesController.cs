@@ -78,8 +78,16 @@ namespace AMDM.Controllers
             if (ModelState.IsValid)
             {
                 var traineeId = HttpContext.Session.GetString("Id");
-                await Task.Run(() => _service.Purchase(ticketTypeId, traineeId));
-                return Ok();
+                try
+                {
+                    await Task.Run(() => _service.Purchase(ticketTypeId, traineeId));
+                    return Ok();
+                }
+                catch(Exception e)
+                {
+                    return BadRequest(new { Error = e.Message });
+                }
+                
                 //return View(training);
                 //return View(await _context.Training.Include(Trainee).)?????
             }

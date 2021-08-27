@@ -107,7 +107,7 @@ $(function () {
             p.hide();
         }).fail(function (error) {
             console.log(error);
-            alert(error);
+            /*alert(error);*/
         });
     });
 });

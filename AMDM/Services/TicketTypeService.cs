@@ -18,35 +18,48 @@ namespace AMDM.Services
         public async Task Purchase(int ticketTypeId, string traineeId)
         {
             //_context.Ticket.wh
-            var ticketType = _context.TicketType.FirstOrDefault(t => t.Id == ticketTypeId);
-            if (ticketType != null)
+            var lastTraineeTicket = _context.Ticket.FirstOrDefault(ticket => ticket.TraineeId == traineeId);
+            if(lastTraineeTicket!=null)
             {
-                //_context.Trainee
-                //.Include(t => t.Ticket)
-                //.Include(t => t.Trainings)
-                //.FirstOrDefault(t =>
-                //              t.Id == traineeId);
-                var trainee = _context.Trainee.Include(t=> t.Ticket).FirstOrDefault(t => t.Id == traineeId);
-                if (trainee != null)
+                if(lastTraineeTicket.ExpiredDate.CompareTo(DateTime.Now)>0)
                 {
-                    //if (trainee.Ticket == null)
-                    //{
+                    throw new Exception("You alredy have a ticket");
+                }
+                else
+                {
+                    _context.Ticket.Remove(lastTraineeTicket);
+                }
+            }
+            
+                var ticketType = _context.TicketType.FirstOrDefault(t => t.Id == ticketTypeId);
+                if (ticketType != null)
+                {
+                    //_context.Trainee
+                    //.Include(t => t.Ticket)
+                    //.Include(t => t.Trainings)
+                    //.FirstOrDefault(t =>
+                    //              t.Id == traineeId);
+                    var trainee = _context.Trainee.Include(t => t.Ticket).FirstOrDefault(t => t.Id == traineeId);
+                    if (trainee != null)
+                    {
+                        //if (trainee.Ticket == null)
+                        //{
                         trainee.Ticket = new Models.Ticket();
                         trainee.Ticket.PurchaseDate = DateTime.UtcNow;
                         trainee.Ticket.TicketTypeId = ticketTypeId;
                         trainee.Ticket.TicketType = ticketType;
                         trainee.Ticket.Trainee = trainee;
-                        if(ticketType.PunchingHolesNumber!=null)
+                        if (ticketType.PunchingHolesNumber != null)
                         {
                             trainee.Ticket.RemainingPunchingHoles = (int)ticketType.PunchingHolesNumber;
                         }
 
-                        
+
                         if (ticketType.TicketPeriod == Models.TicketType.Period.Month)
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddMonths(1);
                         }
-                        else if(ticketType.TicketPeriod == Models.TicketType.Period.Day)
+                        else if (ticketType.TicketPeriod == Models.TicketType.Period.Day)
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddYears(1);
                         }
@@ -58,7 +71,7 @@ namespace AMDM.Services
                         {
                             trainee.Ticket.ExpiredDate = DateTime.UtcNow.AddDays(7);
                         }
-                        if (ticketType.Tickets==null)
+                        if (ticketType.Tickets == null)
                         {
                             ticketType.Tickets = new List<Models.Ticket>();
                         }
@@ -66,13 +79,16 @@ namespace AMDM.Services
                         ticketType.Tickets.Add(trainee.Ticket);
                         await _context.SaveChangesAsync();
 
-                    //}
+                        //}
 
-                    //training.Trainees.Add(trainee);
-                    //await _context.SaveChangesAsync();
+                        //training.Trainees.Add(trainee);
+                        //await _context.SaveChangesAsync();
+                    }
+
                 }
-
-            }
+            
+            
+            
 
 
         }

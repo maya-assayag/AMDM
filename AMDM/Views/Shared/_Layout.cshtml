@@ -17,23 +17,32 @@
 
                 @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="AdminIndex">AMDM</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="AdminIndex">
+                        <img src="..\css\logo-icon.png" class="logo-icone" alt="...">
+                    </a>
+
                 }
                 else
                 {
                     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                     {
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">AMDM</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TraineeIndex">
+                            <img src="..\css\logo-icon.png" class="logo-icone" alt="...">
+                        </a>
                     }
                     else
                     {
                         @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                         {
-                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">AMDM</a>
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="TrainerIndex">
+                                <img src="..\css\logo-icon.png" class="logo-icone" alt="...">
+                            </a>
                         }
                         else
                         {
-                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="LandingPage">AMDM</a>
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="LandingPage">
+                                <img src="..\css\logo-icon.png" class="logo-icone" alt="...">
+                            </a>
                         }
                     }
 

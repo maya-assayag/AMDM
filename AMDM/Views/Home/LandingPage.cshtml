@@ -5,22 +5,26 @@
 }
 @using Microsoft.AspNetCore.Http;
 
-<div>
-    <div>
-        <h1 class="welcome-section">
-            <div id="wel">
+<div class="container">
+    <div class="row">
+        <div class="welcome-section row-sm">
+            <h1 id="wel">
                 WEL
-            </div>
-            <div id="come">
+            </h1>
+            <h1 id="come">
                 <br />COME
-            </div>
-        </h1>
+            </h1>
+            @*<h1 id="welcome-amdm">
+                    AMDM
+                </h1>*@
+        </div>
         <img src="..\css\img4.jpg" class="img-fluid landing-page-img-0" alt="...">
+
     </div>
-    
-    <div class="text-center">
-        <h2 class="amdm-studio-title">AMDM STUDIO:</h2>
-        <p class="amdm-studio-body">
+
+    <div class="row">
+        <h2 class="amdm-studio-title text-center">AMDM STUDIO:</h2>
+        <p class="amdm-studio-body text-center">
             If you were thinking about where the motivation would come from, you get to the right place!
             Where do I get the motivation? What about the diet? How to eat right? How to persevere despite the difficulty?
             Just show up! When you get here, you'll figure it out!
@@ -31,12 +35,14 @@
         </p>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <img src="..\css\people.jpg" class="img-fluid landing-page-img-1 col-6" alt="...">
+    <hr>
+    <h1 class="vertical col-1">AMDM</h1>
 
+    <div class="row">
+        <img src="..\css\people.jpg" class="img-fluid landing-page-img-1 col-sm-6" alt="...">
 
-            <div class="about-us-section col-4">
+        <div class="col-sm-6">
+            <div class="about-us-section row-sm-4">
 
 
                 <h2 class="about-us-title">
@@ -48,7 +54,22 @@
                     We're here to keep you calm. Here you can manage your training, acquire tickets,
                     track past and future training, and learn about your better work!
                 </p>
-                <div>
+            </div>
+
+            <div class="row-sm-4">
+                <div class="double-arrow-button-section col-4 col-sm-1">
+                    <div class="center-con">
+                        <div class="round">
+                            <div id="cta">
+                                <span class="arrow primera next "></span>
+                                <span class="arrow segunda next "></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-section col-6 col-sm-8">
+
+
                     <style>
                         #map {
                             height: 400px;
@@ -66,14 +87,15 @@
                         <br />
                     }
                     <div id="map"></div>
+
                 </div>
             </div>
         </div>
-
-
     </div>
-            
-    
+
+
+
+
 
 
     @*<video autoplay muted loop id="myVideo">
@@ -109,6 +131,13 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/landing-page.css" />
+    <link rel="stylesheet" href="~/css/double-arrow-button.css" />
 
 }
+@section Scripts {
+    <script src="~/js/double-arrow-button.js"></script>
+
+}
+
+
 

@@ -33,7 +33,7 @@
 {
     <div class="text-danger">@ViewBag.Error <br /></div>
 }
-<form asp-action="Search">
+<form user-type="@Context.Session.GetString("Type")" asp-action="Search">
 
     <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." user-id="@Context.Session.GetString("Id")" user-type="@Context.Session.GetString("Type")" />
 

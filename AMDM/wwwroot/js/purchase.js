@@ -35,7 +35,7 @@
                
             }).fail(function (error) {
                 console.log(error);
-                alert(error);
+                /*alert(error);*/
 
                 $('.alert-section').html('');
 

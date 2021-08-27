@@ -45,29 +45,29 @@ namespace AMDM.Controllers
 
             if (purchaseDateFilter == "today")
             {
-                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate.CompareTo(DateTime.Now.Date)==0);
             }
             if (purchaseDateFilter == "yesterday")
             {
-                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate.AddDays(1) == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(ticket => ticket.PurchaseDate.AddDays(1).Date.CompareTo(DateTime.Now.Date)==0);
             }
             if (purchaseDateFilter == "weekAgo")
             {
-                aMDMContext = aMDMContext.Where(ticket => (ticket.PurchaseDate <= DateTime.Now.Date && ticket.PurchaseDate >= DateTime.Now.Date.AddDays(-7)));
+                aMDMContext = aMDMContext.Where(ticket => (ticket.PurchaseDate.CompareTo(DateTime.Now.Date) <=0  && ticket.PurchaseDate.CompareTo(DateTime.Now.Date.AddDays(-7)) >=0 ));
             }
 
 
             if (expiredDateFilter == "today")
             {
-                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date);
+                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate.CompareTo(DateTime.Now)==0);
             }
             if (expiredDateFilter == "tomorrow")
             {
-                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate == DateTime.Now.Date.AddDays(1));
+                aMDMContext = aMDMContext.Where(ticket => ticket.ExpiredDate.CompareTo(DateTime.Now.Date.AddDays(1))==0);
             }
             if (expiredDateFilter == "week")
             {
-                aMDMContext = aMDMContext.Where(ticket => (ticket.ExpiredDate >= DateTime.Now.Date && ticket.ExpiredDate <= DateTime.Now.Date.AddDays(7)));
+                aMDMContext = aMDMContext.Where(ticket => (ticket.ExpiredDate.CompareTo(DateTime.Now.Date) >=0 && ticket.ExpiredDate.CompareTo(DateTime.Now.Date.AddDays(7)) <=0 ));
             }
 
             var q = from t in aMDMContext

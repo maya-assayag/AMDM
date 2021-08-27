@@ -9,9 +9,11 @@ using AMDM.Data;
 using AMDM.Models;
 using AMDM.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
+    [Authorize]
     public class TrainingsController : Controller
     {
         private readonly AMDMContext _context;
@@ -24,6 +26,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings
+        [Authorize(Roles = "Admin,Trainer,Trainee")]
         public async Task<IActionResult> Index()
         {
             var aMDMContext = _context.Training
@@ -119,6 +122,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Details/5
+        [Authorize(Roles = "Admin,Trainer,Trainee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -139,6 +143,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Create
+        [Authorize(Roles = "Admin,Trainer")]
         public IActionResult Create()
         {
             ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
@@ -175,6 +180,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Edit/5
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -230,6 +236,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Delete/5
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -296,10 +303,6 @@ namespace AMDM.Controllers
                      ViewData["Error"] = e.Message;
 
                     return BadRequest(new { Error = e.Message });
-
-
-
-
                 }
                 
                 //return View(training);
@@ -328,7 +331,6 @@ namespace AMDM.Controllers
 
             //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
-
         }
     }
 }

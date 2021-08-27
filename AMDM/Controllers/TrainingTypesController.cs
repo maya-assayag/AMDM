@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
+    [Authorize]
     public class TrainingTypesController : Controller
     {
         private readonly AMDMContext _context;
@@ -21,6 +22,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TrainingTypes
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TrainingType.ToListAsync());
@@ -36,6 +38,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TrainingTypes/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -65,7 +68,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name")] TrainingType trainingType)
         {
             if (ModelState.IsValid)
@@ -99,7 +101,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] TrainingType trainingType)
         {
             if (id != trainingType.Id)
@@ -152,7 +153,6 @@ namespace AMDM.Controllers
         // POST: TrainingTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trainingType = await _context.TrainingType.FindAsync(id);

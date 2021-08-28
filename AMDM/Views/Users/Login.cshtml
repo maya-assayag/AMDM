@@ -4,42 +4,39 @@
     ViewData["Title"] = "Login";
     Layout = "_LoginLayout";
 }
-
-
-
-
-
-
-
-
 <div class="login-wrap">
     <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">@*Sign Up*@</label>
         <div class="login-form">
-            <div class="sign-in-htm">
-                <div class="group">
-                    <label for="user" class="label">Username</label>
-                    <input id="user" type="text" class="input">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="sign-in-htm">
+                    <div class="form-group group">
+                        <label asp-for="Email" for="user" class="control-label label"></label>
+                        <input asp-for="Email" id="user" type="text" class="form-control input" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group group">
+                        <label asp-for="Password" for="pass" class="control-label label"></label>
+                        <input asp-for="Password" id="pass" type="password" class="form-control input" data-type="password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="form-group group">
+                        <input type="submit" value="Sign In" class="btn btn-primary button space" />
+                    </div>
+                    <div class="hr"></div>
+                    @*<div class="foot-lnk">
+                        <a href="#forgot">Forgot Password?</a>
+                    </div>*@
                 </div>
-                <div class="group">
-                    <label for="pass" class="label">Password</label>
-                    <input id="pass" type="password" class="input" data-type="password">
-                </div>
-                <div class="group">
-                    <input id="check" type="checkbox" class="check" checked>
-                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Sign In">
-                </div>
-                <div class="hr"></div>
-                <div class="foot-lnk">
-                    <a href="#forgot">Forgot Password?</a>
-                </div>
-            </div>
+            </form>
             <div class="sign-up-htm">
-                <div class="group">
+                @*<div class="group">
                     <label for="user" class="label">Username</label>
                     <input id="user" type="text" class="input">
                 </div>
@@ -57,72 +54,23 @@
                 </div>
                 <div class="group">
                     <input type="submit" class="button" value="Sign Up">
-                </div>
-                <div class="hr"></div>
+                </div>*@
+                @*<div class="hr"></div>
                 <div class="foot-lnk">
                     <label for="tab-1">Already Member?</a>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>Login</h1>
-
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-        </form>
-        @if (ViewBag.Error != null)
-        {
-            <div class="text-danger">@ViewBag.Error </div>
-        }
-
-    </div>
-</div>
-
-<div>
-    Not registered? <a asp-controller="Trainees" asp-action="Create">Click here </a>to Register.
-</div>
-
+@if (ViewBag.Error != null)
+{
+    <div class="text-danger">@ViewBag.Error </div>
+}
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/login.css" />
 }
+

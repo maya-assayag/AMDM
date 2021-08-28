@@ -107,7 +107,19 @@ $(function () {
             p.hide();
         }).fail(function (error) {
             console.log(error);
-            /*alert(error);*/
+            $('.alert-section').html('');
+
+            var template = $('#hidden-template-registration-error-alert').html();
+
+
+
+            var temp = template;
+
+            $.each(error.responseJSON, function (key, value) {
+                temp = temp.replaceAll('{' + key + '}', value);
+            });
+
+            $('.alert-section').append(temp);
         });
     });
 });

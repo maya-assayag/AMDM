@@ -322,10 +322,17 @@ namespace AMDM.Controllers
             if (ModelState.IsValid)
             {
                 var Id = HttpContext.Session.GetString("Id");
-                await Task.Run(() => _service.Unregister(trainingID, Id));
-                return Ok();
-                //return View(training);
-                //return View(await _context.Training.Include(Trainee).)?????
+                try
+                {
+                    await Task.Run(() => _service.Unregister(trainingID, Id));
+                    return Ok();
+                }
+                catch(Exception e)
+                {
+                    return BadRequest(new { Error = e.Message });
+                }
+                
+               
             }
             return BadRequest(new { Error = "model is not valid" });
 

@@ -2,93 +2,175 @@
 @{ ViewData["Title"] = "Home Page"; }
 @using Microsoft.AspNetCore.Http;
 
-<div class="text-center">
 
-
-    <h1 class="display-4">
-        Welcome @Context.Session.GetString("Name")
+<div>
+    <h1 class="display-4 text-center">
+        Welcome Admin
     </h1>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <hr />
-    <div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Dashboard:</h5>
-                <h5 class="card-title">Get your status:</h5>
-                <div class="row">
-                    <div id="chart1" class="card g-col-6 " @*style="width: 30rem;"*@>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Occupancy in trainings:
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><strong>......</strong> ....</h6>
-                            <p class="card-text">.....</p>
-                        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Dashbord</h1>
+                <h2>Get Your Status</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card statistic-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><strong>@Html.DisplayFor(model => model.SumOfTicketPurchasedThisMonth)</strong></h4>
+                        <h6 class="card-subtitle mb-2 text-muted text-center"><strong>Tickets</strong></h6>
+                        <p class="card-text text-center">Tickets are purchased this month.</p>
+                        <img src="..\css\img\tickets-icon.png" class="img-fluid tickets-icon" alt="...">
                     </div>
-                    <div id="chart2" class="card g-col-6" @*style="width: 30rem;"*@>
-                        <div class="card-body">
-                            <h5 class="card-title">What types of tickets are using by trainees</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><strong>......</strong> ....</h6>
-                            <p class="card-text">.....</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card statistic-card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><strong>@Html.DisplayFor(model => model.SumOfRevenueThisMonth) NIS</strong></h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-center"><strong>Tickets Revenue</strong></h6>
+                        <p class="card-text text-center">The revenue from tickets of this month.</p>
+                        <img src="..\css\img\currency.png" class="img-fluid currency-icon" alt="...">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card statistic-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center"><strong>@Html.DisplayFor(model => model.ActiveTrainees)</strong></h4>
+                        <h6 class="card-subtitle mb-2 text-muted text-center"><strong>Active Trainees</strong></h6>
+                        <p class="card-text text-center">Trainees with active ticket.</p>
+                        <img src="..\css\img\user-icon.png" class="img-fluid user-icon" alt="...">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="chart1" class="card graph-card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Occupancy in trainings:
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted"><strong>Occupancy for the future trainings.</strong> </h6>
+                        <div class="card-text">
+                            <p><strong class="map-graph-dark-blue">Dark Blue</strong>: The possible amount per training.</p>
+                            <p><strong class="map-graph-light-blue">Light Blue</strong>: The actual occupancy per training.</p>
                         </div>
                     </div>
                 </div>
-
-
-
+            </div>
+            <div class="col-sm-6">
+                <div id="chart2" class="card graph-card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bestseller Tickets</h4>
+                        <h6 class="card-subtitle mb-2 text-muted"><strong>The most popular ticket at all times.</strong></h6>
+                        @*<p class="card-text">.....</p>*@
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">The amount of tickets purchased this month: @Html.DisplayFor(model => model.SumOfTicketPurchasedThisMonth)</h5>
-                <h5 class="card-title">The revenue from tickets of this month: @Html.DisplayFor(model => model.SumOfRevenueThisMonth) NIS</h5>
-                <h5 class="card-title">The amount of Active Trainees: @Html.DisplayFor(model => model.ActiveTrainees)</h5>
-
-
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>ADVERTISING</h4>
+                <a asp-controller="Home" asp-action="Twitter" class="card mb-3 twitter-card" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="..\css\img\twitter.jpg" class="img-fluid rounded-start twitter-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Post a tweet</h5>
+                                <p class="card-text">Please share with everyone, advertise your business!</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <h4>FOR MORE DATA:</h4>
+                <div class="center-con btn-body">
+                    <div class="round">
+                        <div id="cta">
+                            <span class="arrow primera next "></span>
+                            <span class="arrow segunda next "></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">Add a new trainer</h5>
-                <a asp-controller="Trainers" asp-action="Create">+</a>
-                <h5 class="card-title">
-                    <a asp-controller="Trainers" asp-action="Index">See all trainers</a>
-                </h5>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>ADD SECTION:</h4>
+                <a asp-controller="TrainingTypes" asp-action="Create" class="btn btn-outline-primary btn-lg">New Training Type</a>
+                <a asp-controller="Trainers" asp-action="Create" class="btn btn-outline-primary btn-lg">New Trainer</a>
+                <a asp-controller="TicketTypes" asp-action="Create" class="btn btn-outline-primary btn-lg">New Ticket Type</a>
             </div>
-        </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">Add a new training type</h5>
-                <a asp-controller="TrainingTypes" asp-action="Create">+</a>
-            </div>
-        </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">See all the TicketTypes</h5>
-                <a asp-controller="TicketTypes" asp-action="Index">+</a>
-            </div>
-        </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">Add a new TicketType</h5>
-                <a asp-controller="TicketTypes" asp-action="Create">+</a>
-            </div>
-        </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">See all Trainees</h5>
-                <a asp-controller="Trainees" asp-action="Index">+</a>
-            </div>
-        </div>
-        <div class="card display-4">
-            <div class="card-body">
-                <h5 class="card-title">See all the tickets purchased</h5>
-                <a asp-controller="Tickets" asp-action="Index">+</a>
+            <div class="col-sm-6">
+                <h4>DETAILS SECTION:</h4>
+                <a asp-controller="Tickets" asp-action="Index" class="btn btn-outline-primary btn-lg">Purchase Tickets</a>
+                <a asp-controller="Trainers" asp-action="Index" class="btn btn-outline-primary btn-lg">Trainers</a>
+                <a asp-controller="TicketTypes" asp-action="Index" class="btn btn-outline-primary btn-lg">Tickets Types</a>
+                <a asp-controller="Trainees" asp-action="Index" class="btn btn-outline-primary btn-lg">Trainees</a>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 
@@ -139,7 +221,7 @@
         .attr("y", function (d) { return y(d.MaxParticipant); })
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return height - y(d.MaxParticipant); })
-        .attr("fill", "#69b3a2");
+        .attr("fill", "#191970");
 
     svg.selectAll("actualbar")
         .data(data)
@@ -149,7 +231,7 @@
         .attr("y", function (d) { return y(d.ActualParticipant); })
         .attr("width", x.bandwidth())
         .attr("height", function (d) { return height - y(d.ActualParticipant); })
-        .attr("fill", "blue")
+        .attr("fill", "#1E90FF")
 
 
 
@@ -187,9 +269,12 @@
             .attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
 
+
+
+
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([0, @Model.AllTrainees])
+            .domain([0, @Model.TheAmountSellerMostPopularTicktType])
             .range([height, 0]);
         svg.append("g")
             .call(d3.axisLeft(y));
@@ -215,16 +300,15 @@
             .attr("r", "4")
             .style("fill", "#69b3a2")
             .attr("stroke", "black")
-    
+
 
 </script>
 
-<div class="card display-4">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a asp-controller="Home" asp-action="Twitter">Post a tweet</a>
-        </h5>
-        
-    </div>
-</div>
-
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin-welcome-page.css" />
+    <link rel="stylesheet" href="~/css/double-arrow-button.css" />
+}
+@section Scripts
+{
+    <script src="~/js/double-arrow-button.js"></script>
+}

@@ -1,0 +1,41 @@
+﻿.statistic-card {
+    width: 18rem;
+    height:13rem;
+    margin-bottom:20px;
+}
+.currency-icon{
+    width:30%;
+    margin-left:70px;
+}
+.tickets-icon{
+    width: 25%;
+    margin-left: 70px;
+}
+.user-icon {
+    width: 25%;
+    margin-left: 70px;
+}
+.graph-card {
+    width: 30rem;
+    height: 40rem;
+    margin-bottom:20px;
+}
+.twitter-card{
+    width: 30rem;
+    height: 9rem;
+}
+.btn {
+    width: 15rem;
+    height: 3rem;
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+
+.map-graph-light-blue {
+    color: #191970;
+}
+.map-graph-dark-blue {
+    color: #1E90FF;
+}
+
+

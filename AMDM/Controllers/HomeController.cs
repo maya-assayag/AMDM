@@ -139,7 +139,15 @@ namespace AMDM.Controllers
                 map.Add(new KeyValuePair<string, int>(ticket.First().TicketType.Name + " with " + ticket.First().TicketType.PunchingHolesNumber + " punching", ticket.Count()));                    
             }
 
-
+            int max = 0;
+            foreach (var type in map)
+            {
+                if(type.Value>max)
+                {
+                    max = type.Value;
+                }
+            }
+            adminView.TheAmountSellerMostPopularTicktType = max;
             adminView.TicketsTypesPurchasedLollipop = map;
             adminView.SumOfRevenueThisMonth = 0;
 

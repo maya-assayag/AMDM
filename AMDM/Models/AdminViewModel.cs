@@ -27,5 +27,7 @@ namespace AMDM.Models
         public int ActiveTrainees { get; set; }
 
         public int AllTrainees { get; set; }
+
+        public int TheAmountSellerMostPopularTicktType { get; set; }
     }
 }

@@ -133,6 +133,7 @@ namespace AMDM.Controllers
             var training = await _context.Training
                 .Include(t => t.Trainer)
                 .Include(t => t.TrainingType)
+                .Include(t => t.Trainees)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (training == null)
             {

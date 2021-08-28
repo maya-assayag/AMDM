@@ -6,9 +6,12 @@
 }
 .training-card {
     width: 13rem;
-    height:16rem;
+    height:17rem;
     margin-top:2rem;
     margin-right:2rem;
     
 
+}
+.unregister {
+    margin-left: 5rem;
 }

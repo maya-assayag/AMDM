@@ -123,13 +123,12 @@
                                 <div class="col-sm-3">
                                     <div class="card training-card">
                                         <div class="card-body">
-                                            <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">
-                                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
-                                                <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
-                                                <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
-                                                <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
-                                            </a>
+                                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                                            <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                                            <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
+                                            <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
+                                            <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                             <a name="unregister" class="unregister card-link btn btn-danger" href="#" training-id="@item.Id">Unregister</a>
                                         </div>
                                     </div>
@@ -164,5 +163,4 @@
     <link rel="stylesheet" href="~/css/ticket-display.css" />
     <link rel="stylesheet" href="~/css/news.css" />
     <link rel="stylesheet" href="~/css/trainee-welcome-page.css" />
-    <link rel="stylesheet" href="~/css/trainingCard.css" />
 }

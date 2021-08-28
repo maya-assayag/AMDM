@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AMDM.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class TraineesController : Controller
     {
         private readonly AMDMContext _context;
@@ -109,7 +109,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Create
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();

@@ -20,6 +20,11 @@
     margin-top:50px;
 }
 
+.landing-page-arrow {
+    margin-left: 870px;
+    margin-top: 200px;
+}
+
 #cta {
     width: 100%;
     cursor: pointer;

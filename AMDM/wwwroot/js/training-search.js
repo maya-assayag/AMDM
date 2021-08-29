@@ -77,7 +77,7 @@
             
             console.log(data);
 
-            $('tbody').html('');
+            $('.trainings-section').html('');
             
             var template = $('#hidden-template-search-resulte').html();
 
@@ -132,7 +132,7 @@
                     temp = temp.replaceAll('{' + key + '}', value);
                 });
 
-                $('tbody').append(temp);
+                $('.trainings-section').append(temp);
 
             });
 

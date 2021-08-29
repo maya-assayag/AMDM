@@ -1,0 +1,67 @@
+﻿.sentence {
+    font-family: Impact, fantasy;
+    font-weight: 900;
+    font-size: 70px;
+    margin-left:70px;
+}
+.sentence-owner {
+    font-family: Impact, fantasy;
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 570px;
+}
+.ticket-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.search-box {
+    border-radius: 25px;
+    width: 30%;
+    height: 45px;
+}
+label {
+    margin-left: 80px;
+    font-size: 20px;
+}
+select {
+    border-radius: 25px;
+    width: 15%;    
+}
+.filter-by-title{
+    margin-left: 10px;
+
+}
+.btn-search {
+    margin-left: 935px;
+    margin-top: 15px;
+    border-radius: 25px;
+    width: 10%;
+}
+.training-card {
+    width: 170px;
+    height: 370px;
+    margin-left: 35px;
+    margin-bottom: 5px;
+}
+.dates-title {
+    font-family: Stencil Std, fantasy;
+}
+.display-registration {
+    width: 170px;
+    position: absolute;
+    left: 100px;
+    top: 315px;
+}
+.trainer-btn {
+    width: 115px;
+    margin-left: 5px;
+    margin-top: 15px;
+    /*position: absolute;
+    left: 100px;
+    top: 315px;*/
+}
+.create-new-training-btn {
+    width: 250px;
+    margin-top: 40px;
+    margin-left: 15px;
+}

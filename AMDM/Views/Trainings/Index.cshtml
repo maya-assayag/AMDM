@@ -9,38 +9,147 @@
 {
     @Html.AntiForgeryToken()
 }
-@if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<div class="ticket-section" user-type="@Context.Session.GetString("Type")">
 
 
-    @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-    {
-    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
-        <h5 class="card-title">Your ticket</h5>
-        <div class="card-body ticket-body">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+            {
+                <p>
+                    <a class="btn btn-outline-primary create-new-training-btn" asp-action="Create">Add New Training</a>
+                </p>
+            }
+            <div class="ticket-section" user-type="@Context.Session.GetString("Type")">
+                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                {
+                    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")" style="width: 18rem;">
+                        <h5 class="card-title text-center">Your ticket</h5>
+                        <div class="card-body ticket-body">
+
+                        </div>
+                        <div>
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-6" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-7" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-8" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-9" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-10" alt="...">
+                        </div>
+                    </div>
+
+                }
+            </div>
 
         </div>
-        <div>
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-6" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-7" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-8" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-9" alt="...">
-            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-10" alt="...">
+        <div class="col-sm-8">
+            <p class="sentence">“You dream. You plan.<br />&emsp;&emsp;You reach.“</p>
+            <p class="sentence-owner">—Abby Wambach</p>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <div @*class="card"*@>
+                <form asp-action="Search">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <input class="search-box" name="query" id="query" autocomplete="off" placeholder="&emsp;Search trainings..." user-id="@Context.Session.GetString("Id")" user-type="@Context.Session.GetString("Type")" />
+                        </h5>
+                        <div class="filter-section">
+                            <label class="filter-by-title">filter by:</label><br />
+                            <label for="cars">dates:</label>
+                            <select id="date-filter" name="dateFilter" value="Search by dates...">
+                                <option value="today">Today</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="week">This week</option>
+                                <option selected="selected" value="all">All dates</option>
+                            </select>
+                            <label>training type:</label>
+                            <select id="type-filter" name="typeFilter" value="Search by trainings types...">
+                                <option selected="selected" value="all">All trainings types</option>
 
-    }
+                            </select>
+                            <label>trainer name:</label>
+                            <select id="trainer-filter" name="trainerFilter" value="Search by trainer name...">
+                                <option selected="selected" value="all">All trainers</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Search" class="btn btn-outline-primary btn-search" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row trainings-section">
+
+        @foreach (var group in Model.Where(training=>training.Date >= DateTime.Now.Date).GroupBy(t => t.Date))
+        {
+            <div class="col">
+                <h1 class="dates-title text-center">@group.Key.ToShortDateString()</h1>
+                <div class="trainings-section">
+                    @foreach (var item in group)
+                    {
+                        if (item.TotalTraineesLeft > 0)
+                        {
+                            <div class="card training-card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted text-center">By: @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Date)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>@Html.DisplayFor(modelItem => item.Time)</strong></p>
+                                    @*<p class="card-text">@Html.DisplayNameFor(model => model.Time): </p>*@
+                                    <p class="card-text"><strong>@Html.DisplayNameFor(model => model.Studio):</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
+                                    <p class="card-text">Trainees at studio: @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
+                                    <p class="card-text"><strong>Place left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
+                                    <a class="card-link" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <div class="registration-rap" training-id-rap="@item.Id">
+                                        @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                                        {
+                                            bool flag = false;
+                                            foreach (var trainee in item.Trainees)
+                                            {
+                                                if (trainee.Id == Context.Session.GetString("Id"))
+                                                {
+                                                    flag = true;
+                                                    break;
+                                                }
+
+                                            }
+                                            <div class="registration" registration-flag="@flag.ToString()">
+                                                <p class="text-success already-registered-message already-registered-message-@item.Id" style="display: none;">
+                                                    already registered to this training
+                                                </p>
+                                                <a name="" class="btn btn-outline-primary display-registration display-registration-@item.Id" href="#" training-id="@item.Id"></a>
+                                            </div>
+                                        }
+                                    </div>
+                                    @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                                    {
+                                        @if(item.Trainer.Id== Context.Session.GetString("Id"))
+                                        {
+                                            <div>
+                                                <br />
+                                                <a class="btn btn-outline-primary trainer-btn" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                                                <a class="btn btn-outline-danger trainer-btn" asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>    
+         }
+    </div>
 </div>
+
 <div class="alert-section">
 
 
@@ -51,131 +160,10 @@
 {
     <div class="text-danger">@ViewBag.Error <br /></div>
 }
-<form asp-action="Search">
 
-    <input name="query" id="query" autocomplete="off" placeholder="Search trainings..." user-id="@Context.Session.GetString("Id")" user-type="@Context.Session.GetString("Type")" />
-
-
-    <label for="cars">filter by date:</label>
-    <select id="date-filter" name="dateFilter" value="Search by dates...">
-        <option value="today">Today</option>
-        <option value="tomorrow">Tomorrow</option>
-        <option value="week">This week</option>
-        <option selected="selected" value="all">All dates</option>
-    </select>
-    <label>filter by training type:</label>
-    <select id="type-filter" name="typeFilter" value="Search by trainings types...">
-        <option selected="selected" value="all">All trainings types</option>
-
-    </select>
-    <label>filter by trainer name:</label>
-    <select id="trainer-filter" name="trainerFilter" value="Search by trainer name...">
-        <option selected="selected" value="all">All trainers</option>
-
-    </select>
-    <input type="submit" value="Search" class="btn btn-primary" />
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TrainingType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trainer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Studio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxRegisterTrainees)
-            </th>
-            <th>
-                Place left
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            if (item.Date > DateTime.Now.Date && item.TotalTraineesLeft > 0)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TrainingType.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Trainer.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Time)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Studio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalTraineesLeft)
-                    </td>
-                    <td>
-                        <div class="registration-rap" training-id-rap="@item.Id">
-                            @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                            {
-                                bool flag = false;
-                                foreach (var trainee in item.Trainees)
-                                {
-                                    if (trainee.Id == Context.Session.GetString("Id"))
-                                    {
-                                        flag = true;
-                                        break;
-                                    }
-
-                                }
-                                <div class="registration" registration-flag="@flag.ToString()">
-                                    <p class="text-success already-registered-message already-registered-message-@item.Id" style="display: none;">
-                                        already registered to this training
-                                    </p>
-                                    <a name="" class="display-registration display-registration-@item.Id" href="#" training-id="@item.Id"></a> |
-                                </div>
-
-
-
-                            }
-                        </div>
-                        @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
-                        {
-                            <div>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                            </div>
-
-                        }
-
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-
-                    </td>
-                </tr>
-
-
-            }
-
-        }
-    </tbody>
-</table>
 @section Styles {
     <link rel="stylesheet" href="~/css/ticket-display.css" />
+    <link rel="stylesheet" href="~/css/training-registration.css" />
 }
 
 @section Scripts
@@ -193,7 +181,50 @@
     </script>
 
     <script type="text/html" id="hidden-template-search-resulte">
-        <tr>
+        <div class="card training-card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title text-center">{name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-center">By: {firstName}</h6>
+                <p class="card-text">{date}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>{time}</strong></p>
+                <p class="card-text"><strong>Studio:</strong> {studio}</p>
+                <p class="card-text">Trainees at studio: {maxRegisterTrainees}</p>
+                <p class="card-text"><strong>Place left:</strong> {totalTraineesLeft}</p>
+                <a class="card-link" asp-action="Details" asp-route-id="{Id}">Details</a>
+                <div class="registration-rap" training-id-rap="{Id}">
+                    @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                    {
+                        <div class="registration-after-search">
+                            <p class="text-success already-registered-message-after-search-{id}" style="display: none;">
+                                already registered to this training
+                            </p>
+                            <a name="" class="btn btn-outline-primary display-registration-after-search-{id}" href="#" training-id="{Id}"></a>
+                        </div>
+                    }
+                </div>
+                @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+                {
+                    
+                        <div>
+                            <br />
+                            <a class="btn btn-outline-primary trainer-btn" asp-action="Edit" asp-route-id="{Id}">Edit</a>
+                            <a class="btn btn-outline-danger trainer-btn" asp-action="Delete" asp-route-id="{Id}">Delete</a>
+                        </div>
+                    
+                }
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        @*<tr>
             <td>
                 {name}
             </td>
@@ -224,7 +255,7 @@
                 </div>
                 <a asp-action="Details" asp-route-id="{Id}">Details</a>
             </td>
-        </tr>
+        </tr>*@
     </script>
     <script type="text/html" id="hidden-template-trainings-types-filter">
         <option value="{name}">{name}</option>

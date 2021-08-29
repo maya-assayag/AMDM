@@ -55,7 +55,6 @@ namespace AMDM.Controllers
                     }
                 } 
             }
-            var q= Json(traineesId);
             return Json(traineesId);
         }
         public async Task<IActionResult> Search(string query, string dateFilter, string typeFilter, string trainerFilter)

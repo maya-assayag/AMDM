@@ -80,25 +80,18 @@
             </div>
             <div class="col-sm-6">
                 <div class="slider">
-                    <input class="slider__dot" type="radio" name="slider" title="slide1" checked="checked" />
-                    <input class="slider__dot" type="radio" name="slider" title="slide2" />
-                    <input class="slider__dot" type="radio" name="slider" title="slide3" />
-                    <input class="slider__dot" type="radio" name="slider" title="slide4" />
+                    @*<div class="slider-points text-center">*@
+                        <!--<input class="slider__dot" type="radio" name="slider" title="slide1" checked="checked" />
+                        <input class="slider__dot" type="radio" name="slider" title="slide2" />
+                        <input class="slider__dot" type="radio" name="slider" title="slide3" />
+                        <input class="slider__dot" type="radio" name="slider" title="slide4" />-->
+                    @*</div>*@
                     <div class="slider__inner"> 
-                        <div class="slider__body">
+                        <div class="slider__body news-section">
                             <h2 class="slider__caption">news</h2>
-                            <i class="slider__image fa fa-newspaper-o"></i>
-                            <p class="slider__text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis possimus illo quos, corporis minima!
-                            </p>
-                            <i class="slider__image fa fa-newspaper-o"></i>
-                            <p class="slider__text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis possimus illo quos, corporis minima!
-                            </p>
-                            <i class="slider__image fa fa-newspaper-o"></i>
-                            <p class="slider__text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis possimus illo quos, corporis minima!
-                            </p>
+                            
+                            
+                           
                         </div>
                        
                     </div>
@@ -151,12 +144,26 @@
 @section Scripts
 {
     <script src="~/js/training-registration.js"></script>
+    <script src="~/js/news.js"></script>
     <script src="~/js/ticket.js"></script>
     <script type="text/html" id="hidden-template-trainee-ticket">
         <h6>{name} ticket</h6>
         <h6>Ticket with {punchingHolesNumber} punches</h6>
         <h6>You have left: {remainingPunchingHoles} ticket's punches</h6>
         <h6>Expired at: {expiredDate}</h6>
+    </script>
+    <script type="text/html" id="hidden-template-news-title">
+        <div class="container">
+            <div class="row">
+                <i class="slider__image fa fa-newspaper-o col"></i>
+                @*<p class="slider__text news-date col">{pubDate}</p>*@
+            </div>
+            <div class="row">
+                <p class="slider__text col news-title">{title}</p>
+            </div>
+        </div>
+        
+        
     </script>
 }
 @section Styles {

@@ -10,20 +10,24 @@ $active-color: #333;
 *, *:before, *:after {
     box-sizing: border-box;
 }
+.news-title {
+   /* margin-top: 5px;*/
+}
 
 .slider {
     font-family: 'Josefin Sans', sans-serif;
     font-size: 1rem;
     line-height: 1.7;
     height: 38vh;
-    position: relative;
+    position: absolute;
+    left: 10px;
+    top: 0px;
     overflow: hidden;
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
     justify-content: center;
-
-  &__dot {
+    &__dot {
     width: $radioBtn-size;
     height: $radioBtn-size;
     margin: 2rem $radioBtn-size;
@@ -54,6 +58,7 @@ $active-color: #333;
 }
 }
 }
+
 
 &__inner {
     position: absolute;

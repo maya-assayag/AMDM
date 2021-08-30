@@ -22,7 +22,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TrainingTypes
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TrainingType.ToListAsync());
@@ -38,7 +38,7 @@ namespace AMDM.Controllers
         }
 
         // GET: TrainingTypes/Details/5
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

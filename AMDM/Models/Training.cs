@@ -11,28 +11,34 @@ namespace AMDM.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Training type")]
         public int TrainingTypeId { get; set; }
-       
-        
+
+        [Required]
         public TrainingType TrainingType { get; set; }
 
 
         [Display(Name = "Trainer id")]
-
+        [Required]
         public string TrainerId { get; set; }
+
         public Trainer Trainer { get; set; }
 
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Date { get; set; }
 
         [DataType(DataType.Time)]
+        [Required]
         public DateTime Time { get; set; }
 
         [Required]
+        [RegularExpression("^[A-Z]+[a-zA-Z0-9, ]*$", ErrorMessage = "You must input a valid studio name begins with a capital letter")]
         public string Studio { get; set; }
 
         [Range(1, 20)]
+        [Required]
         public int MaxRegisterTrainees { get; set; }
         public List<Trainee> Trainees { get; set; }
 
@@ -43,6 +49,5 @@ namespace AMDM.Models
                 return Trainees != null ? MaxRegisterTrainees - Trainees.Count() : MaxRegisterTrainees;
             }
         }
-
     }
 }

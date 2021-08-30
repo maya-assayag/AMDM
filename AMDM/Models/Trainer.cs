@@ -13,12 +13,12 @@ namespace AMDM.Models
         [Key] public string Id { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input avalid name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input a valid name begins with a capital letter")]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input avalid name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input a valid name begins with a capital letter")]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
@@ -42,6 +42,7 @@ namespace AMDM.Models
 
         [Display(Name = "Phone number")]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(10, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -49,7 +50,5 @@ namespace AMDM.Models
         public Gender TrainerGender { get; set; }
 
         public List<Training> Trainings { get; set; }
-
-
     }
 }

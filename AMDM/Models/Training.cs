@@ -11,16 +11,13 @@ namespace AMDM.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [Display(Name = "Training type")]
         public int TrainingTypeId { get; set; }
 
-        [Required]
         public TrainingType TrainingType { get; set; }
 
 
         [Display(Name = "Trainer id")]
-        [Required]
         public string TrainerId { get; set; }
 
         public Trainer Trainer { get; set; }

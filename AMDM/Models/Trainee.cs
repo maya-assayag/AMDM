@@ -50,7 +50,6 @@ namespace AMDM.Models
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [Required]
         [Display(Name = "Gender")]
         public Gender TraineeGender { get; set; }
 

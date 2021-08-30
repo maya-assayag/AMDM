@@ -166,6 +166,7 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Create([Bind("Id,TrainingTypeId,Date,Time,Studio,MaxRegisterTrainees")] Training training)
         {
             training.TrainerId = HttpContext.Session.GetString("Id");

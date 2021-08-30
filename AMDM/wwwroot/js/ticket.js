@@ -15,8 +15,6 @@
                 data.expiredDate = new Date(data.expiredDate).toLocaleDateString('en-GB')
                 var template = $('#hidden-template-trainee-ticket').html();
 
-
-
                 var temp = template;
 
                 $.each(data, function (key, value) {
@@ -29,6 +27,21 @@
                     for (var i = 1; i <= data.remainingPunchingHoles; i++) {
                         $('.icone-'+i).show();
                     }  
+                }
+                if (data.remainingPunchingHoles == 0) {
+                    $('.alert-ticket-section').html('');
+
+                    var template = $('#hidden-template-ticket-no-punches-left-alert').html();
+
+
+
+                    var temp = template;
+
+
+                    temp = temp.replaceAll('{' + "message" + '}', "Your ticket date is valid, But you don't have any punches left");
+
+
+                    $('.alert-ticket-section').append(temp);
                 }
 
 

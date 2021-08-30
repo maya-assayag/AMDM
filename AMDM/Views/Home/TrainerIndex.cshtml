@@ -46,15 +46,14 @@
                         <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">
-                                        <h5 class="card-title"><strong>Traning type:</strong> @Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer name:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
-                                        <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
-                                        <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
-                                        <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
-                                    </a>
+                                    <h5 class="card-title"><strong>Traning type:</strong> @Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer name:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                                    <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                                    <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
+                                    <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
                                     <a asp-controller="Trainings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
-                                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
+                                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                 </div>
                             </div>
                         </div>
@@ -76,6 +75,5 @@
 </div>
 @section Scripts
 {
-    <link rel="stylesheet" href="~/css/trainingCard.css" />
     <script src="~/js/training-registration.js"></script>
 }

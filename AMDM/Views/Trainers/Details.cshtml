@@ -81,14 +81,13 @@
         {
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
-                        <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
-                        <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
-                    </a>
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                    <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                     <a asp-controller="Trainings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
-                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
+                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </div>
             </div>
         }
@@ -109,15 +108,14 @@ else
         {
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
-                        <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
-                        <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
-                        <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
-                    </a>
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TrainingType.Name)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
+                    <p class="card-text"> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
+                    <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
+                    <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
                     <a asp-controller="Trainings" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
-                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id">Edit</a>|
+                    <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </div>
             </div>
         }
@@ -132,6 +130,3 @@ else
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-@section Styles {
-    <link rel="stylesheet" href="~/css/trainingCard.css" />
-}

@@ -7,11 +7,13 @@ $(function () {
         for (var i = 0; i < alla.length; i++) {
             if (allWrappers[i].getAttribute("registration-flag") == "False") {
                 alla[i].classList.add("register");
+                alla[i].classList.add("btn-outline-primary");
                 alla[i].setAttribute("name", "register");
                 alla[i].textContent="Register";
                 allp[i].style.display = 'none';
             } else {
                 alla[i].classList.add("unregister");
+                alla[i].classList.add("btn-outline-danger");
                 alla[i].setAttribute("name", "unregister");
                 alla[i].textContent="Unregister";
                 allp[i].style.display = 'block';

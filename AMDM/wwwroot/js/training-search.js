@@ -49,10 +49,7 @@
         var query = $('#query').val();
 
         var userType = $('#query').attr('user-type');
-        var traineeId = '';
-        if (userType == "Trainee") {
-            traineeId = $('#query').attr('user-id');
-        }
+        var userId = $('#query').attr('user-id');;
        
         var selectDate = document.getElementById('date-filter');
         var dateFilter = selectDate.options[selectDate.selectedIndex].value;
@@ -96,7 +93,7 @@
                     }).done(function (traineesIdOnTraining) {
                         console.log(traineesIdOnTraining);
                         $.each(traineesIdOnTraining, function (i, trainee) {
-                            if (trainee == traineeId) {
+                            if (trainee == userId) {
                                 flag = true;
                                 $(".display-registration-after-search-"+val.id).addClass("unregister");
                                 $(".display-registration-after-search-"+val.id).attr("name", "unregister");
@@ -115,7 +112,33 @@
                     }).fail(function (error) {
                         console.log(eroor);
                     });
-                }        
+                }
+                
+                if (userType == "Trainer") {
+                    $('.trainer-btn').hide();
+                    $.ajax({
+                        //method :'post',
+                        url: '/Trainings/GetTrainingTrainerId',
+                        data: {
+                            'trainingId': val.id,
+                        }
+                    }).done(function (trainerId) {
+                        if (userId == trainerId) {
+                            $('.trainer-btn-' + val.id).show();
+                        }
+                    });
+
+
+
+                    
+                    
+                }
+                
+
+
+
+
+
                 var temp = template;
 
                         val.time = new Date(val.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })

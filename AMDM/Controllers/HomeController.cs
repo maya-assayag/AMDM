@@ -99,6 +99,7 @@ namespace AMDM.Controllers
             }
             return View(twts);
         }
+        [Authorize(Roles = "Trainee")]
         public IActionResult TraineeIndex()
         {
             var traineeId = HttpContext.Session.GetString("Id");
@@ -111,6 +112,7 @@ namespace AMDM.Controllers
                               t.Id == traineeId);
             return View(trainee);
         }
+        [Authorize(Roles = "Trainer")]
         public IActionResult TrainerIndex()
         {
             var trainerId = HttpContext.Session.GetString("Id");
@@ -120,6 +122,7 @@ namespace AMDM.Controllers
                               t.Id == trainerId);
             return View(trainer);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
         {
             AdminViewModel adminView = new AdminViewModel();
@@ -131,8 +134,6 @@ namespace AMDM.Controllers
                 .GroupBy(t => t.TicketType.Id);
 
             IList<KeyValuePair<string, int>> map = new List<KeyValuePair<string, int>>();
-
-
            
             foreach (var ticket in ticketsTypes)
             {
@@ -157,7 +158,6 @@ namespace AMDM.Controllers
                 {
                     adminView.SumOfRevenueThisMonth += ticket.TicketType.Price;
                 }
-                
             }
 
             adminView.SumOfTicketPurchasedThisMonth = 0;
@@ -167,7 +167,6 @@ namespace AMDM.Controllers
                 {
                     adminView.SumOfTicketPurchasedThisMonth ++;
                 }
-
             }
             adminView.AllTrainees = _context.Trainee.Count();
             adminView.ActiveTrainees = _context.Trainee.Include(trainee => trainee.Ticket)
@@ -183,12 +182,10 @@ namespace AMDM.Controllers
 
             IList<BarplotItem> barplotItems = new List<BarplotItem>();
 
-
             foreach (Training training in allTrainings)
             {
                 barplotItems.Add(new BarplotItem
                 {
-
                     Id = training.Id,
                     Name = training.TrainingType.Name,
                     MaxParticipant = training.MaxRegisterTrainees,
@@ -197,7 +194,6 @@ namespace AMDM.Controllers
             }
 
             adminView.AllTrainingsBarplot = barplotItems;
-
 
             //TODO: get user data and insert into model
             // adminView.User = currentUser;

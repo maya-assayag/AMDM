@@ -115,13 +115,7 @@
                     }).fail(function (error) {
                         console.log(eroor);
                     });
-                }
-                
-
-
-
-
-
+                }        
                 var temp = template;
 
                         val.time = new Date(val.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })

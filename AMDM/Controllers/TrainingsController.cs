@@ -57,6 +57,15 @@ namespace AMDM.Controllers
             }
             return Json(traineesId);
         }
+
+        public async Task<IActionResult> GetTrainingTrainerId(int trainingId)
+        {
+            Training training = _context.Training
+                .Where(training => training.Id == trainingId).FirstOrDefault();
+
+            
+            return Json(training.TrainerId);
+        }
         public async Task<IActionResult> Search(string query, string dateFilter, string typeFilter, string trainerFilter)
         {
             /*var*/

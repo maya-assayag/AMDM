@@ -132,8 +132,8 @@
                                         {
                                             <div>
                                                 <br />
-                                                <a class="btn btn-outline-primary trainer-btn" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                                                <a class="btn btn-outline-danger trainer-btn" asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+                                                <a class="btn btn-outline-primary trainer-btn trainer-btn-@item.Id" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                                                <a class="btn btn-outline-danger trainer-btn trainer-btn-@item.Id" asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
                                             </div>
                                         }
                                     }
@@ -187,8 +187,8 @@
                 <p class="card-text"><strong>Studio:</strong> {studio}</p>
                 <p class="card-text">Trainees at studio: {maxRegisterTrainees}</p>
                 <p class="card-text"><strong>Place left:</strong> {totalTraineesLeft}</p>
-                <a class="card-link" asp-action="Details" asp-route-id="{Id}">Details</a>
-                <div class="registration-rap" training-id-rap="{Id}">
+                <a class="card-link" asp-action="Details" asp-route-id="{id}">Details</a>
+                <div class="registration-rap" training-id-rap="{id}">
                     @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
                     {
                         <div class="registration-after-search">
@@ -204,8 +204,8 @@
                     
                         <div>
                             <br />
-                            <a class="btn btn-outline-primary trainer-btn" asp-action="Edit" asp-route-id="{Id}">Edit</a>
-                            <a class="btn btn-outline-danger trainer-btn" asp-action="Delete" asp-route-id="{Id}">Delete</a>
+                            <a class="btn btn-outline-primary trainer-btn trainer-btn-{id}" asp-action="Edit" asp-route-id="{id}" style="display: none;">Edit</a>
+                            <a class="btn btn-outline-danger trainer-btn trainer-btn-{id}" asp-action="Delete" asp-route-id="{id}" style="display: none;">Delete</a>
                         </div>
                     
                 }

@@ -26,12 +26,12 @@ namespace AMDM.Models
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 
-        [Required]
-        [Range(0, 10000)]
+        
+        [Range(1, 10000)]
         [Display(Name = "Number of punching holes")]
         public int? PunchingHolesNumber { get; set; }
 
-        [Required]
+        
         public  Period TicketPeriod { get; set; }
 
         public List<Ticket> Tickets { get; set; }

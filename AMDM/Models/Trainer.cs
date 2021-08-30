@@ -45,7 +45,6 @@ namespace AMDM.Models
         [StringLength(10, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
-        [Required]
         [Display(Name = "Gender")]
         public Gender TrainerGender { get; set; }
 

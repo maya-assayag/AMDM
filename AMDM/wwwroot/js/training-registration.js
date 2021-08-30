@@ -58,7 +58,7 @@ $(function () {
             
 
             $('.alert-section').append(temp);
-            location.reload();
+            /*location.reload();*/
 
         }).fail(function (error) {
             console.log(error.responseJSON);
@@ -108,7 +108,7 @@ $(function () {
             a.attr('class', 'register');
             a.text('Register');
             p.hide();
-            location.reload();
+            //location.reload();
 
 
 

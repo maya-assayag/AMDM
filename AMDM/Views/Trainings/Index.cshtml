@@ -56,6 +56,11 @@
             <p class="sentence-owner">—Abby Wambach</p>
         </div>
     </div>
+    <div class="alert-section">
+
+
+
+    </div>
     <hr>
     <div class="row">
         <div class="col-sm-12">
@@ -92,7 +97,7 @@
     </div>
     <div class="row trainings-section">
 
-        @foreach (var group in Model.Where(training=>training.Date >= DateTime.Now.Date).GroupBy(t => t.Date))
+        @foreach (var group in Model.Where(training => training.Date >= DateTime.Now.Date).GroupBy(t => t.Date))
         {
             <div class="col">
                 <h1 class="dates-title text-center">@group.Key.ToShortDateString()</h1>
@@ -133,12 +138,12 @@
                                     </div>
                                     @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                                     {
-                                        @if(item.Trainer.Id== Context.Session.GetString("Id"))
+                                        @if (item.Trainer.Id == Context.Session.GetString("Id"))
                                         {
                                             <div>
                                                 <br />
-                                                <a class="btn btn-outline-primary trainer-btn trainer-btn-@item.Id" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                                                <a class="btn btn-outline-danger trainer-btn trainer-btn-@item.Id" asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+                                                <a class="btn btn-outline-primary trainer-btn trainer-btn-@item.Id" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                                <a class="btn btn-outline-danger trainer-btn trainer-btn-@item.Id" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                             </div>
                                         }
                                     }
@@ -149,16 +154,12 @@
                     }
                 </div>
 
-            </div>    
-         }
+            </div>
+        }
     </div>
 </div>
 
-<div class="alert-section">
 
-
-
-</div>
 
 @if (ViewBag.Error != null)
 {

@@ -56,6 +56,7 @@ $(function () {
             
 
             $('.alert-section').append(temp);
+            location.reload();
 
         }).fail(function (error) {
             console.log(error.responseJSON);
@@ -105,20 +106,19 @@ $(function () {
             a.attr('class', 'register');
             a.text('Register');
             p.hide();
+            location.reload();
+
+
+
+           
         }).fail(function (error) {
             console.log(error);
             $('.alert-section').html('');
-
             var template = $('#hidden-template-registration-error-alert').html();
-
-
-
             var temp = template;
-
             $.each(error.responseJSON, function (key, value) {
                 temp = temp.replaceAll('{' + key + '}', value);
             });
-
             $('.alert-section').append(temp);
         });
     });

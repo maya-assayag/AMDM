@@ -16,7 +16,6 @@ namespace AMDM.Models
 
         public TrainingType TrainingType { get; set; }
 
-
         [Display(Name = "Trainer id")]
         public string TrainerId { get; set; }
 
@@ -31,7 +30,7 @@ namespace AMDM.Models
         public DateTime Time { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z0-9, ]*$", ErrorMessage = "You must input a valid studio name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z0-9, ]*$", ErrorMessage = "You must begins with a capital letter, the allowed characters are digits, english letters, comma marks and spaces")]
         public string Studio { get; set; }
 
         [Range(1, 20)]

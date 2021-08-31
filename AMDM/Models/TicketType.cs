@@ -19,7 +19,7 @@ namespace AMDM.Models
         public int Id { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z0-9, ]*$", ErrorMessage = "You must input a valid name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must begins with a capital letter, the allowed characters are english letters and spaces")]
         public string Name { get; set; }
 
         [Range(0, 10000)]
@@ -35,8 +35,5 @@ namespace AMDM.Models
         public  Period TicketPeriod { get; set; }
 
         public List<Ticket> Tickets { get; set; }
-
-
-
     }
 }

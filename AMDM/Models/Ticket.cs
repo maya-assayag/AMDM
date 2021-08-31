@@ -8,15 +8,12 @@ namespace AMDM.Models
 {
     public class Ticket
     {
-
         [Key] public int Id { get; set; }
 
         [Display(Name = "Ticket type")]
         public int TicketTypeId { get; set; }
         [Display(Name = "Ticket type")]
         public TicketType TicketType { get; set; }
-
-
 
         public string TraineeId { get; set; }
         public Trainee Trainee { get; set; }

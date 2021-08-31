@@ -42,7 +42,7 @@ $(function () {
 
         }).done(function (data) {
             a.attr('name', 'unregister');
-            a.attr('class', 'unregister');
+            a.attr('class', 'btn btn-outline-danger unregister display-registration display-registration-'+trainingId);
             a.text('Unregister');
             p.show();
             $('.alert-section').html('');
@@ -105,7 +105,7 @@ $(function () {
 
         }).done(function (data) {
             a.attr('name', 'register');
-            a.attr('class', 'register');
+            a.attr('class', 'register btn btn-outline-primary display-registration  display-registration-' + trainingId);
             a.text('Register');
             p.hide();
             //location.reload();

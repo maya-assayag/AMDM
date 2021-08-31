@@ -1,5 +1,7 @@
 ﻿@model AMDM.Models.Trainer
 
+@using Microsoft.AspNetCore.Http;
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -92,7 +94,6 @@
             </div>
         }
     }
-
 }
 else
 {
@@ -120,7 +121,6 @@ else
             </div>
         }
     }
-
 }
 else
 {
@@ -128,5 +128,8 @@ else
 }
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+    {
+        <a asp-action="Index">Back to List</a>
+    }
 </div>

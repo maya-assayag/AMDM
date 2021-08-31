@@ -152,7 +152,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Create
-        [Authorize(Roles = "Admin,Trainer")]
+        [Authorize(Roles = "Trainer")]
         public IActionResult Create()
         {
             ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id");
@@ -166,7 +166,6 @@ namespace AMDM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Trainer")]
         public async Task<IActionResult> Create([Bind("Id,TrainingTypeId,Date,Time,Studio,MaxRegisterTrainees")] Training training)
         {
             training.TrainerId = HttpContext.Session.GetString("Id");
@@ -190,7 +189,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Edit/5
-        [Authorize(Roles = "Admin,Trainer")]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -246,7 +245,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainings/Delete/5
-        [Authorize(Roles = "Admin,Trainer")]
+        [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

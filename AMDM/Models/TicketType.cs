@@ -28,8 +28,9 @@ namespace AMDM.Models
 
         
         [Range(1, 10000)]
+        [Required]
         [Display(Name = "Number of punching holes")]
-        public int? PunchingHolesNumber { get; set; }
+        public int PunchingHolesNumber { get; set; }
 
         
         public  Period TicketPeriod { get; set; }

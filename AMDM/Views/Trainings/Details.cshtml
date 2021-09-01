@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
+@using Microsoft.AspNetCore.Http;
 
 <h1>Details</h1>
 
@@ -100,45 +101,10 @@
     </tbody>
 </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
+    {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    }
+   | <a asp-action="Index">Back to List</a>
 </div>

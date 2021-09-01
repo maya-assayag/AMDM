@@ -1,5 +1,7 @@
 ﻿@model AMDM.Models.Trainee
 
+@using Microsoft.AspNetCore.Http;
+
 @{
     ViewData["Title"] = "Edit";
 }
@@ -71,10 +73,12 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+{
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

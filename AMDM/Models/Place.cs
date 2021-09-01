@@ -10,7 +10,7 @@ namespace WebApplication1.Models
     {
         public int Id { get; set; }
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z0-9, ]*$", ErrorMessage = "You must input a valid address begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z, ]*$", ErrorMessage = "You must begins with a capital letter, the allowed characters are digits, english letters, comma marks and spaces")]
         public String Address { get; set; }
         [Required]
         [Range(-90, 90)]

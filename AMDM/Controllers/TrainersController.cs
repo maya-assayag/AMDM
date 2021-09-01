@@ -263,11 +263,23 @@ namespace AMDM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var trainer = await _context.Trainer.FindAsync(id);
+            Trainer trainer = await _context.Trainer
+               .Include(trainee => trainee.Trainings)
+               .ThenInclude(training => training.TrainingType)
+               .FirstOrDefaultAsync(m => m.Id == id);
+            for (int i = 0; i < trainer.Trainings.Count; i++)
+            {
+                if (trainer.Trainings[i].Date > DateTime.Now.Date || (trainer.Trainings[i].Date == DateTime.Now.Date && trainer.Trainings[i].Time >= DateTime.Now))
+                {
+                    ViewData["Error"] = "You can't delete trainer who have future trainings";
+                    return View(trainer);
+                }
+            }
             var user = await _context.User.FindAsync(trainer.Email);
             _context.Trainer.Remove(trainer);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

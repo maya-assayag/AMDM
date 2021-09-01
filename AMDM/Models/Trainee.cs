@@ -15,15 +15,16 @@ namespace AMDM.Models
             Male
         }
         [StringLength(9, MinimumLength = 9)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "The input must be digits")]
         [Key] public string Id { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input a valid name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must begins with a capital letter, the allowed characters are english letters and spaces")]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 
         [Required]
-        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must input a valid name begins with a capital letter")]
+        [RegularExpression("^[A-Z]+[a-zA-Z ]*$", ErrorMessage = "You must begins with a capital letter, the allowed characters are english letters and spaces")]
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
@@ -47,6 +48,7 @@ namespace AMDM.Models
 
         [Display(Name = "Phone number")]
         [StringLength(10, MinimumLength = 10)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "The input must be digits")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 

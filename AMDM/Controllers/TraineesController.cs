@@ -109,7 +109,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Create
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Trainee")]
         public IActionResult Create()
         {
             return View();
@@ -170,7 +170,7 @@ namespace AMDM.Controllers
         }
 
         // GET: Trainees/Edit/5
-        [Authorize(Roles = "Admin,Trainer")]
+        [Authorize(Roles = "Admin,Trainee")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)

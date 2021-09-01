@@ -10,6 +10,8 @@ using AMDM.Models;
 using AMDM.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using AMDM.Hubs;
 
 namespace AMDM.Controllers
 {
@@ -18,11 +20,13 @@ namespace AMDM.Controllers
     {
         private readonly AMDMContext _context;
         private readonly TrainingService _service;
+        private readonly IHubContext<TrainingHub> _hubContext;
 
-        public TrainingsController(AMDMContext context, TrainingService service)
+        public TrainingsController(AMDMContext context, TrainingService service, IHubContext<TrainingHub> hubContext)
         {
             _context = context;
             _service = service;
+            _hubContext = hubContext;
         }
 
         // GET: Trainings
@@ -66,6 +70,7 @@ namespace AMDM.Controllers
             
             return Json(training.TrainerId);
         }
+       
         public async Task<IActionResult> Search(string query, string dateFilter, string typeFilter, string trainerFilter)
         {
             /*var*/
@@ -305,6 +310,8 @@ namespace AMDM.Controllers
                 try
                 {
                     await Task.Run(() => _service.Register(trainingID, Id));
+                    Training training = _context.Training.Include(training=>training.Trainees).FirstOrDefault(training => training.Id == trainingID);
+                    await _hubContext.Clients.All.SendAsync("Training", training);
                     return Ok();
                 }
                 catch (Exception e)
@@ -349,5 +356,19 @@ namespace AMDM.Controllers
             //ViewData["TrainerId"] = new SelectList(_context.Trainer, "Id", "Id", training.TrainerId);
             //ViewData["TrainingTypeId"] = new SelectList(_context.TrainingType, "Id", "Name", training.TrainingTypeId);
         }
+        public async Task<IActionResult> GetPlaceLeft(int trainingId)
+        {
+            Training training = _context.Training.Include(t => t.Trainees)
+                .Where(training => training.Id == trainingId).FirstOrDefault();
+
+            
+
+            if (training != null)
+            {
+                return Json(training.TotalTraineesLeft);
+            }
+            return BadRequest();
+        }
+
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using AMDM.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AMDM.Services;
+using AMDM.Hubs;
 
 namespace AMDM
 {
@@ -29,7 +30,7 @@ namespace AMDM
         {
             services.AddMvc();
             //services.AddNodeServices();
-
+            services.AddSignalR(cfg => cfg.EnableDetailedErrors = true);
 
             services.AddTransient<UserService>();
             services.AddTransient<TraineeService>();
@@ -81,11 +82,18 @@ namespace AMDM
 
             app.UseAuthorization();
 
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<TrainingHub>("/traininghub");
+            //});
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=LandingPage}");
+                endpoints.MapHub<TrainingHub>("/traininghub");
+
                 //pattern: "{controller=Users}/{action=Login}/{id?}");
             });
         }

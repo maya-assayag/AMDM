@@ -1,6 +1,16 @@
 ﻿
 $(function () {
+
+    const client = new signalR.HubConnectionBuilder()
+        .withUrl("/traininghub")
+        .build();
+
+    client.on("UpdatePlaceLeft", training => {
+        updatePlaceLeft(training)
+    });
+
     $('.registration-rap').ready(function () {
+        client.start();
         var allWrappers = document.getElementsByClassName("registration");
         var alla = document.getElementsByClassName("display-registration");
         var allp = document.getElementsByClassName("already-registered-message");
@@ -20,6 +30,14 @@ $(function () {
             }
         }         
     });
+
+   
+
+    function updatePlaceLeft(training) {
+
+        $('.update-' + trainingID).text(training.TotalTraineesLeft+1);
+    }
+
     $(document).on('click', '.register', function () {
         var trainingId = $(this).attr('training-id');
         var a = $(this);
@@ -58,6 +76,55 @@ $(function () {
             
 
             $('.alert-section').append(temp);
+
+
+            $.ajax({
+                //method: 'post',
+                //method: 'get',
+                url: '/Trainings/GetPlaceLeft',
+
+                data: {
+                    'trainingID': trainingId
+                }
+
+            }).done(function (placeLeft) {
+                $('.update-training-place-left-' + trainingId).html('');
+                
+                $('.update-training-place-left-' + trainingId).append('<strong>Place left:</strong>' + placeLeft);
+                
+            });
+
+
+            var userType = $('.ticket-section').attr('user-type');
+            if (userType == "Trainee") {
+                var traineeId = $('.display-trainee-ticket').attr('trainee-id');
+                $.ajax({
+                    //method: 'post',
+                    //method: 'get',
+                    url: '/Tickets/DetailsByTraineeId',
+
+                    data: {
+                        'traineeId': traineeId
+                    }
+
+                }).done(function (ticket) {
+                    $('.update-ticket-punches-left').html('');
+
+                    $('.update-ticket-punches-left').append('You have left: ' + ticket.remainingPunchingHoles + ' ticket punches');
+                    $('.small-weight-icone').hide();
+                    if (ticket.remainingPunchingHoles < 10) {
+                        for (var i = 1; i <= ticket.remainingPunchingHoles; i++) {
+                            $('.icone-' + i).show();
+                        }
+                    }
+                });
+            }
+            
+
+
+            
+
+
             /*location.reload();*/
 
         }).fail(function (error) {

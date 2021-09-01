@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
-                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-2" alt="...">
                             <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
                             <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
                             <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
@@ -113,7 +113,7 @@
                                     <p class="card-text">@Html.DisplayFor(modelItem => item.Date)&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>@Html.DisplayFor(modelItem => item.Time)</strong></p>
                                     <p class="card-text"><strong>@Html.DisplayNameFor(model => model.Studio):</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
                                     <p class="card-text">Trainees at studio: @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
-                                    <p class="card-text"><strong>Place left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
+                                    <p class="card-text update-training-place-left-@item.Id"><strong>Place left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
                                     <a class="card-link" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                     <div class="registration-rap" training-id-rap="@item.Id">
                                         @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
@@ -173,6 +173,7 @@
 
 @section Scripts
 {
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/training-registration.js"></script>
     <script src="~/js/ticket.js"></script>
     <script src="~/js/training-search.js"></script>
@@ -180,7 +181,7 @@
     <script type="text/html" id="hidden-template-trainee-ticket">
         <h6>{name} ticket</h6>
         <h6>Ticket with {punchingHolesNumber} punches</h6>
-        <h6>You have left: {remainingPunchingHoles} ticket's punches</h6>
+        <h6 class="update-ticket-punches-left">You have left: {remainingPunchingHoles} ticket's punches</h6>
         <h6>Expired at: {expiredDate}</h6>
     </script>
 
@@ -207,13 +208,13 @@
                 </div>
                 @if (Context.Session.GetString("Type") == UserType.Trainer.ToString())
                 {
-                    
-                        <div>
-                            <br />
-                            <a class="btn btn-outline-primary trainer-btn trainer-btn-{id}" asp-action="Edit" asp-route-id="{id}" style="display: none;">Edit</a>
-                            <a class="btn btn-outline-danger trainer-btn trainer-btn-{id}" asp-action="Delete" asp-route-id="{id}" style="display: none;">Delete</a>
-                        </div>
-                    
+
+                    <div>
+                        <br />
+                        <a class="btn btn-outline-primary trainer-btn trainer-btn-{id}" asp-action="Edit" asp-route-id="{id}" style="display: none;">Edit</a>
+                        <a class="btn btn-outline-danger trainer-btn trainer-btn-{id}" asp-action="Delete" asp-route-id="{id}" style="display: none;">Delete</a>
+                    </div>
+
                 }
 
             </div>

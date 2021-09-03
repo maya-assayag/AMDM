@@ -42,6 +42,7 @@ select {
     height: 370px;
     margin-left: 35px;
     margin-bottom: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .dates-title {
     font-family: Stencil Std, fantasy;

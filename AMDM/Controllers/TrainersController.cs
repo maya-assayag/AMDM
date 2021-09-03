@@ -210,11 +210,28 @@ namespace AMDM.Controllers
                     var t = _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainer.Email) && !(t.Id.Equals(id)));
                     var t2 = _context.Trainee.FirstOrDefault(t => t.Email.Equals(trainer.Email));
 
-                    if (t == null && t2==null)
+                    Trainer trainerForUser = _context.Trainer.FirstOrDefault(t => t.Id.Equals(id));
+                    User user = _context.User.FirstOrDefault(user => user.Email.Equals(trainerForUser.Email));
+
+                    if (t == null && t2==null && user !=null)
                     {
                         try
                         {
-                            _context.Update(trainer);
+                            _context.Remove(user);
+                            User u = new User();
+                            u.Email = trainer.Email;
+                            u.Password = trainer.Password;
+                            u.Type = UserType.Trainer;
+                            try
+                            {
+                                _context.Update(trainer);
+                            }
+                            catch(Exception)
+                            {
+
+                            }
+                            
+                            _context.Add(u);
                             await _context.SaveChangesAsync();
                         }
                         catch (DbUpdateConcurrencyException)

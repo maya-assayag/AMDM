@@ -206,13 +206,34 @@ namespace AMDM.Controllers
                 }
                 else
                 {
-                    Trainee t = _context.Trainee.FirstOrDefault(t =>t.Email.Equals(trainee.Email) && ! (t.Id.Equals(id)));
-                    Trainer t2= _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainee.Email));
-                    if (t == null && t2==null)
+                    var notDuplicationTrainee = _context.Trainee.FirstOrDefault(t => t.Email.Equals(trainee.Email) && !(t.Id.Equals(id)));
+                    var notDuplicationTrainer = _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainee.Email));
+
+                    //Trainee t = _context.Trainee.FirstOrDefault(t =>t.Id.Equals(id));
+                    //Trainer t2= _context.Trainer.FirstOrDefault(t => t.Email.Equals(trainee.Email));
+                    Trainee traineeForUser= _context.Trainee.FirstOrDefault(t => t.Id.Equals(id));
+                    User user = _context.User.FirstOrDefault(user => user.Email.Equals(traineeForUser.Email));
+                    
+                    if (notDuplicationTrainee == null && notDuplicationTrainee == null && user !=null)
                     {
+                       
                         try
                         {
-                            _context.Update(trainee);
+                            _context.Remove(user);
+                            User u = new User();
+                            u.Email = trainee.Email;
+                            u.Password = trainee.Password;
+                            u.Type = UserType.Trainee;
+                            
+                            try
+                            {
+                                _context.Update(trainee);
+
+                            }
+                            catch (Exception) {
+                            }
+
+                            _context.Add(u);
                             await _context.SaveChangesAsync();
                         }
                         catch (DbUpdateConcurrencyException)

@@ -10,16 +10,24 @@ $active-color: #333;
 *, *:before, *:after {
     box-sizing: border-box;
 }
-.news-title {
-   /* margin-top: 5px;*/
+.main-news-title {
+  
 }
+.news-title {
+   margin-bottom:12px; 
+}
+.news-date{
+    margin-left:30px;
+}
+
 
 .slider {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.7;
-    height: 38vh;
-    position: absolute;
+    margin-bottom:100px:
+    height: 41vh;
+    position: relative;
     left: 10px;
     top: 0px;
     overflow: hidden;

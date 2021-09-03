@@ -80,20 +80,15 @@
             </div>
             <div class="col-sm-6">
                 <div class="slider">
-                    @*<div class="slider-points text-center">*@
-                        <!--<input class="slider__dot" type="radio" name="slider" title="slide1" checked="checked" />
-                        <input class="slider__dot" type="radio" name="slider" title="slide2" />
-                        <input class="slider__dot" type="radio" name="slider" title="slide3" />
-                        <input class="slider__dot" type="radio" name="slider" title="slide4" />-->
-                    @*</div>*@
-                    <div class="slider__inner"> 
+                    
+                    <div class="slider__inner">
+                        <h2 class="slider__caption main-news-title">The New York Time - Sport News</h2>
                         <div class="slider__body news-section">
-                            <h2 class="slider__caption">news</h2>
-                            
-                            
-                           
+
+
+
+
                         </div>
-                       
                     </div>
                 </div>
             </div>
@@ -155,11 +150,11 @@
     <script type="text/html" id="hidden-template-news-title">
         <div class="container">
             <div class="row">
-                <i class="slider__image fa fa-newspaper-o col"></i>
-                @*<p class="slider__text news-date col">{pubDate}</p>*@
+                <i class="slider__image fa fa-newspaper-o"></i>
+                <p class="slider__text news-date">{pubDate}</p>
             </div>
             <div class="row">
-                <p class="slider__text col news-title">{title}</p>
+                <a href="{link}" class="slider__text col news-title">{title}</a>
             </div>
         </div>
         

@@ -13,8 +13,8 @@
             $.each(data, function (i, item) {
                 var temp = template;
                 $.each(item, function (key, value) {
-                    
-                    console.log(typeof value.pubDate);
+                    console.log(item.link);
+                    item.pubDate=item.pubDate.substring(0, 16);
                     temp = temp.replaceAll('{' + key + '}', value);
                 });
                 $('.news-section').append(temp);

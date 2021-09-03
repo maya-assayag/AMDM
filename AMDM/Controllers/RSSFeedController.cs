@@ -48,7 +48,7 @@ namespace AMDM.Controllers
 
             ViewBag.RSSFeed = RSSFeedData;
             ViewBag.URL = RSSURL;
-            return Json(RSSFeedData.Take(5));
+            return Json(RSSFeedData.Take(3));
         }
     }
 }

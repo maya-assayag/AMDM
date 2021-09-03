@@ -1,7 +1,7 @@
 ﻿@model AppTwitter.Models.Tweets
 @*@{
-    Layout = '_Layout';
-}*@
+        Layout = '_Layout';
+    }*@
 <!DOCTYPE html>
 
 <body>
@@ -10,15 +10,16 @@
     <div>
         @using (Html.BeginForm("Twitter", "Home", FormMethod.Post))
         {
-        <div @*class="form-control"*@>
-            <label @*class="label-primary"*@> Enter Your Tweet: </label>
-            @*@Html.TextBoxFor(m => m.Tweet)*@
-            <input class="form-control" id="Tweet" name="Tweet" type="text" value="" />
-            <input id="tweet-submit" type="submit" value="Post" class="btn btn-primary" />
-        </div>
+            <div @*class="form-control"*@>
+                <label @*class="label-primary"*@> Enter Your Tweet: </label>
+                @*@Html.TextBoxFor(m => m.Tweet)*@
+                <input class="form-control search-box" id="Tweet" name="Tweet" type="text" value="" />
+                <input id="tweet-submit" type="submit" value="Post" class="btn btn-outline-primary" />
+            </div>
         }
     </div>
-    
+    <img src="https://images.unsplash.com/photo-1603145733316-7462e5ecd80d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dHdpdHRlciUyMGljb258ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-fluid rounded-start twitter-background-img" alt="...">
+
     <div id="all-tweets">
 
         @foreach (TweetSharp.TwitterStatus twitt in Model.AllTweets)
@@ -28,6 +29,7 @@
                 <label>&emsp;</label>
                 @Html.DisplayFor(modelItem => twitt.Text)
                 <br />
+                <img src="..\css\img\twitter.jpg" class="img-fluid rounded-start twitter-img" alt="...">
             </div>
         }
     </div>
@@ -35,4 +37,9 @@
 @section Scripts
 {
     <script src="~/js/twitter.js"></script>
+}
+@section Styles
+{
+    <link href="~/css/twitter.css" rel="stylesheet" />
+
 }

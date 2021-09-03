@@ -1,0 +1,37 @@
+﻿.card {
+    margin: auto;
+    width: 50%;
+    border: 3px solid #1E90FF;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.search-box {
+    width: 500px;
+    height:50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom:50px;
+}
+
+#tweet-submit {
+    position: absolute;
+    top: 170px;
+    left: 630px;
+    width: 70px;
+    height: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.twitter-img {
+    width: 10%;
+    height: auto;
+    margin-left:470px;
+    margin-bottom:10px;
+}
+.twitter-background-img {
+    position: absolute;
+    top: 170px;
+    left: 770px;
+
+}

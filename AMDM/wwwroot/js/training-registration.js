@@ -1,16 +1,16 @@
 ﻿
 $(function () {
 
-    const client = new signalR.HubConnectionBuilder()
-        .withUrl("/traininghub")
-        .build();
+    //const client = new signalR.HubConnectionBuilder()
+    //    .withUrl("/traininghub")
+    //    .build();
 
-    client.on("UpdatePlaceLeft", training => {
-        updatePlaceLeft(training)
-    });
+    //client.on("UpdatePlaceLeft", training => {
+    //    updatePlaceLeft(training)
+    //});
 
     $('.registration-rap').ready(function () {
-        client.start();
+        //client.start();
         var allWrappers = document.getElementsByClassName("registration");
         var alla = document.getElementsByClassName("display-registration");
         var allp = document.getElementsByClassName("already-registered-message");

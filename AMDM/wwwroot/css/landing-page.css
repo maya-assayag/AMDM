@@ -35,7 +35,7 @@
     font-size: 20px;
 }
 .landing-page-img-1 {
-    width: 50%;
+    /*width: 100%;*/
 }
 .vertical {
     /*transform: rotate( 90deg );*/
@@ -55,3 +55,38 @@
     -webkit-transform-origin: 100% 100%;
 }
 
+#type-1 {
+    position: absolute;
+    left: 10px;
+    top: 510px;
+}
+#type-2 {
+    position: absolute;
+    left: 375px;
+    top: 610px;
+}
+#type-3 {
+    position: absolute;
+    left: 235px;
+    top: 540px;
+}
+#type-4 {
+    position: absolute;
+    left: 370px;
+    top: 470px;
+}
+#type-5 {
+    position: absolute;
+    left: 140px;
+    top: 610px;
+}
+#type-6 {
+    position: absolute;
+    left: 140px;
+    top: 435px;
+}
+#type-7 {
+    position: absolute;
+    left: 320px;
+    top: 720px;
+}

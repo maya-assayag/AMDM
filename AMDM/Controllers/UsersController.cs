@@ -47,7 +47,7 @@ namespace AMDM.Controllers
 
         public async Task<IActionResult>Logout()
         {
-            //HttpContext.Sessiom.Clear();
+            HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }

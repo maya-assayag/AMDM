@@ -1,0 +1,20 @@
+﻿.btn-lg {
+    width: 25rem;
+    margin-bottom: 5px;
+    margin-left: 60px;
+}
+.card-btn {
+    width:6rem;
+    margin-bottom: 4px;
+    margin-left: 4px;
+}
+
+.delete-btn {
+    width: 12.5rem;
+    margin-bottom: 4px;
+    margin-left: 4px;
+}
+.week-trainings-title {
+    margin-left:350px;
+    font-family: Stencil Std, fantasy;
+}

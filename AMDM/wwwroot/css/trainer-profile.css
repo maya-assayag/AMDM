@@ -1,0 +1,27 @@
+﻿.btn-lg {
+    width: 18rem;
+}
+/*.display-trainee-ticket {
+    width: 18rem;
+}*/
+.training-card {
+    width: 200px;
+    height: 18rem;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.delete-btn {
+    width: 160px;
+    margin-top:5px;
+}
+.btn-card {
+    width: 76px;
+}
+.unregister {
+    margin-left: 4rem;
+}
+.title {
+    font-family: Stencil Std, fantasy;
+    font-size:50px;
+}

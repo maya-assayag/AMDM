@@ -239,37 +239,37 @@ namespace AMDM.Controllers
             return View(trainee);
         }
 
-        // GET: Trainees/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Trainees/Delete/5
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var trainee = await _context.Trainee
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (trainee == null)
-            {
-                return NotFound();
-            }
+        //    var trainee = await _context.Trainee
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (trainee == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(trainee);
-        }
+        //    return View(trainee);
+        //}
 
-        // POST: Trainees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var trainee = await _context.Trainee.FindAsync(id);
-            var user = await _context.User.FindAsync(trainee.Email);
-            _context.Trainee.Remove(trainee);
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Trainees/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(string id)
+        //{
+        //    var trainee = await _context.Trainee.FindAsync(id);
+        //    var user = await _context.User.FindAsync(trainee.Email);
+        //    _context.Trainee.Remove(trainee);
+        //    _context.User.Remove(user);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool TraineeExists(string id)
         {

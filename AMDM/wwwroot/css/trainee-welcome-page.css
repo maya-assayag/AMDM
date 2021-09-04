@@ -1,5 +1,6 @@
 ﻿.btn-lg {
     width: 18rem;
+    margin-top:20px;
 }
 .display-trainee-ticket {
     width: 18rem;
@@ -13,4 +14,8 @@
 }
 .unregister {
     margin-left: 5rem;
+}
+.alert-ticket-section{
+    margin-top:5px;
+    width:18rem;
 }

@@ -11,7 +11,10 @@
                     'traineeId': traineeId,
                 }
             }).done(function (data) {
-                console.log(data);
+                $(".purchase-new-ticket-btn").hide();
+                if (data.expiredDate<Date.now() || data.remainingPunchingHoles==0) {
+                    $(".purchase-new-ticket-btn").show();
+                }
                 data.expiredDate = new Date(data.expiredDate).toLocaleDateString('en-GB')
                 var template = $('#hidden-template-trainee-ticket').html();
 

@@ -31,7 +31,7 @@
                                 <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")">
                                     <h5 class="card-title text-center">Your ticket</h5>
                                     <div class="card-body ticket-body">
-                                            
+
                                     </div>
                                     <div>
                                         <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
@@ -47,7 +47,13 @@
                                     </div>
                                 </div>
                             }
-                        </div>  
+                        </div>
+                        <div class="alert-ticket-section">
+
+
+
+                        </div>
+                        <a class="btn btn-outline-primary btn-lg purchase-new-ticket-btn" asp-controller="TicketTypes" asp-action="Index">Purchase new Ticket</a>
                     }
                     else
                     {
@@ -152,6 +158,11 @@
         </div>
         
         
+    </script>
+    <script type="text/html" id="hidden-template-ticket-no-punches-left-alert">
+        <div class="alert alert-warning ticket-alert" role="alert">
+            {message}
+        </div>
     </script>
 }
 @section Styles {

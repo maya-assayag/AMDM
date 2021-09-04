@@ -21,7 +21,7 @@ namespace AMDM.Services
             var lastTraineeTicket = _context.Ticket.FirstOrDefault(ticket => ticket.TraineeId == traineeId);
             if(lastTraineeTicket!=null)
             {
-                if(lastTraineeTicket.ExpiredDate.CompareTo(DateTime.Now)>0)
+                if(lastTraineeTicket.ExpiredDate.CompareTo(DateTime.Now)>0 && lastTraineeTicket.RemainingPunchingHoles>0)
                 {
                     throw new Exception("You alredy have a ticket");
                 }

@@ -24,13 +24,14 @@
 
         @foreach (TweetSharp.TwitterStatus twitt in Model.AllTweets)
         {
-            <div class="card">
-                @Html.DisplayFor(modelItem => twitt.CreatedDate)
-                <label>&emsp;</label>
-                @Html.DisplayFor(modelItem => twitt.Text)
-                <br />
-                <img src="..\css\img\twitter.jpg" class="img-fluid rounded-start twitter-img" alt="...">
-            </div>
+        <div class="card">
+            <img src="..\css\img\twitter.jpg" class="img-fluid rounded-start twitter-img" alt="...">
+            @Html.DisplayFor(modelItem => twitt.CreatedDate)
+            <label>&emsp;</label>
+            @Html.DisplayFor(modelItem => twitt.Text)
+            <br />
+
+        </div>
         }
     </div>
 </body>

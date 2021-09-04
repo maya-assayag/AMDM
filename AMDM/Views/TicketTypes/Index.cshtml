@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<AMDM.Models.TicketType>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tickets types";
 }
 @using Microsoft.AspNetCore.Http;
 
-<h1>Index</h1>
+<h1>All the tickets types</h1>
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
     @Html.AntiForgeryToken()

@@ -35,7 +35,7 @@ namespace AMDM.Controllers
                         || t.PunchingHolesNumber.ToString().Contains(query));
 
             var q = from t in aMDMContext
-                    select new { t.Name, t.Price, t.PunchingHolesNumber };
+                    select new { t.Name, t.Price, t.TicketPeriod, t.PunchingHolesNumber };
 
 
             return Json(await q.ToListAsync());

@@ -13,7 +13,7 @@
             }
         }).done(function (data) {
 
-                    $('tbody').html('');
+            $('.tickets-sections').html('');
 
                     var template = $('#hidden-template-search-resulte').html();
 
@@ -27,7 +27,7 @@
                             temp = temp.replaceAll('{' + key + '}', value);
                         });
 
-                        $('tbody').append(temp);
+                        $('.tickets-sections').append(temp);
 
                     });
 

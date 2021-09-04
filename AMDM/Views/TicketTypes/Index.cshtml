@@ -4,83 +4,73 @@
     ViewData["Title"] = "Tickets types";
 }
 @using Microsoft.AspNetCore.Http;
-
-<h1>All the tickets types</h1>
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
 {
     @Html.AntiForgeryToken()
 }
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1 class="text-center page-title">AMDM's Ticket Pass</h1>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+            {
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            }
+            <div class="alert-section">
 
-<form asp-action="Search">
-
-    <input name="query" id="query" autocomplete="off" placeholder="Search tickets..." />
-    <input type="submit" value="Search" class="btn btn-primary" />
-</form>
-<div class="alert-section">
-
-
-
-</div>
-<table class="table">
-
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TicketPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PunchingHolesNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <br />
+            <form asp-action="Search">
+                <input class="search-box" name="query" id="query" autocomplete="off" placeholder="    Search tickets..." />
+                <input type="submit" value="Search" class="search-submit btn btn-outline-primary" />
+            </form>
+            <br />
+        </div>
+    </div>
+    <div class="row">
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PunchingHolesNumber)
-            </td>
-            <td>
-                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                {
-                    <div>
-                        <a href="#" class="purchase" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>|
-                    </div>
-                }
-                @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
-                {
-                    <div>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>|
-                    </div>
-                }
+            int imgNumber = new Random().Next(1, 8);
+            string srcForImg = "..\\css\\img\\ticket-" + @imgNumber + ".jpg";
+            <div class="col-sm-4">
+                <div class="card ticket-type-card" style="width: 18rem;">
 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <img src=@srcForImg class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <h5> @Html.DisplayFor(modelItem => item.TicketPeriod)</h5>
+                        <h5> @Html.DisplayFor(modelItem => item.PunchingHolesNumber)</h5>
+                        <h6>@Html.DisplayFor(modelItem => item.Price)</h6>
+                        @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                        {
+                            <div>
+                                <a href="#" class="purchase btn btn-outline-primary btn-ticket" trainee-id="@Context.Session.GetString("Id")" ticketType-id="@item.Id">Purchase</a>
+                            </div>
+                        }
+                        @if (Context.Session.GetString("Type") == UserType.Admin.ToString())
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-ticket">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-ticket"> Delete </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-ticket">Details</a>
+                            </div>
+                        }
 
-            </td>
-        </tr>
+                        
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
 @section Scripts
 {
     <script src="~/js/purchase.js"></script>
@@ -125,4 +115,8 @@
             {message}
         </div>
     </script>
+}
+@section Styles
+{
+    <link href="~/css/purchase-ticket.css" rel="stylesheet" />
 }

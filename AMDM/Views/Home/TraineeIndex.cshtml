@@ -23,34 +23,31 @@
                 </a>
                 <div>
                     <br />
-                    @if (Model.Ticket != null)
+                    @if (Model.Ticket != null && Model.Ticket.ExpiredDate > DateTime.Now.Date)
                     {
-                        @if (Model.Ticket.ExpiredDate > DateTime.Now.Date)
-                        {
-                            <div class="ticket-section" user-type="@Context.Session.GetString("Type")">
-                                @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
-                                {
-                                    <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")">
-                                        <h5 class="card-title text-center">Your ticket</h5>
-                                        <div class="card-body ticket-body">
+                        <div class="ticket-section" user-type="@Context.Session.GetString("Type")">
+                            @if (Context.Session.GetString("Type") == UserType.Trainee.ToString())
+                            {
+                                <div class="card display-trainee-ticket" trainee-id="@Context.Session.GetString("Id")">
+                                    <h5 class="card-title text-center">Your ticket</h5>
+                                    <div class="card-body ticket-body">
                                             
-                                        </div>
-                                        <div>
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-2" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-6" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-7" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-8" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-9" alt="...">
-                                            <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-10" alt="...">
-                                        </div>
                                     </div>
-                                }
-                            </div>
-                        }
+                                    <div>
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-1" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-2" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-3" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-4" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-5" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-6" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-7" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-8" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-9" alt="...">
+                                        <img src="..\css\img\small-weight.png" class="img-fluid small-weight-icone icone-10" alt="...">
+                                    </div>
+                                </div>
+                            }
+                        </div>  
                     }
                     else
                     {

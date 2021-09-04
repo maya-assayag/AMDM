@@ -1,0 +1,27 @@
+﻿.search-box {
+    width: 18rem;
+    height: 3rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+}
+.search-submit {
+    height: 3rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+}
+.page-title{
+    font-size:100px;
+}
+.text-center {
+    font-family: Stencil Std, fantasy;
+}
+.ticket-type-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    margin-bottom:15px;
+    margin-top:5px;
+}
+.btn-ticket {
+    width: 8rem;
+    margin-bottom:7px;
+}

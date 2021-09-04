@@ -42,7 +42,7 @@
                                         <h6 class="card-subtitle mb-2 text-muted"><strong>Trainer name:</strong> @Html.DisplayFor(modelItem => item.Trainer.FirstName)</h6>
                                         <p class="card-text"><strong>Starts at:</strong> @Html.DisplayFor(modelItem => item.Date) @Html.DisplayFor(modelItem => item.Time)</p>
                                         <p class="card-text"><strong>Studio:</strong> @Html.DisplayFor(modelItem => item.Studio)</p>
-                                        <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.MaxRegisterTrainees)</p>
+                                        <p class="card-text"><strong>Places left:</strong> @Html.DisplayFor(modelItem => item.TotalTraineesLeft)</p>
                                         <a asp-controller="Trainings" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary card-btn">Edit</a>
                                         <a asp-controller="Trainings" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary card-btn">Details</a>
                                         <a asp-controller="Trainings" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger delete-btn">Delete</a>

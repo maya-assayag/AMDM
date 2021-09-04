@@ -118,6 +118,7 @@ namespace AMDM.Controllers
             var trainerId = HttpContext.Session.GetString("Id");
             Trainer trainer = _context.Trainer
                 .Include(t => t.Trainings)
+                .ThenInclude(t=>t.Trainees)
                 .FirstOrDefault(t =>
                               t.Id == trainerId);
             return View(trainer);
